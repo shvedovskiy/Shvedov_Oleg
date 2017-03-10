@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todos | The simplest todo manager</title>
+    <meta name="description" content="">
+    <meta name="author" content="Oleg Shvedov">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="todo-app container">
+        <header>
+            <h1 class="todo-title">todos</h1>
+            <form id="new-task-form">
+                <input type="text" id="new-task-input" required autofocus autocomplete="off" placeholder="What needs to be done?">
+            </form>
+        </header>
+        <div class="complete-marker">
+            <input type="checkbox" name="mark-all" id="mark all">
+            <label for="mark-all">Mark all as complete</label>
+        </div>
+        <div class="todo-content">
+            <ul class="tasks-list">
+                <li class="task-item">
+                    <input type="checkbox" name="done">
+                    <span class="task-text">HTML</span
+                    >
+                    <span class="delete-task" aria-label="Delete task" style="visibility: hidden;"></span>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" name="done" checked>
+                    <span class="task-text"><strike>CSS</strike></span>
+                    <span class="delete-task" aria-label="Delete task" style="visibility: hidden;"></span>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" name="done">
+                    <span class="task-text">JS</span
+                    >
+                    <span class="delete-task" aria-label="Delete task" style="visibility: hidden;"></span>
+                </li>
+                <li class="task-item">
+                    <input type="checkbox" name="done">
+                    <span class="task-text">JS tools</span
+                    >
+                    <span class="delete-task" aria-label="Delete task" style="visibility: hidden;"></span>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="todo-footer">
+            <span id="todos-left">3 items left</span>
+            <button id="show-all">All</button>
+            <button id="show-active">Active</button>
+            <button id="show-completed">Completed</button>
+            <button id="delete-all">Clear completed</button>
+        </div>
+    </div>
+</body>
+</html>
