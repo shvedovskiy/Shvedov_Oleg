@@ -1,0 +1,155 @@
+body {
+    background-color: rgb(245, 245, 245);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 550px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+}
+
+.todos-header {
+    text-align: center;
+}
+
+.todos-title {
+    color: rgb(235, 217, 217);
+    font-size: 100px;
+    font-weight: 100;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.todos-main {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.todo-add {
+    position: relative;
+    padding: 16px 16px 16px 60px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.todo-add_select-all {
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    display: none;
+}
+
+.todo-add_select-all + label {
+    background: url("icons/select-all.png") no-repeat;
+    display:inline-block;
+    height: 12px;
+    width: 24px;
+    position: absolute;
+    top: 27px;
+    left: 20px;
+}
+
+.todo-add_input {
+    outline: none;
+    border: 0;
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 100;
+    width: 100%;
+}
+
+.todo-add_input::-webkit-input-placeholder {
+    letter-spacing: -1px;
+    color: rgb(204, 204, 204);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input::-moz-placeholder {
+    letter-spacing: -1px;
+    color: rgb(204, 204, 204);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input:-moz-placeholder {
+    letter-spacing: -1px;
+    color: rgb(204, 204, 204);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input:-ms-input-placeholder, {
+    letter-spacing: -1px;
+    color: rgb(204, 204, 204);
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input:focus::-webkit-input-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input:focus::-moz-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input:focus:-moz-placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.todo-add_input:focus:-ms-input-placeholder, {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.todos-list {
+    margin-top: 0;
+/*    box-shadow: 0 2px 3px #cecece;*/
+}
+
+.todos-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.todo-item {
+    position: relative;
+    padding: 16px 16px 16px 40px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.todo-item:hover .todo-item_remove {
+    display: block;
+}
+
+.todos-list .todo-item:last-child {
+    border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.todo-item_text {
+    text-align: left;
+    height: 24px;
+    font-size: 24px;
+    color: rgb(102, 102, 102);
+    font-weight: 300;
+    border: 0;
+    resize: none;
+    width: 90%;
+    outline: none;
+}
+
+.todo-item_remove {
+    position: absolute;
+    outline: none;
+    top: 23px;
+    right: 10px;
+    display: none;
+    float: right;
+    background: url(icons/close.png) no-repeat center;
+    width: 18px;
+    height: 18px;
+    border: 0;
+}
+
+.todo-item_ready-mark {
+
+}

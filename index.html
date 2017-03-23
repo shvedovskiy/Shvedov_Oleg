@@ -12,44 +12,36 @@
 
 <body>
     <div class="todos-header">
-        <h1 class="todos-title">Todos</h1>
+        <h1 class="todos-title">todos</h1>
     </div>
-    </header>
     <div class="todos-main">
         <div class="todo-add">
             <input type="checkbox" name="mark-all" class="todo-add_select-all" aria-label="Отметить все как выполненные">
+            <label for="mark-all"></label>
             <form id="todo-add_form">
-                <input type="text" class="todo-add_input" required autofocus autocomplete="off" placeholder="What needs to be done?" aria-label="Поле добавления дела">
+                <input type="text" class="todo-add_input" required autocomplete="off" placeholder="What needs to be done?" aria-label="Поле добавления дела">
             </form>
         </div>
         <div class="todos-list">
             <ul>
                 <li class="todo-item">
                     <input type="checkbox" class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">
-                        HTML
-                    </textarea>
+                    <textarea class="todo-item_text">HTML</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
                 <li class="todo-item __ready">
                     <input type="checkbox" checked class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">
-                        CSS
-                    </textarea>
+                    <textarea class="todo-item_text">CSS</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
                 <li class="todo-item">
                     <input type="checkbox" class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">
-                        JS
-                    </textarea>
+                    <textarea class="todo-item_text">JS</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
                 <li class="todo-item">
                     <input type="checkbox" class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">
-                        JS tools
-                    </textarea>
+                    <textarea class="todo-item_text">JS tools</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
             </ul>
