@@ -36,13 +36,12 @@ body {
 .todo-add_select-all {
     position: absolute;
     top: 22px;
-    left: 25px;
+    left: 23px;
     display: none;
 }
 
 .todo-add_select-all + label {
     background: url("icons/select-all.png") no-repeat;
-    display:inline-block;
     height: 12px;
     width: 24px;
     position: absolute;
@@ -102,7 +101,6 @@ body {
 
 .todos-list {
     margin-top: 0;
-/*    box-shadow: 0 2px 3px #cecece;*/
 }
 
 .todos-list ul {
@@ -113,8 +111,14 @@ body {
 
 .todo-item {
     position: relative;
-    padding: 16px 16px 16px 40px;
+    padding: 16px 16px 16px 60px;
     border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.todo-item:hover,
+.todo-item:hover .todo-item_text,
+.todo-item.__ready:hover {
+    background-color: rgb(250, 250, 250);
 }
 
 .todo-item:hover .todo-item_remove {
@@ -126,6 +130,7 @@ body {
 }
 
 .todo-item_text {
+    overflow: hidden;
     text-align: left;
     height: 24px;
     font-size: 24px;
@@ -135,6 +140,29 @@ body {
     resize: none;
     width: 90%;
     outline: none;
+}
+
+.todo-item_ready-mark {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    float: left;
+    background-color: transparent;
+    border: 1px solid rgb(205, 205, 205);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    outline: none;
+    width: 36px;
+    height: 36px;
+}
+
+/* т.к. __ready пока пишем руками, то первая строка селектора есть заглушка для стилизации элементов без него */
+.todo-item_ready-mark:checked,
+.todo-item.__ready .todo-item_ready-mark:checked {
+    border-color: rgb(115, 202, 186);
+    background: url(icons/completed.png) no-repeat center;
 }
 
 .todo-item_remove {
@@ -150,6 +178,50 @@ body {
     border: 0;
 }
 
-.todo-item_ready-mark {
+.todo-item_ready-mark:checked + .todo-item_text {
+    color: rgb(204, 204, 204);
+    text-decoration: line-through;
+    transition: color 0.2s ease-out;
+}
 
+.todos-actions-bar {
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 200;
+    color: rgb(136, 136, 136);
+    letter-spacing: -0.5px;
+}
+
+.todos-actions-bar_counter {
+    margin-right: 115px;
+    float: left;
+    padding-top: 4px;
+}
+
+.todos-filters button {
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    font-size: 14px;
+    font-weight: 300;
+    color: rgb(136, 136, 136);
+    outline: none;
+    letter-spacing: -0.5px;
+    padding: 3px 5px 4px 5px;
+    margin-right: 4px
+}
+
+.todos-filters button:hover,
+.todos-filter.__active {
+    border: 1px solid rgb(235, 223, 223);
+    border-radius: 3px;
+}
+
+.todos-filters button:last-child {
+    float: right;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.todos-filters button:last-child:hover {
+    border: 1px solid rgb(255, 255, 255);
 }

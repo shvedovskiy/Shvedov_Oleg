@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!--TODO: prevent newline in textareas-->
 <head>
     <meta charset="UTF-8">
     <title>todos | The simplest todo manager</title>
@@ -26,23 +26,26 @@
             <ul>
                 <li class="todo-item">
                     <input type="checkbox" class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">HTML</textarea>
+                    <textarea class="todo-item_text" wrap="off" rows="1">HTML</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
                 <li class="todo-item __ready">
                     <input type="checkbox" checked class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">CSS</textarea>
+                    <textarea class="todo-item_text" wrap="off" rows="1">CSS</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
                 <li class="todo-item">
                     <input type="checkbox" class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">JS</textarea>
+                    <textarea class="todo-item_text" wrap="off" rows="1">JS</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
                 </li>
                 <li class="todo-item">
                     <input type="checkbox" class="todo-item_ready-mark" aria-label="Пометить дело как выполненное">
-                    <textarea class="todo-item_text">JS tools</textarea>
+                    <textarea class="todo-item_text" wrap="off" rows="1">JS tools</textarea>
                     <button class="todo-item_remove" aria-label="Удалить дело"></button>
+                </li>
+                <li class="todo-item">
+                    <textarea class="todo-item_text" wrap="off" rows="1"></textarea>
                 </li>
             </ul>
         </div>
@@ -66,6 +69,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
