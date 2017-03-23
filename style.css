@@ -23,8 +23,10 @@ body {
 }
 
 .todos-main {
+    position: relative;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    z-index: 3;
 }
 
 .todo-add {
@@ -113,6 +115,11 @@ body {
     position: relative;
     padding: 16px 16px 16px 60px;
     border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.todo-item::after {
+    content: "";
+    clear: both;
 }
 
 .todo-item:hover,
@@ -224,4 +231,22 @@ body {
 
 .todos-filters button:last-child:hover {
     border: 1px solid rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+.bottom-block {
+    height: 5px;
+    border-bottom: 1px solid rgb(230, 230, 230);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    width: 546px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.bottom-block:last-of-type {
+    width: 542px;
+    margin: 0 auto;
+    z-index: 1;
 }
