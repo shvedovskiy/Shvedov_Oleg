@@ -229,8 +229,8 @@ body {
     padding-top: 4px;
 }
 .todos-filters button {
-    border: 1px solid rgb(255, 255, 255);
-    background-color: rgb(255, 255, 255);
+    border: 1px solid transparent;
+    background-color: transparent;
     font-size: 14px;
     font-weight: 300;
     color: rgb(136, 136, 136);
@@ -240,7 +240,7 @@ body {
     margin-right: 4px
 }
 .todos-filters button:hover,
-.__active {
+.todos-filters button.__active {
     border: 1px solid rgb(235, 223, 223);
     border-radius: 3px;
 }
@@ -250,6 +250,6 @@ body {
     padding-right: 0;
 }
 .todos-filters button:last-child:hover {
-    border: 1px solid rgb(255, 255, 255);
+    border: 1px solid transparent;
     text-decoration: underline;
 }
