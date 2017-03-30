@@ -1,0 +1,13 @@
+/* Кнопка удаления дела */
+.todo-item_remove {
+    position: absolute;
+    outline: none;
+    top: 23px;
+    right: 10px;
+    display: none;
+    float: right;
+    background: url(../../../icons/close.png) no-repeat center;
+    width: 18px;
+    height: 18px;
+    border: 0;
+}

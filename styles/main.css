@@ -1,0 +1,27 @@
+/* resets */
+@import "default.css";
+
+/* base layer */
+@import "base/button/select_all.css";
+@import "base/button/todo_item_remove.css";
+@import "base/button/filter.css";
+@import "base/checkbox/ready_checkbox.css";
+@import "base/todo_item/todo_item.css";
+
+/* project layer */
+@import "project/header.css";
+@import "project/todo_add.css";
+@import "project/todos_list.css";
+@import "project/actions_bar.css";
+
+/* Основной блок приложения */
+.todos-main {
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        0 10px 0 -5px rgb(255, 255, 255),
+        0 11px 4px -4px rgba(0, 0, 0, 0.2),
+        0 20px 0 -10px rgb(255, 255, 255),
+        0 20px 4px -8px rgba(0, 0, 0, 0.2);
+}

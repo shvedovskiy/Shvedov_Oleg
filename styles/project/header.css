@@ -1,0 +1,11 @@
+/* Заголовочная часть приложения */
+.todos-header {
+    text-align: center;
+}
+    .todos-title {
+        color: rgb(235, 217, 217);
+        font-size: 100px;
+        font-weight: 100;
+        margin-top: 0;
+        margin-bottom: -9px;
+    }

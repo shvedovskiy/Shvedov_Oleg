@@ -41,12 +41,10 @@ Thumbs.db
 #################
 lib-cov
 *.seed
-*.log
 *.dat
 *.out
 *.pid
-*.gz
-pids
+pidsºº
 logs
 #results
 npm-debug.log
@@ -57,3 +55,4 @@ node_modules/
 ####################
 sftp-config*
 *.sublime-*
+/.idea/

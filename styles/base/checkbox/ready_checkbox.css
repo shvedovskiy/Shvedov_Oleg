@@ -1,0 +1,23 @@
+/* checkbox выполненности дела*/
+.todo-item_ready-mark {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    float: left;
+    background-color: transparent;
+    border: 1px solid rgb(230, 230, 230);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    outline: none;
+    width: 36px;
+    height: 36px;
+}
+    /* Стилизация отмеченного checkbox'а выполненности */
+    /* т.к. __ready пока пишем руками, то первая строка селектора есть заглушка для стилизации элементов без него */
+    .todo-item_ready-mark:checked,
+    .__ready .todo-item_ready-mark:checked {
+        border-color: rgb(115, 202, 186);
+        background: url(../../../icons/completed.png) no-repeat center;
+    }

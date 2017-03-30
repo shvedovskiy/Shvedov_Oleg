@@ -1,0 +1,14 @@
+/* Кнопка "пометить все дела как выполненные" */
+.todo-add_select-all {
+    position: absolute;
+    background: url("../../../icons/select-all.png") no-repeat;
+    left: 18px;
+    top: 24px;
+    float: left;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    width: 24px;
+    height: 12px;
+}

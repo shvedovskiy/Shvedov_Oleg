@@ -1,0 +1,31 @@
+/* Кнопка-фильтр */
+.todos-filters button {
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgb(136, 136, 136);
+    outline: none;
+    letter-spacing: -0.5px;
+    padding: 2px 8px 4px 8px;
+    margin-right: 5px
+}
+    /* Окантовка кнопки-фильтра при наведении */
+    .todos-filters button:hover,
+    .todos-filters button.__active {
+        border: 1px solid rgb(235, 223, 223);
+        border-radius: 3px;
+    }
+
+    /* */
+    .todos-filters button:last-child {
+        float: right;
+        margin-right: 0;
+        padding-right: 0;
+        letter-spacing: -1px;
+    }
+
+    .todos-filters button:last-child:hover {
+        border: 1px solid transparent;
+        text-decoration: underline;
+    }
