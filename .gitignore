@@ -56,3 +56,4 @@ node_modules/
 sftp-config*
 *.sublime-*
 /.idea/
+!/styles/base/item/

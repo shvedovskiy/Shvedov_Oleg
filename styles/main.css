@@ -16,12 +16,14 @@
 
 /* Основной блок приложения */
 .todos-main {
+    width: 560px;
+    margin: 0 auto;
     position: relative;
-    background-color: rgb(255, 255, 255);
+    background-color: #fff;
     box-shadow:
         0 2px 4px rgba(0, 0, 0, 0.2),
-        0 10px 0 -5px rgb(255, 255, 255),
+        0 10px 0 -5px #fff,
         0 11px 4px -4px rgba(0, 0, 0, 0.2),
-        0 20px 0 -10px rgb(255, 255, 255),
+        0 20px 0 -10px #fff,
         0 20px 4px -8px rgba(0, 0, 0, 0.2);
 }

@@ -1,8 +1,8 @@
 /* Форма добавления нового дела в список */
 .todo-add {
     position: relative;
-    padding: 16px 16px 17px 60px;
-    border-bottom: 1px solid rgb(230, 230, 230);
+    padding: 16px 18px 17px 18px;
+    border-bottom: 1px solid #e6e6e6;
 }
     /* Текстовое поле ввода нового дела */
     .todo-add_input {
@@ -11,35 +11,36 @@
         font-style: italic;
         font-size: 24px;
         font-weight: 100;
-        width: 100%;
-        color: rgb(102, 102, 102);
+        width: 93%;
+        color: #666;
         letter-spacing: -1.5px;
+        padding-left: 40px;
     }
         /* Стилизация подсказки в текстовом поле ввода */
         .todo-add_input::-webkit-input-placeholder {
             letter-spacing: -1.5px;
-            color: rgb(204, 204, 204);
+            color: #ccc;
             opacity: 1;
             -webkit-transition: opacity 0.3s ease;
             transition: opacity 0.3s ease;
         }
         .todo-add_input::-moz-placeholder {
             letter-spacing: -1.5px;
-            color: rgb(204, 204, 204);
+            color: #ccc;
             opacity: 1;
             -webkit-transition: opacity 0.3s ease;
             transition: opacity 0.3s ease;
         }
         .todo-add_input:-moz-placeholder {
             letter-spacing: -1.5px;
-            color: rgb(204, 204, 204);
+            color: #ccc;
             opacity: 1;
             -webkit-transition: opacity 0.3s ease;
             transition: opacity 0.3s ease;
         }
         .todo-add_input:-ms-input-placeholder {
             letter-spacing: -1.5px;
-            color: rgb(204, 204, 204);
+            color: #ccc;
             opacity: 1;
             -webkit-transition: opacity 0.3s ease;
             transition: opacity 0.3s ease;
