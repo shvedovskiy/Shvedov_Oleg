@@ -7,15 +7,14 @@
 }
     /* Собственно, сам checkbox выполненности */
     .todo-item_ready-mark {
-        margin: 0;
         position: absolute;
         left: 0;
         top: 0;
         opacity: 0;
-        /*-webkit-appearance: none;*/
-           /*-moz-appearance: none;*/
-                /*appearance: none;*/
-        /*outline: none;*/
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none;
+        outline: none;
         width: 36px;
         height: 36px;
         z-index: 1;

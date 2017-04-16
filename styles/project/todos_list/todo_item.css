@@ -54,6 +54,7 @@
                 transition: opacity .3s ease-out;
     }
 
+    /* Блок текста в пункте списка */
     .todo-item_text-wrapper {
         -webkit-box-flex: 1;
            -moz-box-flex: 1;
@@ -66,29 +67,29 @@
         line-height: 1.5em;
     }
 
-    /* Текст дела в пункте списка */
-    .todo-item .todo-item_text {
-        overflow: hidden;
-        text-align: left;
-        font-size: 24px;
-        color: #666;
-        font-weight: 300;
-        border: 0;
-        width: 100%;
-        outline: none;
-        word-break: break-all;
-        word-wrap: normal;
-        -ms-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-    }
+        /* Собственно, текст пунута списка */
+        .todo-item_text {
+            overflow: hidden;
+            text-align: left;
+            font-size: 24px;
+            color: #666;
+            font-weight: 300;
+            border: 0;
+            width: 100%;
+            outline: none;
+            word-break: break-all;
+            word-wrap: normal;
+            -ms-text-overflow: ellipsis;
+                text-overflow: ellipsis;
+        }
 
-    /* Изменение стилизации текста дела в пункте списка при отмеченном checkbox'е выполненности */
-    .todo-item.__ready .todo-item_text {
-        color: #ccc;
-        text-decoration: line-through;
-        -webkit-transition: color .2s ease-out;
-           -moz-transition: color .2s ease-out;
-             -o-transition: color .2s ease-out;
-            -ms-transition: color .2s ease-out;
-                transition: color .2s ease-out;
-    }
+        /* Изменение стилизации текста дела в пункте списка при отмеченном checkbox'е выполненности */
+        .todo-item.__ready .todo-item_text {
+            color: #ccc;
+            text-decoration: line-through;
+            -webkit-transition: color .2s ease-out;
+               -moz-transition: color .2s ease-out;
+                 -o-transition: color .2s ease-out;
+                -ms-transition: color .2s ease-out;
+                    transition: color .2s ease-out;
+        }

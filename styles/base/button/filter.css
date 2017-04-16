@@ -1,33 +1,25 @@
 /* Кнопка-фильтр */
-.todos-filters .todos-filter,
-.todos-filters .todos-actions-bar_clear-completed {
+.filter {
     border: 1px solid transparent;
-    background-color: transparent;
+    background: none;
     font-size: 14px;
     font-weight: 300;
     color: #888;
     outline: none;
-    letter-spacing: -0.5px;
-    padding: 2px 8px 4px 8px;
-    margin-right: 5px
+    letter-spacing: -.5px;
+    padding: 2px 8px;
+    margin: 0 5px
 }
+    .filter:first-child {
+        margin-left: 0;
+    }
+    .filter:last-child {
+        margin-right: 0;
+    }
+
     /* Окантовка кнопки-фильтра при наведении */
-    .todos-filters .todos-filter:hover,
-    .todos-filters .todos-filter.__active {
+    .filter:hover,
+    .filter.__active {
         border: 1px solid #ebdfdf;
         border-radius: 3px;
-    }
-
-    /* Кнопка "clear done" */
-    .todos-filters .todos-actions-bar_clear-completed {
-        float: right;
-        margin-right: 0;
-        padding-right: 0;
-        letter-spacing: -1px;
-    }
-
-    /* Подчеркивание кнопки "clear done" при наведении */
-    .todos-filters .todos-actions-bar_clear-completed:hover {
-        border: 1px solid transparent;
-        text-decoration: underline;
     }

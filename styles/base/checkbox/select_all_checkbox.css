@@ -1,5 +1,4 @@
 /* Кнопка "пометить все дела как выполненные" */
-
 .todo-add_checkbox {
     position: absolute;
     top: 26px;
@@ -11,7 +10,6 @@
         position: absolute;
         left: 0;
         top: 0;
-        margin: 0;
         opacity: 0;
         float: left;
         width: 100%;
@@ -68,6 +66,8 @@
                     -ms-transform: rotate(-55deg);
                         transform: rotate(-55deg);
             }
+
+        /* Разворот галочки чекбокса при его отметке */
         .todo-add_select-all:checked + .todo-add_select-all_visual {
             -webkit-transform: rotateX(-180deg);
                -moz-transform: rotateX(-180deg);

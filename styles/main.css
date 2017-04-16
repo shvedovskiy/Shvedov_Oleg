@@ -1,29 +1,15 @@
 /* resets */
-@import "default.css";
+@import "reset.css";
 
 /* base layer */
-@import "base/button/select_all.css";
-@import "base/button/todo_item_remove.css";
+@import "base/checkbox/select_all_checkbox.css";
+@import "base/button/remove_todo.css";
 @import "base/button/filter.css";
 @import "base/checkbox/ready_checkbox.css";
-@import "base/item/todo_item.css";
+@import "project/todos_list/todo_item.css";
 
 /* project layer */
-@import "project/todo/header.css";
-@import "project/todo/todo_add.css";
-@import "project/todo/todos_list.css";
-@import "project/todo/actions_bar.css";
-
-/* Основной блок приложения */
-.todos-main {
-    width: 560px;
-    margin: 0 auto;
-    position: relative;
-    background-color: #fff;
-    box-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.2),
-        0 10px 0 -5px #fff,
-        0 11px 4px -4px rgba(0, 0, 0, 0.2),
-        0 20px 0 -10px #fff,
-        0 20px 4px -8px rgba(0, 0, 0, 0.2);
-}
+@import "project/todos_title/todos_title.css";
+@import "project/todos_add/todos_add.css";
+@import "project/todos_list/todos_list.css";
+@import "project/todos_actions_bar/todos_actions_bar.css";
