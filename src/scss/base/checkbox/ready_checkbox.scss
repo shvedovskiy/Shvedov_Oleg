@@ -1,0 +1,64 @@
+// Чекбокс выполненности дела:
+.todo-item_checkbox-wrapper {
+    width: 36px;
+    height: 36px;
+    position: relative;
+    float: left;
+
+    // Визуализация чекбокса:
+    .todo-item_ready-mark_visual {
+        @include fill_container();
+        border: 1px solid #e6e6e6;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        transition: border-color .3s ease;
+
+        // Элементы "галочки" в визуализации чекбокса:
+        .ready-mark_visual_element {
+            display: inline-block;
+            background-color: #73caba;
+            position: absolute;
+            width: 2px;
+            opacity: 0;
+            transform-origin: center bottom;
+            transition: transform .1s ease-in-out, opacity .3s ease;
+
+            &:first-of-type {
+                height: 22px;
+                top: 4px;
+                left: 15px;
+            }
+
+            &:last-of-type {
+                height: 12px;
+                top: 15px;
+                left: 15px;
+            }
+        }
+    }
+
+    // Собственно, сам чекбокс выполненности:
+    .todo-item_ready-mark {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        appearance: none;
+        outline: none;
+        width: 36px;
+        height: 36px;
+        z-index: 1;
+
+        // Расхлопывание галочки визуализации при отмеченном чекбоксе:
+        &:checked + .todo-item_ready-mark_visual .ready-mark_visual_element:first-of-type {
+            opacity: 1;
+            transform: rotate(31deg);
+        }
+        &:checked + .todo-item_ready-mark_visual .ready-mark_visual_element:last-of-type {
+            opacity: 1;
+            transform: rotate(-43deg);
+        }
+    }
+}
+

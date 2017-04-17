@@ -1,4 +1,4 @@
-/* Кнопка-фильтр */
+// Кнопка-фильтр:
 .filter {
     border: 1px solid transparent;
     background: none;
@@ -8,18 +8,19 @@
     outline: none;
     letter-spacing: -.5px;
     padding: 2px 8px;
-    margin: 0 5px
-}
-    .filter:first-child {
+    margin: 0 5px;
+
+    &:first-child {
         margin-left: 0;
     }
-    .filter:last-child {
+    &:last-child {
         margin-right: 0;
     }
 
-    /* Окантовка кнопки-фильтра при наведении */
-    .filter:hover,
-    .filter.__active {
+    // Окантовка кнопки-фильтра при наведении:
+    &:hover,
+    &.__active {
         border: 1px solid #ebdfdf;
         border-radius: 3px;
     }
+}

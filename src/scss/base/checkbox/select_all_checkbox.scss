@@ -1,0 +1,53 @@
+// Чекбокс "пометить все дела как выполненные":
+.todo-add_checkbox {
+    position: absolute;
+    top: 26px;
+    width: 24px;
+    height: 12px;
+
+    // Визуализация чекбокса:
+    .todo-add_select-all_visual {
+        @include fill_container();
+        overflow: hidden;
+        transition: transform .2s ease-in-out;
+
+        // Элементы "галочки" в визуализации чекбокса:
+        .select-all_visual_element {
+            position: absolute;
+            display: inline-block;
+            width: 3px;
+            height: 20px;
+            background-color: #737373;
+            transform-origin: center bottom;
+
+            &:first-of-type {
+                left: 10px;
+                top: -9px;
+                transform: rotate(55deg);
+            }
+            &:last-of-type {
+                left: 11px;
+                top: -9px;
+                transform: rotate(-55deg);
+            }
+        }
+    }
+    // Собственно, чекбокс:
+    .todo-add_select-all {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        float: left;
+        width: 100%;
+        height: 100%;
+        appearance: none;
+        outline: none;
+        z-index: 1;
+
+        // Разворот галочки чекбокса при его отметке:
+        &:checked + .todo-add_select-all_visual {
+            transform: rotateX(-180deg);
+        }
+    }
+}

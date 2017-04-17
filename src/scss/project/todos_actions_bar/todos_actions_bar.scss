@@ -1,20 +1,11 @@
-/* Панель действий с делами */
+// Панель действий и фильтров:
 .todos-actions-bar {
     padding: 6px 12px;
     color: #888;
     text-align: center;
-}
-    /* clearfix-ы для панели действий */
-    .todos-actions-bar:before,
-    .todos-actions-bar:after {
-        content: '';
-        display: block;
-    }
-    .todos-actions-bar:after {
-        clear: both;
-    }
+    @include clearfix();
 
-    /* Счетчик оставшихся дел на панели */
+    // Счетчик оставшихся дел на панели:
     .todos-actions-bar_counter {
         float: left;
         margin: 10px 16px 10px 0;
@@ -25,14 +16,14 @@
         letter-spacing: -.5px;
     }
 
-    /* Блок кнопок-фильтров */
+    // Блок кнопок-фильтров:
     .todos-filters {
         display: inline-block;
         margin: 8px 0;
         white-space: nowrap;
     }
 
-    /* Кнопка "clear done" */
+    // Кнопка "clear done":
     .todos-actions-bar_clear-completed {
         border: 1px solid transparent;
         background-color: transparent;
@@ -44,10 +35,11 @@
         letter-spacing: -.5px;
         margin: 8px 0 8px 16px;
         padding: 2px 0;
-    }
 
-    /* Подчеркивание кнопки "clear done" при наведении */
-    .todos-actions-bar_clear-completed:hover {
-        border: 1px solid transparent;
-        text-decoration: underline;
+        // Подчеркивание кнопки "clear done" при наведении:
+        &:hover {
+            border: 1px solid transparent;
+            text-decoration: underline;
+        }
+    }
 }
