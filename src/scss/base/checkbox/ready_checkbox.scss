@@ -1,23 +1,23 @@
 // Чекбокс выполненности дела:
 .todo-item_checkbox-wrapper {
-    width: 36px;
-    height: 36px;
     position: relative;
     float: left;
+    width: 36px;
+    height: 36px;
 
     // Визуализация чекбокса:
     .todo-item_ready-mark_visual {
         @include fill_container();
-        border: 1px solid #e6e6e6;
-        border-radius: 50%;
         width: 34px;
         height: 34px;
+        border: 1px solid $items_borders_color;
+        border-radius: 50%;
         transition: border-color .3s ease;
 
         // Элементы "галочки" в визуализации чекбокса:
         .ready-mark_visual_element {
             display: inline-block;
-            background-color: #73caba;
+            background-color: $ok_color;
             position: absolute;
             width: 2px;
             opacity: 0;
@@ -40,14 +40,12 @@
 
     // Собственно, сам чекбокс выполненности:
     .todo-item_ready-mark {
-        position: absolute;
-        left: 0;
-        top: 0;
+        @include fill_container();
+        width: 36px;
+        height: 36px;
         opacity: 0;
         appearance: none;
         outline: none;
-        width: 36px;
-        height: 36px;
         z-index: 1;
 
         // Расхлопывание галочки визуализации при отмеченном чекбоксе:

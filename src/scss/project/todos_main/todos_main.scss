@@ -4,11 +4,11 @@
     min-width: 250px;
     margin: 0 auto;
     position: relative;
-    background-color: #fff;
+    background-color: $bg_main_color;
     box-shadow:
             0 2px 4px rgba(0, 0, 0, 0.2),
-            0 10px 0 -5px #fff,
+            0 10px 0 -5px $bg_main_color,
             0 11px 4px -4px rgba(0, 0, 0, 0.2),
-            0 20px 0 -10px #fff,
+            0 20px 0 -10px $bg_main_color,
             0 20px 4px -8px rgba(0, 0, 0, 0.2);
 }

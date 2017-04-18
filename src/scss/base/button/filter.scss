@@ -1,14 +1,13 @@
 // Кнопка-фильтр:
 .filter {
-    border: 1px solid transparent;
-    background: none;
-    font-size: 14px;
-    font-weight: 300;
-    color: #888;
-    outline: none;
-    letter-spacing: -.5px;
     padding: 2px 8px;
     margin: 0 5px;
+    border: 1px solid transparent;
+    background: none;
+    font: $font;
+    font-weight: 300;
+    color: $btn_color;
+    outline: none;
 
     &:first-child {
         margin-left: 0;
@@ -20,7 +19,7 @@
     // Окантовка кнопки-фильтра при наведении:
     &:hover,
     &.__active {
-        border: 1px solid #ebdfdf;
+        border: 1px solid $light_rose;
         border-radius: 3px;
     }
 }

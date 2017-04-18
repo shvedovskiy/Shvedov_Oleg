@@ -1,7 +1,7 @@
 // Панель действий и фильтров:
 .todos-actions-bar {
     padding: 6px 12px;
-    color: #888;
+    color: $btn_color;
     text-align: center;
     @include clearfix();
 
@@ -9,11 +9,10 @@
     .todos-actions-bar_counter {
         float: left;
         margin: 10px 16px 10px 0;
-        font-size: 14px;
+        font: $font;
         font-weight: 200;
         line-height: 1.2;
         padding: 2px 0;
-        letter-spacing: -.5px;
     }
 
     // Блок кнопок-фильтров:
@@ -27,12 +26,11 @@
     .todos-actions-bar_clear-completed {
         border: 1px solid transparent;
         background-color: transparent;
-        font-size: 14px;
+        font: $font;
         font-weight: 300;
-        color: #888;
+        color: $btn_color;
         float: right;
         outline: none;
-        letter-spacing: -.5px;
         margin: 8px 0 8px 16px;
         padding: 2px 0;
 

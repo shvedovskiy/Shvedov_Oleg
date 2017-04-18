@@ -2,23 +2,23 @@
 .todo-add {
     position: relative;
     padding: 16px 18px 17px 18px;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid $items_borders_color;
     @include clearfix();
 
     // Текстовое поле ввода нового дела:
     .todo-add_input {
         outline: none;
         border: none;
+        font: $font;
         font-style: italic;
-        font-size: 24px;
-        font-weight: 100;
+        font-weight: 300;
+        font-size: $font_size_extra_large;
         width: 93%;
-        color: #666;
-        letter-spacing: -1.5px;
+        color: $items_color;
         padding-left: 40px;
+
         @include placeholder() {
-            letter-spacing: -1.5px;
-            color: #ccc;
+            color: $inactive_text_color;
             opacity: 1;
             transition: opacity 0.3s ease;
         }

@@ -7,13 +7,13 @@ const rebaseUrls = require('gulp-css-rebase-urls');
 const minify = require('gulp-minify-css');
 
 gulp.task('images-clean-dist', () =>
-    gulp.src('dist/images', { read: false })
+    gulp.src('public/dist/images', { read: false })
         .pipe(clean())
 );
 
 gulp.task('images', ['images-clean-dist'], () =>
     gulp.src('src/images/**/*')
-        .pipe(gulp.dest('dist/images'))
+        .pipe(gulp.dest('public/dist/images'))
 );
 
 gulp.task('images:watch', ['images'],  () =>
@@ -28,7 +28,7 @@ gulp.task('scss', () =>
         .pipe(autoprefixer())
         .pipe(minify())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('public/dist/css'))
 );
 
 gulp.task('scss:watch', ['scss'], () =>

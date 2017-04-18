@@ -1,12 +1,12 @@
 // Заголовочная часть приложения:
 .todos-header {
     text-align: center;
-    color: #ebd9d9;
+    color: $title_color;
 
     .todos-title {
         color: inherit;
+        font: $font;
         font-size: 100px;
-        font-weight: 100;
         margin: 0 auto -9px;
     }
 }
