@@ -16,7 +16,7 @@
     }
 }
 
-@mixin focused_placeholder() {
+@mixin focused-placeholder() {
     &:focus::-webkit-input-placeholder {
         @content
     }

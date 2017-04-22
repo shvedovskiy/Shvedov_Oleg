@@ -1,7 +1,7 @@
 // Заголовочная часть приложения:
 .todos-header {
+    color: $title-color;
     text-align: center;
-    color: $title_color;
 
     .todos-title {
         color: inherit;

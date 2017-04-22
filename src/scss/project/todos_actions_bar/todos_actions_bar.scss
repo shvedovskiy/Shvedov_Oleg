@@ -1,17 +1,17 @@
 // Панель действий и фильтров:
 .todos-actions-bar {
+    color: $btn-color;
     padding: 6px 12px;
-    color: $btn_color;
     text-align: center;
     @include clearfix();
 
     // Счетчик оставшихся дел на панели:
     .todos-actions-bar_counter {
         float: left;
-        margin: 10px 16px 10px 0;
         font: $font;
         font-weight: 200;
         line-height: 1.2;
+        margin: 10px 16px 10px 0;
         padding: 2px 0;
     }
 
@@ -24,14 +24,14 @@
 
     // Кнопка "clear done":
     .todos-actions-bar_clear-completed {
-        border: 1px solid transparent;
         background-color: transparent;
+        border: 1px solid transparent;
+        color: $btn-color;
+        float: right;
         font: $font;
         font-weight: 300;
-        color: $btn_color;
-        float: right;
-        outline: none;
         margin: 8px 0 8px 16px;
+        outline: none;
         padding: 2px 0;
 
         // Подчеркивание кнопки "clear done" при наведении:

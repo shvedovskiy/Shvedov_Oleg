@@ -1,34 +1,34 @@
 // Пункт списка дел:
 .todo-item {
-    position: relative;
-    padding: 14px 12px;
-    border-bottom: 1px solid $items_borders_color;
-    display: flex;
     align-items: center;
+    border-bottom: 1px solid $items-borders-color;
+    display: flex;
+    padding: 14px 12px;
+    position: relative;
     @include clearfix();
 
     // Блок текста в пункте списка:
     .todo-item_text-wrapper {
         flex: 1 0;
-        word-wrap: break-word;
+        line-height: 1.5em;
         overflow: hidden;
         padding: 0 12px;
-        line-height: 1.5em;
+        word-wrap: break-word;
 
         // Собственно, текст пункта списка:
         .todo-item_text {
+            border: 0;
+            color: $items-color;
+            font: $font;
+            font-size: $font-size-extra-large;
+            font-weight: 300;
+            outline: none;
             overflow: hidden;
             text-align: left;
-            font: $font;
-            font-size: $font_size_extra_large;
-            color: $items_color;
-            font-weight: 300;
-            border: 0;
+            text-overflow: ellipsis;
             width: 100%;
-            outline: none;
             word-break: break-all;
             word-wrap: normal;
-            text-overflow: ellipsis;
         }
     }
 
@@ -36,7 +36,7 @@
     &:hover,
     &:hover .todo-item_text,
     &:hover.__ready .todo-item_text {
-        background-color: $hover_items_color;
+        background-color: $hover-items-color;
         transition: background-color .3s ease-out;
     }
 
@@ -47,13 +47,13 @@
     }
 
     // Изменение цвета границы не отмеченного чекбокса выполненности при наведении на пункт списка:
-    &:hover .todo-item_ready-mark_visual {
-        border-color: $items_borders_color_darken;
+    &:not(.__ready):hover .todo-item_ready-mark_visual {
+        border-color: $items-borders-color-darken;
     }
 
     // Изменение стилизации текста дела в пункте списка при отмеченном чекбоксе выполненности:
     &.__ready .todo-item_text {
-        color: $inactive_text_color;
+        color: $inactive-text-color;
         text-decoration: line-through;
         transition: color .2s ease-out;
     }
@@ -61,13 +61,13 @@
     // Стилизация отмеченного чекбокса выполненности:
     &.__ready .todo-item_ready-mark_visual,
     .todo-item_ready-mark:checked + .todo-item_ready-mark_visual {
-        border-color: $ok_color;
+        border-color: $ok-color;
     }
 
     // Не изменять цвет границы отмеченного чекбокса выполненности при наведении на пункт списка:
     &:hover .todo-item_ready-mark:checked + .todo-item_ready-mark_visual,
     &.__ready:hover .todo-item_ready-mark_visual {
-        border-color: $ok_color;
+        border-color: $ok-color;
     }
 
 }

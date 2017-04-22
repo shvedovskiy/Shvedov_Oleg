@@ -1,24 +1,24 @@
 // Чекбокс "пометить все дела как выполненные":
 .todo-add_checkbox {
+    height: 12px;
     position: absolute;
     top: 26px;
     width: 24px;
-    height: 12px;
 
     // Визуализация чекбокса:
     .todo-add_select-all_visual {
-        @include fill_container();
+        @include fill-container();
         overflow: hidden;
         transition: transform .2s ease-in-out;
 
         // Элементы "галочки" в визуализации чекбокса:
         .select-all_visual_element {
-            position: absolute;
+            background-color: $select-all-color;
             display: inline-block;
-            width: 3px;
             height: 20px;
-            background-color: $select_all_color;
+            position: absolute;
             transform-origin: center bottom;
+            width: 3px;
 
             &:first-of-type {
                 left: 10px;
@@ -34,9 +34,9 @@
     }
     // Собственно, чекбокс:
     .todo-add_select-all {
-        @include fill_container();
-        opacity: 0;
+        @include fill-container();
         appearance: none;
+        opacity: 0;
         outline: none;
         z-index: 1;
 

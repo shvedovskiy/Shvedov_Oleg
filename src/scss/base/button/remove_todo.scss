@@ -1,46 +1,46 @@
 // Кнопка удаления дела:
 .todo-item_remove-wrapper {
-    position: relative;
+    align-self: flex-end;
     float: right;
-    width: 18px;
     height: 18px;
     order: 2;
-    align-self: flex-end;
+    position: relative;
+    width: 18px;
 
     // Визуализация кнопки:
     .todo-item_remove_visual {
-        @include fill_container();
-        opacity: 0;
+        @include fill-container();
         margin: -1px 0;
+        opacity: 0;
         transform: rotate(45deg);
 
         // Черточки "крестика" в визуализации:
         .remove_visual_element {
-            position: absolute;
+            background-color: $light-rose;
             display: inline-block;
-            background-color: $light_rose;
+            position: absolute;
             transition: background-color .3s ease;
 
             &:first-of-type {
+                height: 22px;
                 left: 10px;
                 width: 2px;
-                height: 22px;
             }
 
             &:last-of-type {
+                height: 2px;
                 top: 10px;
                 width: 22px;
-                height: 2px;
             }
         }
     }
 
     // Собственно, кнопка удаления:
     .todo-item_remove {
-        @include fill_container();
-        outline: none;
+        @include fill-container();
+        border: 0;
         opacity: 0;
-        border: none;
+        outline: none;
         z-index: 1;
     }
 

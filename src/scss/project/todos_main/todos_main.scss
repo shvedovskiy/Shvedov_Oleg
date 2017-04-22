@@ -1,14 +1,14 @@
 // Основной блок приложения:
 .todos-main {
-    max-width: 560px;
-    min-width: 250px;
-    margin: 0 auto;
-    position: relative;
-    background-color: $bg_main_color;
-    box-shadow:
-            0 2px 4px rgba(0, 0, 0, 0.2),
-            0 10px 0 -5px $bg_main_color,
-            0 11px 4px -4px rgba(0, 0, 0, 0.2),
-            0 20px 0 -10px $bg_main_color,
-            0 20px 4px -8px rgba(0, 0, 0, 0.2);
+  background-color: $bg-main-color;
+  box-shadow:
+          0 2px 4px rgba(0, 0, 0, .2),
+          0 10px 0 -5px $bg-main-color,
+          0 11px 4px -4px rgba(0, 0, 0, .2),
+          0 20px 0 -10px $bg-main-color,
+          0 20px 4px -8px rgba(0, 0, 0, .2);
+  margin: 0 auto;
+  max-width: 560px;
+  min-width: 250px;
+  position: relative;
 }

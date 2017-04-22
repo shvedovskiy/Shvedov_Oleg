@@ -10,10 +10,10 @@ button {
 }
 
 body {
-    background-color: $bg_color;
-    font: $font;
-    height: 100%;
-    -moz-osx-font-smoothing: grayscale;
-     -webkit-font-smoothing: antialiased;
-             font-smoothing: antialiased;
+  background-color: $bg-color;
+  font: $font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  height: 100%;
 }
