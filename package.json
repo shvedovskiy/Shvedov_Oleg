@@ -1,0 +1,33 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "Simplest todo app implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build",
+    "watch": "gulp watch",
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ok-technopolis/Shvedov_Oleg.git"
+  },
+  "author": "Oleg Shvedov",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/ok-technopolis/Shvedov_Oleg/issues"
+  },
+  "homepage": "https://github.com/ok-technopolis/Shvedov_Oleg#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-css-rebase-urls": "0.0.5",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0"
+  },
+  "devDependencies": {
+    "gulp-autoprefixer": "^3.1.1"
+  }
+}

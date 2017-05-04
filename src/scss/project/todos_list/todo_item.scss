@@ -1,0 +1,125 @@
+// Пункт списка дел:
+.todo-item {
+  align-items: center;
+  border-bottom: 1px solid $items-borders-color;
+  display: flex;
+  padding: 14px 12px;
+  position: relative;
+  @include clearfix();
+}
+  .todo-item:first-of-type {
+    border-top: 1px solid $items-borders-color;
+  }
+
+  // Чекбокс выполненности дела:
+  .todo-item_ready-mark {
+    float: left;
+  }
+
+  // Кнопка удаления дела:
+  .todo-item_remove {
+    align-self: flex-end;
+    margin-bottom: 10px;
+    float: right;
+    height: 18px;
+    order: 2;
+    width: 18px;
+  }
+    // Визуализация кнопки:
+    .todo-item_remove .action_visual {
+      opacity: 0;
+      transform: rotate(45deg);
+      transition: opacity .3s ease-out;
+    }
+      // Черточки "крестика" в визуализации:
+      .todo-item_remove .action_visual:before,
+      .todo-item_remove .action_visual:after {
+        content: '';
+        background-color: $light-rose;
+        display: inline-block;
+        position: absolute;
+        transition: background-color .3s ease;
+      }
+
+      .todo-item_remove .action_visual:before {
+        height: 22px;
+        left: 10px;
+        width: 2px;
+      }
+
+      .todo-item_remove .action_visual:after {
+        height: 2px;
+        top: 10px;
+        width: 22px;
+      }
+
+      // Подкрашивать "крестик" при наведении:
+      .todo-item_remove:hover .action_visual:before,
+      .todo-item_remove:hover .action_visual:after {
+        background-color: $rose;
+      }
+
+  // Блок текста в пункте списка:
+  .todo-item_text-wrapper {
+    flex: 1 0;
+    line-height: 1.5em;
+    overflow: hidden;
+    padding: 0 12px;
+    word-wrap: break-word;
+  }
+    // Собственно, текст пункта списка:
+    .todo-item_text {
+      border: 0;
+      color: $items-color;
+      font: $font;
+      font-size: $font-size-extra-large;
+      font-weight: 300;
+      outline: none;
+      overflow: hidden;
+      text-align: left;
+      text-overflow: ellipsis;
+      width: 100%;
+      word-break: break-all;
+      word-wrap: normal;
+      transition: background-color .3s ease-out, color .2s ease-out;
+    }
+
+  // Изменение цвета пункта списка при наведении:
+  .todo-item:hover {
+    background-color: $hover-items-color;
+  }
+    // Отображение кнопки удаления дела при наведении на пункт списка:
+    .todo-item:hover .todo-item_remove .action_visual {
+      opacity: 1;
+      transition: opacity .3s ease-out;
+    }
+
+    // Изменение цвета границы не отмеченного чекбокса выполненности при наведении на пункт списка:
+    .todo-item:not(.__ready):hover .input-checkbox_visual {
+      border-color: $items-borders-color-darken;
+    }
+
+  .todo-item.__ready {}
+    // Изменение стилизации текста дела в пункте списка при отмеченном чекбоксе выполненности:
+    .todo-item.__ready .todo-item_text {
+      color: $inactive-text-color;
+      text-decoration: line-through;
+    }
+
+    // Стилизация отмеченного чекбокса выполненности (TODO non-JS):
+    .todo-item.__ready .input-checkbox_visual,
+    .input-checkbox_target:checked ~ .input-checkbox_visual {
+      border-color: $ok-color;
+    }
+
+    // Не изменять цвет границы отмеченного чекбокса выполненности при наведении на пункт списка (TODO non-JS):
+    .todo-item.__ready:hover .input-checkbox_visual,
+    .todo-item:hover .input-checkbox_target:checked ~ .input-checkbox_visual {
+      border-color: $ok-color;
+    }
+
+    /* Comment until implemented JS:
+    .todo-item.__ready .input-checkbox_visual,
+    .todo-item.__ready:hover .input-checkbox_visual {
+      border-color: $ok-color;
+    }*/

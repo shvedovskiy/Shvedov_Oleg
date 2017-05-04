@@ -1,0 +1,17 @@
+// Кнопка-фильтр:
+.filter {
+  background: none;
+  border: 1px solid transparent;
+  color: $btn-color;
+  font: $font;
+  font-weight: 300;
+  outline: none;
+  padding: 2px 8px;
+}
+
+  // Окантовка кнопки-фильтра при наведении:
+  .filter:hover,
+  .filter.__active {
+    border: 1px solid $light-rose;
+    border-radius: 3px;
+  }

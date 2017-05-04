@@ -1,0 +1,11 @@
+body {
+  background-color: $bg-color;
+  font: $font;
+}
+
+.main-wrapper {
+  background-color: $bg-color;
+  margin: 0 auto;
+  max-width: 560px;
+  min-width: 250px;
+}
