@@ -1,0 +1,19 @@
+body,
+div,
+h1,
+ul,
+li,
+input,
+button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  background-color: $bg-color;
+  font: $font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  height: 100%;
+}
