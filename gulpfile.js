@@ -35,5 +35,10 @@ gulp.task('scss:watch', ['scss'], () =>
     gulp.watch('src/scss/**/*.scss', ['scss'])
 );
 
-gulp.task('build', ['scss', 'images']);
+gulp.task('js', ['scss'], () =>
+    gulp.src('src/js/**/*.js')
+        .pipe(gulp.dest('public/dist/js'))
+);
+
+gulp.task('build', ['scss', 'images', 'js']);
 gulp.task('default', ['scss:watch', 'images:watch']);
