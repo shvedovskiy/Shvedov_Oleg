@@ -11,4 +11,8 @@
   max-width: 560px;
   min-width: 250px;
   position: relative;
+
+  &.__empty {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+  }
 }

@@ -1,0 +1,30 @@
+// Форма добавления нового дела в список:
+.todo-add {
+  border-bottom: 1px solid $items-borders-color;
+  padding:16px 18px 17px;
+  position: relative;
+  @include clearfix();
+
+  // Текстовое поле ввода нового дела:
+  &_input {
+    border: 0;
+    color: $items-color;
+    font: $font;
+    font-size: $font-size-extra-large;
+    font-style: italic;
+    font-weight: 300;
+    outline: none;
+    padding-left: 40px;
+    width: 93%;
+
+    @include placeholder() {
+      color: $inactive-text-color;
+      opacity: 1;
+      transition: opacity .3s ease;
+    }
+    @include focused-placeholder() {
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+  }
+}
