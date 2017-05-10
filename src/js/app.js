@@ -1,11 +1,13 @@
 const DOM = {
   $main: document.querySelector('.todos-main'),
   $addFormElement: document.forms[0],
-  $markAll: document.querySelector('.todo-add_select-all'),
+  $markAll: document.getElementById('todo-add_select-all'),
   $todosList: document.querySelector('.todos-list'),
+  $readyItems: document.querySelectorAll('.todo-item.__ready'),
   $doneMarkers: document.querySelectorAll('.todo-item_ready-mark'),
   $actionsBar: document.querySelector('.todos-actions-bar'),
-  $leftCounter: document.querySelector('.todos-actions-bar_counter'),
+  $leftCounter: document.getElementById('todos-actions-bar_counter'),
+  $clearAll: document.getElementById('todos-actions-bar_clear-completed'),
 };
 
 const globals = {
@@ -67,13 +69,20 @@ function markAll() {
   if (this.checked) {
     globals.completed = globals.allTasks;
   } else {
-    globals.completed = document.querySelectorAll('.todo-item.__ready').length;
+    globals.completed = DOM.$readyItems.length;
   }
   updateMarkers();
 }
 
 function doneTodo() {
   return 0;
+}
+
+function clearAll() {
+  for (let i = 0; i < DOM.$readyItems.length; i += 1) {
+    DOM.$readyItems[i].parentNode().removeChild(DOM.$readyItems[i]);
+  }
+  updateMarkers();
 }
 
 
@@ -85,6 +94,7 @@ function todos() {
   DOM.$addFormElement.onsubmit = addTodo;
   DOM.$markAll.onchange = markAll;
   DOM.$doneMarkers.onchange = doneTodo;
+  DOM.$clearAll.onclick = clearAll;
 }
 
 
