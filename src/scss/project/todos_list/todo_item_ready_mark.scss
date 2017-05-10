@@ -6,7 +6,6 @@
 
   // Визуализация чекбокса:
   &_visual {
-    @include fill-container();
     border: 1px solid $items-borders-color;
     border-radius: 50%;
     height: 34px;

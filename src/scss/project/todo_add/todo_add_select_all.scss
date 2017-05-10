@@ -7,7 +7,6 @@
 
   // Визуализация чекбокса:
   &_visual {
-    @include fill-container();
     overflow: hidden;
     transition: transform .2s ease-in-out;
 

@@ -1,6 +1,7 @@
 // Кнопка удаления дела:
 .todo-item_remove {
   align-self: flex-end;
+  margin-bottom: 10px;
   float: right;
   height: 18px;
   order: 2;
@@ -8,7 +9,6 @@
 
   // Визуализация кнопки:
   &_visual {
-    @include fill-container();
     margin: -1px 0;
     opacity: 0;
     transform: rotate(45deg);

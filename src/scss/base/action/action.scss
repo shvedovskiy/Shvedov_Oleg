@@ -3,11 +3,12 @@
   display: inline-block;
 
   &_target {
+    @include reset-input();
+    @include fill-container();
+    opacity: 0;
+  }
+
+  &_visual {
     @include fill-container();
   }
 }
-  input.action_target,
-  button.action_target {
-    opacity: 0;
-    @include reset-input();
-  }
