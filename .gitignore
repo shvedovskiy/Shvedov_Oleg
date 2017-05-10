@@ -57,4 +57,3 @@ sftp-config*
 *.sublime-*
 /.idea/
 /public/dist/
-!/src/scss/main.scss
