@@ -56,15 +56,22 @@
     text-decoration: line-through;
   }
 
-  // Стилизация отмеченного чекбокса выполненности:
+  // Стилизация отмеченного чекбокса выполненности (TODO non-JS):
   &.__ready &_ready-mark_visual,
   &_ready-mark_checkbox:checked + &_ready-mark_visual {
     border-color: $ok-color;
   }
 
-  // Не изменять цвет границы отмеченного чекбокса выполненности при наведении на пункт списка:
-  &:hover &_ready-mark_checkbox:checked + &_ready-mark_visual,
+  // Не изменять цвет границы отмеченного чекбокса выполненности при наведении на пункт списка (TODO non-JS):
+  &.__ready:hover &_ready-mark_visual,
+  &:hover &_ready-mark_checkbox:checked + &_ready-mark_visual {
+    border-color: $ok-color;
+  }
+
+  /* Comment until JS:
+  &.__ready &_ready-mark_visual,
   &.__ready:hover &_ready-mark_visual {
     border-color: $ok-color;
   }
+  */
 }
