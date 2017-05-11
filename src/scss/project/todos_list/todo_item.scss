@@ -7,6 +7,10 @@
   position: relative;
   @include clearfix();
 }
+  .todo-item:first-of-type {
+    border-top: 1px solid $items-borders-color;
+  }
+
   // Чекбокс выполненности дела:
   .todo-item_ready-mark {
     float: left;
@@ -21,14 +25,8 @@
     order: 2;
     width: 18px;
   }
-    // Собственно, кнопка удаления:
-    .todo-item_remove .action_target {
-      z-index: 1;
-    }
-
     // Визуализация кнопки:
     .todo-item_remove .action_visual {
-      margin: -1px 0;
       opacity: 0;
       transform: rotate(45deg);
       transition: opacity .3s ease-out;

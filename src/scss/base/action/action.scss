@@ -6,8 +6,5 @@
     @include reset-input();
     @include fill-container();
     opacity: 0;
-  }
-
-  .action_visual {
-    @include fill-container();
+    z-index: 1;
   }
