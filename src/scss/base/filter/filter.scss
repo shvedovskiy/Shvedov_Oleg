@@ -5,21 +5,13 @@
   color: $btn-color;
   font: $font;
   font-weight: 300;
-  margin: 0 5px;
   outline: none;
   padding: 2px 8px;
-
-  &:first-child {
-    margin-left: 0;
-  }
-  &:last-child {
-    margin-right: 0;
-  }
+}
 
   // Окантовка кнопки-фильтра при наведении:
-  &:hover,
-  &.__active {
+  .filter:hover,
+  .filter.__active {
     border: 1px solid $light-rose;
     border-radius: 3px;
   }
-}

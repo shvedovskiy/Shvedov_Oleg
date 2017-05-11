@@ -4,9 +4,9 @@
   padding: 6px 12px;
   text-align: center;
   @include clearfix();
-
+}
   // Счетчик оставшихся дел на панели:
-  &_counter {
+  .todos-actions-bar_counter {
     float: left;
     font: $font;
     font-weight: 200;
@@ -16,7 +16,7 @@
   }
 
   // Кнопка "clear done":
-  &_clear-completed {
+  .todos-actions-bar_clear-completed {
     background-color: transparent;
     border: 1px solid transparent;
     color: $btn-color;
@@ -26,13 +26,12 @@
     margin: 8px 0 8px 16px;
     outline: none;
     padding: 2px 0;
-
+  }
     // Подчеркивание кнопки "clear done" при наведении:
-    &:hover {
+    .todos-actions-bar_clear-completed:hover {
       border: 1px solid transparent;
       text-decoration: underline;
     }
-  }
 
   // Блок кнопок-фильтров:
   .todos-filters {
@@ -40,4 +39,15 @@
     margin: 8px 0;
     white-space: nowrap;
   }
-}
+    // Отдельный фильтр
+    .todos-filters .filter {
+      margin: 0 5px;
+    }
+
+    .todos-filters .filter:first-child {
+      margin-left: 0;
+    }
+
+    .todos-filters .filter:last-child {
+      margin-right: 0;
+    }

@@ -1,14 +1,13 @@
 .action {
   position: relative;
   display: inline-block;
-
-  &_target {
+}
+  .action_target {
     @include reset-input();
     @include fill-container();
     opacity: 0;
   }
 
-  &_visual {
+  .action_visual {
     @include fill-container();
   }
-}

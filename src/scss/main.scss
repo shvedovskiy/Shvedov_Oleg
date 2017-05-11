@@ -6,14 +6,12 @@
 // base layer
 @import 'base/action/action';
 @import 'base/filter/filter';
+@import 'base/input_checkbox/input_checkbox';
 
 // project layer
 @import 'project/todos_main/todos_main';
 @import 'project/todos_title/todos_title';
 @import 'project/todo_add/todo_add';
-@import 'project/todo_add/todo_add_select_all';
 @import 'project/todos_list/todo_item';
-@import 'project/todos_list/todo_item_remove';
-@import 'project/todos_list/todo_item_ready_mark';
 @import 'project/todos_list/todos_list';
 @import 'project/todos_actions_bar/todos_actions_bar';
