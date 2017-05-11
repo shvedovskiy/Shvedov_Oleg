@@ -10,6 +10,8 @@
 </head>
 
 <body>
+<div class="main-wrapper">
+
     <div class="todos-header">
         <h1 class="todos-title">Todos</h1>
     </div>
@@ -17,70 +19,70 @@
     <div class="todos-main">
         <div class="todo-add">
             <div class="action todo-add_select-all">
-                <input type="checkbox" class="action_target todo-add_select-all_checkbox" aria-label="Отметить все как выполненные">
-                <div class="action_visual todo-add_select-all_visual"></div>
+                <button class="action_target" aria-label="Отметить все как выполненные"></button>
+                <div class="action_visual"></div>
             </div>
 
-            <form>
+            <div class="todo-add_input-wrapper">
                 <input type="text" class="todo-add_input" required placeholder="What needs to be done?" aria-label="Поле добавления дела">
-            </form>
+            </div>
         </div>
 
         <div class="todos-list">
             <div class="todo-item">
-                <div class="action todo-item_ready-mark">
-                    <input type="checkbox" class="action_target todo-item_ready-mark_checkbox" aria-label="Пометить дело как выполненное">
-                    <div class="action_visual todo-item_ready-mark_visual"></div>
+                <div class="input-checkbox todo-item_ready-mark">
+                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">
+                    <div class="input-checkbox_visual"></div>
                 </div>
                 <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text">Обновление нескольких объектов одной командой save() — обновление всех столбцов строки. Когда надо обновить часть столбцов: .objects.update(name=‘value’) == UPDATE.
+                    <div class="todo-item_text" contenteditable>Обновление нескольких объектов одной командой save() — обновление всех столбцов строки. Когда надо обновить часть столбцов: .objects.update(name=‘value’) == UPDATE.
                         Обычно в комбинации с фильтрацией, когда удаляем несколько: Model_name.objects.filter(id=52). update(‘name’=v или .all.update(...).</div>
                 </div>
                 <div class="action todo-item_remove">
-                    <button class="action_target todo-item_remove_btn" aria-label="Удалить дело"></button>
-                    <div class="action_visual todo-item_remove_visual"></div>
+                    <button class="action_target" aria-label="Удалить дело"></button>
+                    <div class="action_visual"></div>
                 </div>
             </div>
 
             <div class="todo-item __ready">
-                <div class="action todo-item_ready-mark">
-                    <input type="checkbox" class="action_target todo-item_ready-mark_checkbox" aria-label="Пометить дело как выполненное" checked>
-                    <div class="action_visual todo-item_ready-mark_visual"></div>
+                <div class="input-checkbox todo-item_ready-mark">
+                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное" checked>
+                    <div class="input-checkbox_visual"></div>
                 </div>
                 <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text">CSS</div>
+                    <div class="todo-item_text" contenteditable>CSS</div>
                 </div>
                 <div class="action todo-item_remove">
-                    <button class="action_target todo-item_remove_btn" aria-label="Удалить дело"></button>
-                    <div class="action_visual todo-item_remove_visual"></div>
+                    <button class="action_target" aria-label="Удалить дело"></button>
+                    <div class="action_visual"></div>
                 </div>
             </div>
 
             <div class="todo-item">
-                <div class="action todo-item_ready-mark">
-                    <input type="checkbox" class="action_target todo-item_ready-mark_checkbox" aria-label="Пометить дело как выполненное">
-                    <div class="action_visual todo-item_ready-mark_visual"></div>
+                <div class="input-checkbox todo-item_ready-mark">
+                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">
+                    <div class="input-checkbox_visual"></div>
                 </div>
                 <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text">JS</div>
+                    <div class="todo-item_text" contenteditable>JS</div>
                 </div>
                 <div class="action todo-item_remove">
-                    <button class="action_target todo-item_remove_btn" aria-label="Удалить дело"></button>
-                    <div class="action_visual todo-item_remove_visual"></div>
+                    <button class="action_target" aria-label="Удалить дело"></button>
+                    <div class="action_visual"></div>
                 </div>
             </div>
 
             <div class="todo-item">
-                <div class="action todo-item_ready-mark">
-                    <input type="checkbox" class="action_target todo-item_ready-mark_checkbox" aria-label="Пометить дело как выполненное">
-                    <div class="action_visual todo-item_ready-mark_visual"></div>
+                <div class="input-checkbox todo-item_ready-mark">
+                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">
+                    <div class="input-checkbox_visual"></div>
                 </div>
                 <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text">JS Tools</div>
+                    <div class="todo-item_text" contenteditable>JS Tools</div>
                 </div>
                 <div class="action todo-item_remove">
-                    <button class="action_target todo-item_remove_btn" aria-label="Удалить дело"></button>
-                    <div class="action_visual todo-item_remove_visual"></div>
+                    <button class="action_target" aria-label="Удалить дело"></button>
+                    <div class="action_visual"></div>
                 </div>
             </div>
         </div>
@@ -90,24 +92,16 @@
                 <span class="left-counter">3</span>&nbsp;item(s) left
             </div>
 
-            <button class="todos-actions-bar_clear-completed">
-                Clear completed
-            </button>
+            <button class="todos-actions-bar_clear-completed">Clear completed</button>
 
             <div class="todos-filters">
-                <button class="filter __active" data-filter="all" aria-label="Фильтр: показать все">
-                    All
-                </button>
-                <button class="filter" data-filter="active" aria-label="Фильтр: показать невыполненные дела">
-                    Active
-                </button>
-                <button class="filter" data-filter="completed" aria-label="Фильтр: показать выполненные дела">
-                    Completed
-                </button>
+                <button class="filter __active" data-filter="all" aria-label="Фильтр: показать все">All</button>
+                <button class="filter" data-filter="active" aria-label="Фильтр: показать невыполненные дела">Active</button>
+                <button class="filter" data-filter="completed" aria-label="Фильтр: показать выполненные дела">Completed</button>
             </div>
         </div>
     </div>
-
+</div>
 </body>
 
 </html>
