@@ -37,7 +37,7 @@ gulp.task('css', () =>
 
 gulp.task('js', ['css'], () =>
   gulp.src('src/js/**/*.js')
-    .pipe(babel({ presets: ['es2015'] }))
+   // .pipe(babel({ presets: ['es2015'] }))
   // .pipe(uglify())
     .pipe(gulp.dest('public/dist/js'))
 );

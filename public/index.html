@@ -23,76 +23,19 @@
                 <div class="action_visual"></div>
             </div>
 
-            <div class="todo-add_input-wrapper">
+            <form class="todo-add_input-wrapper">
                 <input type="text" class="todo-add_input" required placeholder="What needs to be done?" aria-label="Поле добавления дела">
-            </div>
+            </form>
         </div>
 
-        <div class="todos-list">
-            <div class="todo-item">
-                <div class="input-checkbox todo-item_ready-mark">
-                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">
-                    <div class="input-checkbox_visual"></div>
-                </div>
-                <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text" contenteditable>Обновление нескольких объектов одной командой save() — обновление всех столбцов строки. Когда надо обновить часть столбцов: .objects.update(name=‘value’) == UPDATE.
-                        Обычно в комбинации с фильтрацией, когда удаляем несколько: Model_name.objects.filter(id=52). update(‘name’=v или .all.update(...).</div>
-                </div>
-                <div class="action todo-item_remove">
-                    <button class="action_target" aria-label="Удалить дело"></button>
-                    <div class="action_visual"></div>
-                </div>
-            </div>
-
-            <div class="todo-item __ready">
-                <div class="input-checkbox todo-item_ready-mark">
-                    <input type="checkbox" checked class="input-checkbox_target" aria-label="Пометить дело как выполненное">
-                    <div class="input-checkbox_visual"></div>
-                </div>
-                <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text" contenteditable>CSS</div>
-                </div>
-                <div class="action todo-item_remove">
-                    <button class="action_target" aria-label="Удалить дело"></button>
-                    <div class="action_visual"></div>
-                </div>
-            </div>
-
-            <div class="todo-item">
-                <div class="input-checkbox todo-item_ready-mark">
-                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">
-                    <div class="input-checkbox_visual"></div>
-                </div>
-                <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text" contenteditable>JS</div>
-                </div>
-                <div class="action todo-item_remove">
-                    <button class="action_target" aria-label="Удалить дело"></button>
-                    <div class="action_visual"></div>
-                </div>
-            </div>
-
-            <div class="todo-item">
-                <div class="input-checkbox todo-item_ready-mark">
-                    <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">
-                    <div class="input-checkbox_visual"></div>
-                </div>
-                <div class="todo-item_text-wrapper">
-                    <div class="todo-item_text" contenteditable>JS Tools</div>
-                </div>
-                <div class="action todo-item_remove">
-                    <button class="action_target" aria-label="Удалить дело"></button>
-                    <div class="action_visual"></div>
-                </div>
-            </div>
-        </div>
+        <div class="todos-list"></div>
 
         <div class="todos-actions-bar">
             <div class="todos-actions-bar_counter" aria-label="Количество невыполненных дел">
-                <span class="js-left-counter">3</span>&nbsp;item(s) left
-            </div>
+                <span class="js-left-counter"></span>&nbsp;item(s) left<!--
+         --></div>
 
-            <button class="todos-actions-bar_clear-completed">Clear completed</button>
+            <button class="todos-actions-bar_clear-completed" style="visibility:hidden;">Clear completed</button>
 
             <div class="todos-filters">
                 <button class="filter __active" data-filter="all" aria-label="Фильтр: показать все">All</button>
@@ -103,12 +46,11 @@
     </div>
 </div>
 
-<!--<script src="dist/js/app.js"></script>-->
 <script src="dist/js/components/main.js"></script>
+<script src="dist/js/components/todoItem.js"></script>
+<script src="dist/js/components/todoAdd.js"></script>
 <script src="dist/js/components/todosList.js"></script>
-<script src="dist/js/components/addTodo.js"></script>
-<!--<script src="dist/js/components/todosList.js"></script>-->
-<!--<script src="dist/js/components/todoItem.js"></script>-->
+<script src="dist/js/components/app.js"></script>
 </body>
 
 </html>
