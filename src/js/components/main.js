@@ -1,3 +1,3 @@
-let TODO_APP = {
+var TODO_APP = {
   components: {}
 };

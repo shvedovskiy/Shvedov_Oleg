@@ -3,24 +3,23 @@ TODO_APP.components.TodoAdd = function (root) {
     return TODO_APP.components.TodoAdd.prototype._instance;
   }
   TODO_APP.components.TodoAdd.prototype._instance = this;
-
-  this.root = root;
+  this._root = root;
 
   this.DOM = {
-    $todoAdd: this.root.querySelector('.todo-add'),
-    $selectAllBtn: this.root.querySelector('.todo-add_select-all .action_target'),
-    $addForm: document.forms[0],
-    $addInput: document.forms[0].elements[0]
+    $todoAdd: this._root.querySelector('.todo-add'),
+    $selectAllBtn: this._root.querySelector('.todo-add_select-all .action_target'),
+    $addForm: this._root.querySelector('.todo-add_input-wrapper'),
+    $addInput: this._root.querySelector('.todo-add_input')
   };
 
-  this.init.apply(this, this.root);
+  this.init.apply(this, arguments);
 };
 
 var TodoAdd = TODO_APP.components.TodoAdd;
 
 TodoAdd.prototype.init = function () {
   this.DOM.$selectAllBtn.addEventListener('click', this);
-  this.DOM.$addForm.addEventListener('submit', this);
+  this.DOM.$addForm.addEventListener('keypress', this);
 };
 
 TodoAdd.prototype.handleEvent = function (e) {
@@ -30,14 +29,16 @@ TodoAdd.prototype.handleEvent = function (e) {
         this.selectAll();
       }
       break;
-    case 'submit':
-      this.addTodo(e);
+    case 'keypress':
+      if (e.keyCode === 13) {
+        this.addTodo(e);
+      }
       break;
   }
 };
 
 TodoAdd.prototype.selectAll = function () {
-
+  list.selectAll();
   return false;
 };
 

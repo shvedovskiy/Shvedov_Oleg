@@ -1,5 +1,5 @@
 TODO_APP.components.TodoItem = function (root, text) {
-  this.root = root;
+  this._root = root;
   this.DOM = {};
 
   this.addTodo.apply(this, arguments);
@@ -17,19 +17,17 @@ TodoItem.prototype.handleEvent = function (e) {
   switch (e.type) {
     case 'click':
       if (e.target.closest('.todo-item_remove .action_target')) {
-        this.remove();
+        this.removeTodo();
       } else if (e.target.closest('.todo-item_ready-mark .input-checkbox_target')) {
         this.changeReady();
       }
-      break;
-    default:
       break;
   }
 };
 
 TodoItem.prototype.addTodo = function (root, text) {
-  this.root.className = 'todo-item';
-  this.root.innerHTML =
+  this._root.className = 'todo-item';
+  this._root.innerHTML =
     '    <div class="input-checkbox todo-item_ready-mark">' +
     '        <input type="checkbox" class="input-checkbox_target" aria-label="Пометить дело как выполненное">' +
     '        <div class="input-checkbox_visual"></div>' +
@@ -42,23 +40,28 @@ TodoItem.prototype.addTodo = function (root, text) {
     '        <div class="action_visual"></div>' +
     '    </div>';
 
-  this.DOM.$readyMark = this.root.querySelector('.todo-item_ready-mark .input-checkbox_target');
-  this.DOM.$removeBtn = this.root.querySelector('.todo-item_remove .action_target');
-  this.DOM.$text = this.root.querySelector('.todo-item_text');
+  this.DOM.$readyMark = this._root.querySelector('.todo-item_ready-mark .input-checkbox_target');
+  this.DOM.$removeBtn = this._root.querySelector('.todo-item_remove .action_target');
+  this.DOM.$text = this._root.querySelector('.todo-item_text');
 
 };
 
-TodoItem.prototype.remove = function () {
-
+TodoItem.prototype.removeTodo = function () {
+  list.removeTodo(this);
 };
 
 TodoItem.prototype.changeReady = function () {
   if (this.DOM.$readyMark.checked) {
-    this.root.classList.add('__ready');
-    list.leftTodosCnt -= 1;
+    this._root.classList.add('__ready');
+    list.setLeftTodosCnt(list.getLeftTodosCnt() - 1);
   } else {
-    this.root.classList.remove('__ready');
-    list.leftTodosCnt += 1;
+    this._root.classList.remove('__ready');
+    list.setLeftTodosCnt(list.getLeftTodosCnt() + 1);
   }
+
   list.updateMarkers();
+};
+
+TodoItem.prototype.getRoot = function() {
+  return this._root;
 };
