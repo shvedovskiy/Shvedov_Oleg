@@ -1,15 +1,13 @@
 // Пункт списка дел:
 .todo-item {
   align-items: center;
-  border-bottom: 1px solid $items-borders-color;
+  border-top: 1px solid $items-borders-color;
+  //border-bottom: 1px solid $items-borders-color;
   display: flex;
   padding: 14px 12px;
   position: relative;
   @include clearfix();
 }
-  .todo-item:first-of-type {
-    border-top: 1px solid $items-borders-color;
-  }
 
   // Чекбокс выполненности дела:
   .todo-item_ready-mark {

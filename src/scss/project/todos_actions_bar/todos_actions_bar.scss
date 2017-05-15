@@ -1,5 +1,6 @@
 // Панель действий и фильтров:
 .todos-actions-bar {
+  border-top: 1px solid $items-borders-color;
   color: $btn-color;
   padding: 6px 12px;
   text-align: center;

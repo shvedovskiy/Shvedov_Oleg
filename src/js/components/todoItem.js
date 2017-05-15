@@ -11,6 +11,7 @@ var TodoItem = TODO_APP.components.TodoItem;
 TodoItem.prototype.init = function () {
   this.DOM.$removeBtn.addEventListener('click', this);
   this.DOM.$readyMark.addEventListener('click', this);
+  this.DOM.$text.addEventListener('blur', this);
 };
 
 TodoItem.prototype.handleEvent = function (e) {
@@ -21,6 +22,9 @@ TodoItem.prototype.handleEvent = function (e) {
       } else if (e.target.closest('.todo-item_ready-mark .input-checkbox_target')) {
         this.changeReady();
       }
+      break;
+    case 'blur':
+      this.changeText();
       break;
   }
 };
@@ -40,28 +44,48 @@ TodoItem.prototype.addTodo = function (root, text) {
     '        <div class="action_visual"></div>' +
     '    </div>';
 
+  if (list.getActiveFilterType() === 'completed') {
+    this._root.style.display = 'none';
+  }
+
   this.DOM.$readyMark = this._root.querySelector('.todo-item_ready-mark .input-checkbox_target');
   this.DOM.$removeBtn = this._root.querySelector('.todo-item_remove .action_target');
   this.DOM.$text = this._root.querySelector('.todo-item_text');
-
 };
 
 TodoItem.prototype.removeTodo = function () {
   list.removeTodo(this);
+  return false;
 };
 
 TodoItem.prototype.changeReady = function () {
   if (this.DOM.$readyMark.checked) {
     this._root.classList.add('__ready');
     list.setLeftTodosCnt(list.getLeftTodosCnt() - 1);
+
+    if (list.getActiveFilterType() === 'active') {
+      this._root.style.display = 'none';
+    }
   } else {
     this._root.classList.remove('__ready');
     list.setLeftTodosCnt(list.getLeftTodosCnt() + 1);
+
+    if (list.getActiveFilterType() === 'completed') {
+      this._root.style.display = 'none';
+    }
   }
 
   list.updateMarkers();
+  return false;
 };
 
-TodoItem.prototype.getRoot = function() {
+TodoItem.prototype.changeText = function () {
+  if (this.DOM.$text.innerText.trim() === '') {
+    this.removeTodo();
+  }
+};
+
+TodoItem.prototype.getRoot = function () {
   return this._root;
 };
+

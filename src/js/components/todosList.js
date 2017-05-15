@@ -14,7 +14,8 @@ TODO_APP.components.TodosList = function (root) {
     $todosList: this._root.querySelector('.todos-list'),
     $actionsBar: this._root.querySelector('.todos-actions-bar'),
     $counter: this._root.querySelector('.js-left-counter'),
-    $clearCompletedBtn: this._root.querySelector('.todos-actions-bar_clear-completed')
+    $clearCompletedBtn: this._root.querySelector('.todos-actions-bar_clear-completed'),
+    $filterBtns: this._root.querySelectorAll('.todos-filters .filter')
   };
 
   this.init.apply(this, arguments);
@@ -25,6 +26,9 @@ var TodosList = TODO_APP.components.TodosList;
 TodosList.prototype.init = function () {
   this.updateMarkers();
   this.DOM.$clearCompletedBtn.addEventListener('click', this);
+  for (var i = 0; i < this.DOM.$filterBtns.length; i += 1) {
+    this.DOM.$filterBtns[i].addEventListener('click', this);
+  }
 };
 
 TodosList.prototype.handleEvent = function (e) {
@@ -32,6 +36,8 @@ TodosList.prototype.handleEvent = function (e) {
     case 'click':
       if (e.target.closest('.todos-actions-bar_clear-completed')) {
         this.removeAllCompleted();
+      } else if (e.target.closest('.filter')) {
+        this.changeFilter(e.target);
       }
       break;
   }
@@ -68,6 +74,8 @@ TodosList.prototype.removeTodo = function (elem) {
   }
   this._allTodosCnt -= 1;
   this.updateMarkers();
+
+  return false;
 };
 
 TodosList.prototype.removeAllCompleted = function () {
@@ -87,6 +95,7 @@ TodosList.prototype.updateMarkers = function () {
   if (this._allTodosCnt === 0) {
     this.DOM.$clearCompletedBtn.style.visibility = 'hidden';
     this.DOM.$mainWrapper.classList.add('__empty');
+    this.DOM.$filterBtns[0].classList.add('__active');
   } else {
     this.DOM.$mainWrapper.classList.remove('__empty');
 
@@ -99,14 +108,66 @@ TodosList.prototype.updateMarkers = function () {
 };
 
 TodosList.prototype.selectAll = function () {
-  for (var i = 0; i < this._list.length; i += 1) {
+  var i;
+  for (i = 0; i < this._list.length; i += 1) {
     if (!this._list[i]._root.classList.contains('__ready')) {
       this._list[i]._root.classList.add('__ready');
       this._list[i].DOM.$readyMark.checked = true;
     }
   }
+
+  if (this.getActiveFilterType() === 'active') {
+    var todos = this._root.querySelectorAll('.todo-item');
+    for (i = 0; i < todos.length; i += 1) {
+      todos[i].style.display = 'none';
+    }
+  } else if (this.getActiveFilterType() === 'completed') {
+    var todos = this._root.querySelectorAll('.todo-item');
+    for (i = 0; i < todos.length; i += 1) {
+      todos[i].style.display = 'flex';
+    }
+  }
+
   this._leftTodosCnt = 0;
   this.updateMarkers();
+
+  return false;
+};
+
+TodosList.prototype.changeFilter = function(filter) {
+  var oldFilter = this._root.querySelector('.todos-filters .filter.__active');
+  oldFilter.classList.remove('__active');
+
+  filter.classList.add('__active');
+  var i;
+
+  if (filter.getAttribute('data-filter') === 'all') {
+    var todoItems = this._root.querySelectorAll('.todo-item');
+    for (i = 0; i < todoItems.length; i += 1) {
+      todoItems[i].style.display = 'flex';
+    }
+  } else if (filter.getAttribute('data-filter') === 'active') {
+    var unreadyTodoItems =  this._root.querySelectorAll('.todo-item:not(.__ready)');
+    var readyTodoItems =  this._root.querySelectorAll('.todo-item.__ready');
+
+    for (i = 0; i < unreadyTodoItems.length; i += 1) {
+      unreadyTodoItems[i].style.display = 'flex';
+    }
+    for (i = 0; i < readyTodoItems.length; i += 1) {
+      readyTodoItems[i].style.display = 'none';
+    }
+  } else if (filter.getAttribute('data-filter') === 'completed') {
+    var unreadyTodoItems =  this._root.querySelectorAll('.todo-item:not(.__ready)');
+    var readyTodoItems =  this._root.querySelectorAll('.todo-item.__ready');
+
+    for (i = 0; i < readyTodoItems.length; i += 1) {
+      readyTodoItems[i].style.display = 'flex';
+    }
+    for (i = 0; i < unreadyTodoItems.length; i += 1) {
+      unreadyTodoItems[i].style.display = 'none';
+    }
+  }
+  return false;
 };
 
 TodosList.prototype.getAllTodosCnt = function () {
@@ -117,11 +178,14 @@ TodosList.prototype.setAllTodosCnt = function () {
   this._allTodosCnt = value;
 };
 
-
 TodosList.prototype.getLeftTodosCnt = function () {
   return this._leftTodosCnt;
 };
 
 TodosList.prototype.setLeftTodosCnt = function (value) {
   this._leftTodosCnt = value;
+};
+
+TodosList.prototype.getActiveFilterType = function () {
+  return this._root.querySelector('.todos-filters .filter.__active').getAttribute('data-filter');
 };
