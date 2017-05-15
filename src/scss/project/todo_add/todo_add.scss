@@ -1,0 +1,70 @@
+// Форма добавления нового дела в список:
+.todo-add {
+  padding: 16px 18px 17px;
+  @include clearfix();
+}
+  // Кнопка "пометить все дела как выполненные":
+  .todo-add_select-all {
+    height: 12px;
+    position: relative;
+    width: 24px;
+    float: left;
+    margin: 8px 0 0;
+    overflow: hidden;
+  }
+    // Разворот галочки при нажатии кнопки:
+    .todo-add_select-all .action_target:active ~ .action_visual {
+      transform: scale(1.5, 0.9);
+    }
+
+    // Визуализация кнопки:
+    .todo-add_select-all .action_visual {
+      transition: transform .1s ease-in-out;
+    }
+      // Элементы "галочки" в визуализации кнопки:
+      .todo-add_select-all .action_visual:before,
+      .todo-add_select-all .action_visual:after {
+        content: '';
+        background-color: $select-all-color;
+        display: inline-block;
+        height: 20px;
+        position: absolute;
+        transform-origin: center bottom;
+        width: 3px;
+      }
+
+      .todo-add_select-all .action_visual:before {
+        left: 10px;
+        top: -9px;
+        transform: rotate(55deg);
+      }
+
+      .todo-add_select-all .action_visual:after {
+        left: 11px;
+        top: -9px;
+        transform: rotate(-55deg);
+      }
+
+  .todo-add_input-wrapper {
+    overflow: hidden;
+    padding-left: 18px;
+  }
+    // Текстовое поле ввода нового дела:
+    .todo-add_input {
+      @include reset-input();
+      color: $items-color;
+      font: $font;
+      font-size: $font-size-extra-large;
+      font-style: italic;
+      font-weight: 300;
+      width: 100%;
+      @include placeholder() {
+        color: $inactive-text-color;
+        opacity: 1;
+        transition: opacity .3s ease;
+      }
+      @include focused-placeholder() {
+        opacity: 0;
+        transition: opacity .3s ease;
+      }
+    }

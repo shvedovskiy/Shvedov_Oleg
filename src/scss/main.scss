@@ -3,16 +3,17 @@
 // resets
 @import 'reset';
 
+@import 'layout';
+
 // base layer
-@import 'base/checkbox/select_all_checkbox';
-@import 'base/button/remove_todo';
-@import 'base/button/filter';
-@import 'base/checkbox/ready_checkbox';
+@import 'base/action/action';
+@import 'base/filter/filter';
+@import 'base/input_checkbox/input_checkbox';
 
 // project layer
 @import 'project/todos_main/todos_main';
 @import 'project/todos_title/todos_title';
-@import 'project/todos_add/todos_add';
+@import 'project/todo_add/todo_add';
 @import 'project/todos_list/todo_item';
 @import 'project/todos_list/todos_list';
 @import 'project/todos_actions_bar/todos_actions_bar';

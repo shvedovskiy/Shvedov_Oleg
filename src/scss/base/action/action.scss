@@ -1,0 +1,10 @@
+.action {
+  position: relative;
+  display: inline-block;
+}
+  .action_target {
+    @include reset-input();
+    @include fill-container();
+    opacity: 0;
+    z-index: 1;
+  }

@@ -5,15 +5,28 @@ ul,
 li,
 input,
 button {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
+ul,
+menu {
+  list-style: none;
+}
+
+textarea,
+input,
+select {
+  font-size: $font-size-default;
+}
+
+html,
 body {
-  background-color: $bg-color;
-  font: $font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-smoothing: antialiased;
-  height: 100%;
+}
+
+body {
+  background-color: $bg-main-color;
 }

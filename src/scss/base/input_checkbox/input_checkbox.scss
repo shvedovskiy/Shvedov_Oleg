@@ -1,0 +1,57 @@
+// Чекбокс выполненности дела:
+.input-checkbox {
+  height: 36px;
+  width: 36px;
+  position: relative;
+}
+  // Визуализация чекбокса:
+  .input-checkbox_visual {
+    @include fill-container();
+    border: 1px solid $items-borders-color;
+    border-radius: 50%;
+    height: 34px;
+    transition: border-color .3s ease;
+    width: 34px;
+  }
+    // Элементы "галочки" в визуализации чекбокса:
+    .input-checkbox_visual:before,
+    .input-checkbox_visual:after {
+      content: '';
+      background-color: $ok-color;
+      display: inline-block;
+      opacity: 0;
+      position: absolute;
+      transform-origin: center bottom;
+      transition: transform .1s ease-in-out, opacity .3s ease;
+      width: 2px;
+    }
+
+    .input-checkbox_visual:before {
+      height: 22px;
+      left: 15px;
+      top: 4px;
+    }
+
+    .input-checkbox_visual:after {
+      height: 12px;
+      left: 15px;
+      top: 15px;
+    }
+
+  // Собственно, сам чекбокс выполненности:
+  .input-checkbox_target {
+    @include reset-input();
+    @include fill-container();
+    z-index: 1;
+    opacity: 0;
+  }
+    // Расхлопывание галочки визуализации при отмеченном чекбоксе:
+    .input-checkbox_target:checked + .input-checkbox_visual:before {
+      opacity: 1;
+      transform: rotate(31deg);
+    }
+
+    .input-checkbox_target:checked + .input-checkbox_visual:after {
+      opacity: 1;
+      transform: rotate(-43deg);
+    }
