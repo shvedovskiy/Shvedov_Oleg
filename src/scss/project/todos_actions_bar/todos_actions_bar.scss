@@ -34,6 +34,11 @@
       text-decoration: underline;
     }
 
+    // Стилизация нажатия "clear done":
+    .todos-actions-bar_clear-completed:active {
+      filter: opacity(50%);
+    }
+
   // Блок кнопок-фильтров:
   .todos-filters {
     display: inline-block;
@@ -44,11 +49,10 @@
     .todos-filters .filter {
       margin: 0 5px;
     }
+      .todos-filters .filter:first-child {
+        margin-left: 0;
+      }
 
-    .todos-filters .filter:first-child {
-      margin-left: 0;
-    }
-
-    .todos-filters .filter:last-child {
-      margin-right: 0;
-    }
+      .todos-filters .filter:last-child {
+        margin-right: 0;
+      }
