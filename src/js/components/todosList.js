@@ -141,12 +141,12 @@ TodosList.prototype.changeFilter = function(filter) {
   filter.classList.add('__active');
   var i;
 
-  if (filter.getAttribute('data-filter') === 'all') {
+  if (filter.dataset.filter === 'all') {
     var todoItems = this._root.querySelectorAll('.todo-item');
     for (i = 0; i < todoItems.length; i += 1) {
       todoItems[i].style.display = 'flex';
     }
-  } else if (filter.getAttribute('data-filter') === 'active') {
+  } else if (filter.dataset.filter === 'active') {
     var unreadyTodoItems =  this._root.querySelectorAll('.todo-item:not(.__ready)');
     var readyTodoItems =  this._root.querySelectorAll('.todo-item.__ready');
 
@@ -156,7 +156,7 @@ TodosList.prototype.changeFilter = function(filter) {
     for (i = 0; i < readyTodoItems.length; i += 1) {
       readyTodoItems[i].style.display = 'none';
     }
-  } else if (filter.getAttribute('data-filter') === 'completed') {
+  } else if (filter.dataset.filter === 'completed') {
     var unreadyTodoItems =  this._root.querySelectorAll('.todo-item:not(.__ready)');
     var readyTodoItems =  this._root.querySelectorAll('.todo-item.__ready');
 
@@ -174,7 +174,7 @@ TodosList.prototype.getAllTodosCnt = function () {
   return this._allTodosCnt;
 };
 
-TodosList.prototype.setAllTodosCnt = function () {
+TodosList.prototype.setAllTodosCnt = function (value) {
   this._allTodosCnt = value;
 };
 
@@ -187,5 +187,5 @@ TodosList.prototype.setLeftTodosCnt = function (value) {
 };
 
 TodosList.prototype.getActiveFilterType = function () {
-  return this._root.querySelector('.todos-filters .filter.__active').getAttribute('data-filter');
+  return this._root.querySelector('.todos-filters .filter.__active').dataset.filter;
 };
