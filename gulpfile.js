@@ -9,7 +9,6 @@ const sass = require('gulp-sass');
 const clean = require('gulp-clean');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
-const concat = require('gulp-concat');
 
 gulp.task('images-clean-dist', () =>
   gulp.src('public/dist/images', { read: false })
@@ -36,18 +35,9 @@ gulp.task('css', () =>
 );
 
 gulp.task('js', ['css'], () =>
-  gulp.src([
-    'src/js/components/main.js',
-    'src/js/components/todoItem.js',
-    'src/js/components/todoAdd.js',
-    'src/js/components/todosList.js',
-    'src/js/app.js'
-  ])
-    .pipe(sourcemaps.init())
-    .pipe(concat('app.js'))
-   // .pipe(babel({ presets: ['es2015'] }))
+  gulp.src('public/dist/js/app.js')
+    .pipe(babel({ presets: ['es2015'] }))
     .pipe(uglify())
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/dist/js'))
 );
 
@@ -57,10 +47,6 @@ gulp.task('images:watch', ['images'], () =>
 
 gulp.task('css:watch', ['css'], () =>
   gulp.watch('src/scss/**/*.scss', ['css'])
-);
-
-gulp.task('js:watch', ['js'], () =>
-  gulp.watch('src/js/**/*.js', ['js'])
 );
 
 gulp.task('build', ['css', 'images', 'js']);
