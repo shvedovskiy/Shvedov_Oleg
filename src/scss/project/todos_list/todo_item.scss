@@ -8,6 +8,9 @@
   position: relative;
   @include clearfix();
 }
+  .todo-item.__hide {
+    display: none;
+  }
 
   // Чекбокс выполненности дела:
   .todo-item_ready-mark {
