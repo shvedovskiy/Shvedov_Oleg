@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
   entry: './src/js/app.js',
   output: {
     filename: 'app.js',
