@@ -1,8 +1,9 @@
-function TodosMainConstructor() {
-  this._todosMain = document.querySelector('.js-todos-main');
+function TodosMain(root) {
+  this._root = root;
+  this._todosMain = root.querySelector('.js-todos-main');
 }
 
-TodosMainConstructor.prototype.updateMarkers = function (isVisible) {
+TodosMain.prototype.updateMarkers = function (isVisible) {
   if (isVisible) {
     this._todosMain.classList.remove('__empty');
   } else {
@@ -11,4 +12,8 @@ TodosMainConstructor.prototype.updateMarkers = function (isVisible) {
   return this;
 };
 
-module.exports = TodosMainConstructor;
+TodosMain.prototype.getRoot = function () {
+  return this._root;
+};
+
+module.exports = TodosMain;

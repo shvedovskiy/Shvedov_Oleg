@@ -1,11 +1,12 @@
 let extendConstructor = require('../util/extendConstructor');
 let Eventable         = require('../util/Eventable');
 
-function TodoAdd() {
+function TodoAdd(root) {
   this._initEventable();
 
-  this._input = document.querySelector('.js-todo-add_input');
-  this._selectAllBtn = document.querySelector('.js-todo-add_select-all');
+  this._root = root;
+  this._input = root.querySelector('.js-todo-add_input');
+  this._selectAllBtn = root.querySelector('.js-todo-add_select-all');
 
   this._input.addEventListener('keypress', this);
   this._selectAllBtn.addEventListener('click', this);
@@ -25,6 +26,10 @@ TodoAdd.prototype._onTodoAdd = function () {
     this._input.blur();
     return this.trigger('todoCreate', {text: inputText});
   }
+};
+
+TodoAdd.prototype.getRoot = function () {
+  return this._root;
 };
 
 TodoAdd.prototype.handleEvent = function (e) {

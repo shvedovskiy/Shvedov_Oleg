@@ -2,10 +2,10 @@ let extendConstructor = require('../util/extendConstructor');
 let Eventable         = require('../util/Eventable');
 let TodoItem          = require('./TodoItem');
 
-function TodosList() {
+function TodosList(root) {
   this._initEventable();
 
-  this._root    = document.querySelector('.js-todos-list');
+  this._root = root;
   this._itemIds = 0;
   this._items   = [];
   this._left    = 0;
@@ -116,6 +116,10 @@ TodosList.prototype.filterShowedItems = function(filterId) {
     }
   });
   return this;
+};
+
+TodosList.prototype.getRoot = function () {
+  return this._root;
 };
 
 module.exports = TodosList;

@@ -6,10 +6,12 @@ let TodosList       = require('./components/TodosList');
 let TodosActionsBar = require('./components/TodosActionsBar');
 
 function init() {
-  let todosMain       = new TodosMain();
-  let todoAdd         = new TodoAdd();
-  let todosList       = new TodosList();
-  let todosActionsBar = new TodosActionsBar();
+  const mainRoot = document.querySelector('.main-wrapper');
+  let todosMain = new TodosMain(mainRoot);
+
+  let todoAdd         = new TodoAdd(mainRoot.querySelector('.todo-add'));
+  let todosList       = new TodosList(mainRoot.querySelector('.js-todos-list'));
+  let todosActionsBar = new TodosActionsBar(mainRoot.querySelector('.todos-actions-bar'));
 
   function updateLeftTodosCount() {
     let todosCnt     = todosList.getTodosCount();

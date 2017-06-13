@@ -2,12 +2,13 @@ let extendConstructor = require('../util/extendConstructor');
 let Eventable         = require('../util/Eventable');
 let Filter            = require('./Filter');
 
-function TodosActionsBar() {
+function TodosActionsBar(root) {
   this._initEventable();
 
-  this._counter = document.querySelector('.js-left-counter');
-  this._filters = new Filter(document.querySelector('.js-todos-actions-bar_filters'));
-  this._clearCompletedBtn = document.querySelector('.js-todos-actions-bar_clear-completed');
+  this._root = root;
+  this._counter = root.querySelector('.js-left-counter');
+  this._filters = new Filter(root.querySelector('.js-todos-actions-bar_filters'));
+  this._clearCompletedBtn = root.querySelector('.js-todos-actions-bar_clear-completed');
 
   this._filters.on('filterSelected', this._onFilterSelected, this);
   this._clearCompletedBtn.addEventListener('click', this);
