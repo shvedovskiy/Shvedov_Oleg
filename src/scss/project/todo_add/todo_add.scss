@@ -55,15 +55,16 @@
       color: $items-color;
       font: $font;
       font-size: $font-size-extra-large;
-      font-style: italic;
       font-weight: 300;
       width: 100%;
       @include placeholder() {
+        font-style: italic;
         color: $inactive-text-color;
         opacity: 1;
         transition: opacity .3s ease;
       }
       @include focused-placeholder() {
+        font-style: italic;
         opacity: 0;
         transition: opacity .3s ease;
       }

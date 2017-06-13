@@ -1,5 +1,6 @@
 // Панель действий и фильтров:
 .todos-actions-bar {
+  border-top: 1px solid $items-borders-color;
   color: $btn-color;
   padding: 6px 12px;
   text-align: center;
@@ -25,12 +26,23 @@
     font-weight: 300;
     margin: 8px 0 8px 16px;
     outline: none;
+    cursor: pointer;
     padding: 2px 0;
+    user-select: none;
   }
     // Подчеркивание кнопки "clear done" при наведении:
     .todos-actions-bar_clear-completed:hover {
       border: 1px solid transparent;
       text-decoration: underline;
+    }
+
+    // Стилизация нажатия "clear done":
+    .todos-actions-bar_clear-completed:active {
+      filter: opacity(50%);
+    }
+
+    .todos-actions-bar_clear-completed.__hide {
+      visibility: hidden;
     }
 
   // Блок кнопок-фильтров:
@@ -43,11 +55,10 @@
     .todos-filters .filter {
       margin: 0 5px;
     }
+      .todos-filters .filter:first-child {
+        margin-left: 0;
+      }
 
-    .todos-filters .filter:first-child {
-      margin-left: 0;
-    }
-
-    .todos-filters .filter:last-child {
-      margin-right: 0;
-    }
+      .todos-filters .filter:last-child {
+        margin-right: 0;
+      }

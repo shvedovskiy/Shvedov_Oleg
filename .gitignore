@@ -56,6 +56,4 @@ node_modules/
 sftp-config*
 *.sublime-*
 /.idea/
-/public/dist/
-!/public/dist/
-/public/dist/js/
+# /public/dist/
