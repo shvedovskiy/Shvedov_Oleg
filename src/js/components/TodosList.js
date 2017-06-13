@@ -108,18 +108,10 @@ TodosList.prototype.filterShowedItems = function(filterId) {
         item.visible(true);
         break;
       case 'completed':
-        if (item.model.isReady) {
-          item.visible(true);
-        } else {
-          item.visible(false);
-        }
+        item.visible(item.model.isReady);
         break;
       case 'active':
-        if (!item.model.isReady) {
-          item.visible(true);
-        } else {
-          item.visible(false);
-        }
+        item.visible(!item.model.isReady);
         break;
     }
   });
