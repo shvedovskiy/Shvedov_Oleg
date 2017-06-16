@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', init);
 
+let TodosListModel  = require('./components/TodosListModel');
 let TodosMain       = require('./components/TodoMain');
 let TodoAdd         = require('./components/TodoAdd');
 let TodosList       = require('./components/TodosList');
 let TodosActionsBar = require('./components/TodosActionsBar');
 
 function init() {
+  let todosListModel = new TodosListModel();
+
   const mainRoot = document.querySelector('.main-wrapper');
   let todosMain = new TodosMain(mainRoot);
 
@@ -37,13 +40,33 @@ function init() {
     }
   }
 
+  todosListModel.onChange(function () {
+    if (todosListModel.getList().length === 0) {
+      todosMain.updateMarkers(false);
+    } else {
+      todosMain.updateMarkers(true);
+    }
+  });
+
   todoAdd
     .on('todoCreate', function(data) {
-      todosList.createTodo(data);
+      //todosList.createTodo(data);
+      todosListModel.add(data);
     })
     .on('selectAll', function() {
-      todosList.selectAll();
-      updateClearCompleted();
+      //todosList.selectAll();
+      //updateClearCompleted();
+      todosListModel.getList().forEach(function (model) {
+        model.set('isReady', true);
+      })
+    });
+
+  todosListModel
+    .on('add', function (model) {
+      todosList.add(model);
+    })
+    .on('remove', function (model) {
+      todosList.remove(model);
     });
 
   todosList
@@ -62,8 +85,9 @@ function init() {
 
   todosActionsBar
     .on('clearCompleted', function () {
-      todosList.clearCompleted();
-      updateClearCompleted();
+      //todosList.clearCompleted();
+      //updateClearCompleted();
+      todosListModel.clearCompleted();
     })
     .on('filterSelected', function (filter) {
       todosList.setFilter(filter);
