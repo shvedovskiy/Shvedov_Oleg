@@ -6,7 +6,7 @@ function TodosList(root) {
   this._initEventable();
 
   this._root = root;
-  this._itemIds = 0;
+  //this._itemIds = 0;
   this._items   = [];
   this._left    = 0;
   this._filter  = 'all';
@@ -22,10 +22,10 @@ TodosList.prototype.getLeftTodosCount = function () {
   return this._left;
 };
 
-TodosList.prototype.createTodo = function (data) {
-  let item = new TodoItem(Object.assign({id: this._itemIds++}, data));
+TodosList.prototype.createTodo = function (model) {
+  let item = new TodoItem(Object.assign({}, model));
 
-  if (!item.model.isReady) {
+  if (!item.model.get('isReady')) {
     this._left += 1;
   }
   this._items.push(item);
@@ -35,13 +35,13 @@ TodosList.prototype.createTodo = function (data) {
     .on('todoRemove', this._onTodoRemove, this)
     .render(this._root);
 
-  this.trigger('todoAdd', item);
+  this.trigger('todoAdded', item);
   return this;
 };
 
 TodosList.prototype.clearCompleted = function () {
   for (let i = this._items.length; i--;) {
-    if (this._items[i].model.isReady) {
+    if (this._items[i].model.get('isReady')) {
       this._items[i].remove();
     }
   }
@@ -50,7 +50,7 @@ TodosList.prototype.clearCompleted = function () {
 
 TodosList.prototype._getItemById = function (id) {
   for (let i = this._items.length; i--;) {
-    if (this._items[i].model.id === id) {
+    if (this._items[i].model.get('id') === id) {
       return this._items[i];
     }
   }
@@ -71,7 +71,7 @@ TodosList.prototype._onTodoChange = function (model) {
 TodosList.prototype._onTodoRemove = function (id) {
   let item = this._getItemById(id);
   if (item) {
-    if (!item.model.isReady) {
+    if (!item.model.get('isReady')) {
       this._left -= 1;
     }
 
@@ -108,10 +108,10 @@ TodosList.prototype.filterShowedItems = function(filterId) {
         item.visible(true);
         break;
       case 'completed':
-        item.visible(item.model.isReady);
+        item.visible(item.model.get('isReady'));
         break;
       case 'active':
-        item.visible(!item.model.isReady);
+        item.visible(!item.model.get('isReady'));
         break;
     }
   });

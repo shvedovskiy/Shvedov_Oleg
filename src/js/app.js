@@ -7,7 +7,7 @@ let TodosList       = require('./components/TodosList');
 let TodosActionsBar = require('./components/TodosActionsBar');
 
 function init() {
-  let todosListModel = new TodosListModel();
+  let todosListModel = new TodosListModel([]);
 
   const mainRoot = document.querySelector('.main-wrapper');
   let todosMain = new TodosMain(mainRoot);
@@ -50,7 +50,6 @@ function init() {
 
   todoAdd
     .on('todoCreate', function(data) {
-      //todosList.createTodo(data);
       todosListModel.add(data);
     })
     .on('selectAll', function() {
@@ -62,15 +61,15 @@ function init() {
     });
 
   todosListModel
-    .on('add', function (model) {
-      todosList.add(model);
+    .on('todoAdd', function (model) {
+      todosList.createTodo(model);
     })
     .on('remove', function (model) {
       todosList.remove(model);
     });
 
   todosList
-    .on('todoAdd', function() {
+    .on('todoAdded', function() {
       updateLeftTodosCount();
       todosList.setFilter();
     })

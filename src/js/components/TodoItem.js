@@ -2,23 +2,18 @@ let extendConstructor = require('../util/extendConstructor');
 let Eventable         = require('../util/Eventable');
 let templateEngine    = require('../util/templateEngine');
 
-function TodoItem(data) {
+function TodoItem(model) {
   this._initEventable();
 
-  let elem = templateEngine.todoItem({text: data.text});
+  let elem = templateEngine.todoItem({text: model.get('text')});
 
   this._root      = elem.root;
   this._readyMark = elem.readyMark;
   this._remove    = elem.remove;
   this._text      = elem.text;
+  this.model      = model;
 
-  this.model = {
-    id:      data.id,
-    isReady: data.isReady || false,
-    text:    data.text
-  };
-
-  if (data.isReady) {
+  if (model.get('isReady')) {
     this._manageReadyModificator(true);
     this.trigger('todoChange', this.model);
   }
@@ -36,9 +31,9 @@ TodoItem.prototype.render = function (parent) {
 };
 
 TodoItem.prototype._onSetText = function (newText) {
-  if (this.model.text !== newText) {
+  if (this.model.get(text) !== newText) {
     this._text.innerText = newText;
-    this.model.text = newText;
+    this.model.set('text', newText);
   }
   return this;
 };
@@ -53,18 +48,18 @@ TodoItem.prototype._manageReadyModificator = function (isReady) {
 };
 
 TodoItem.prototype.changeReady = function (isReady) {
-  if (isReady !== this.model.isReady) {
+  if (isReady !== this.model.get(isReady)) {
     this._readyMark.checked = isReady;
-    this.model.isReady = isReady;
+    this.model.set('isReady', isReady);
     this._manageReadyModificator(isReady);
-    this.trigger('todoChange', this.model);
+    this.trigger('todoChange', this.model);r
   }
   return this;
 };
 
 TodoItem.prototype.remove = function () {
   this._root.parentNode.removeChild(this._root);
-  return this.trigger('todoRemove', this.model.id);
+  return this.trigger('todoRemove', this.model.get(id));
 };
 
 TodoItem.prototype.visible = function (isVisible) {
