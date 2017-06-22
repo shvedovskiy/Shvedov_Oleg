@@ -41,10 +41,19 @@ function init() {
   }
 
   todosListModel.onChange(function () {
-    if (todosListModel.getList().length === 0) {
-      todosMain.updateMarkers(false);
-    } else {
+    if (todosListModel.getList().length !== 0) {
       todosMain.updateMarkers(true);
+    } else {
+      todosMain.updateMarkers(false);
+    }
+
+    let leftTodosCnt = todosList.getLeftTodosCount();
+    todosActionsBar.setLeftTodosCount(leftTodosCnt);
+
+    if (todosListModel.getList().length - leftTodosCnt > 0) {
+      todosActionsBar.manageClearCompletedVisibility(true);
+    } else {
+      todosActionsBar.manageClearCompletedVisibility(false);
     }
   });
 

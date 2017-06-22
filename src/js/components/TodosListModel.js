@@ -8,7 +8,10 @@ function TodosListModel(itemsData) {
   this._itemIds = 0;
   this._items = itemsData;
 
-  this.on('changeList', this.onChange);
+  this
+    .on('todoChange', this.onChange)
+    .on('todoRemove', this.onChange)
+    .on('todoAdded', this.onChange);
 }
 
 extendConstructor(TodosListModel, Eventable);
