@@ -6,7 +6,7 @@ function TodosListModel(itemsData) {
   this._initEventable();
 
   this._itemIds = 0;
-  this._items = itemsData;
+  this._items_models = itemsData || [];
 
   this
     .on('todoChange', this.onChange)
@@ -21,15 +21,16 @@ TodosListModel.prototype.getList = function () {
 };
 
 TodosListModel.prototype.onChange = function (handler, ctx) {
-  handler.call(this, ctx);
+  this._items_models.forEach(function (model) {
+    model.on('modelChange', handler.call(ctx));
+  });
   return this;
 };
 
-TodosListModel.prototype.add = function (itemData) {
-  let model = new TodoModel(Object.assign({id: this._itemIds++}, itemData));
-  this._items.push(model);
+TodosListModel.prototype.add = function (inputData) {
+  let model = new TodoModel(Object.assign({id: this._itemIds++}, inputData));
+  this._items_models.push(model);
 
-  this.trigger('changeList', this._items);
   this.trigger('todoAdd', model);
   return this;
 };

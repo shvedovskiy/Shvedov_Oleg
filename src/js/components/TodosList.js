@@ -22,7 +22,7 @@ TodosList.prototype.getLeftTodosCount = function () {
   return this._left;
 };
 
-TodosList.prototype.createTodo = function (model) {
+TodosList.prototype.addTodo = function (model) {
   let item = new TodoItem(Object.assign({}, model));
 
   if (!item.model.get('isReady')) {
@@ -35,6 +35,7 @@ TodosList.prototype.createTodo = function (model) {
     .on('todoRemove', this._onTodoRemove, this)
     .render(this._root);
 
+  this.setFilter();
   this.trigger('todoAdded', item);
   return this;
 };

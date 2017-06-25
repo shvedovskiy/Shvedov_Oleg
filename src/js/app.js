@@ -42,9 +42,9 @@ function init() {
 
   todosListModel.onChange(function () {
     if (todosListModel.getList().length !== 0) {
-      todosMain.updateMarkers(true);
+      todosMain.updateInterfaceVisibility(true);
     } else {
-      todosMain.updateMarkers(false);
+      todosMain.updateInterfaceVisibility(false);
     }
 
     let leftTodosCnt = todosList.getLeftTodosCount();
@@ -58,8 +58,8 @@ function init() {
   });
 
   todoAdd
-    .on('todoCreate', function(data) {
-      todosListModel.add(data);
+    .on('todoCreate', function(inputData) {
+      todosListModel.add(inputData);
     })
     .on('selectAll', function() {
       //todosList.selectAll();
@@ -71,7 +71,7 @@ function init() {
 
   todosListModel
     .on('todoAdd', function (model) {
-      todosList.createTodo(model);
+      todosList.addTodo(model);
     })
     .on('remove', function (model) {
       todosList.remove(model);

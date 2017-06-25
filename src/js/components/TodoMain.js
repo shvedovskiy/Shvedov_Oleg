@@ -3,7 +3,7 @@ function TodosMain(root) {
   this._todosMain = root.querySelector('.js-todos-main');
 }
 
-TodosMain.prototype.updateMarkers = function (isVisible) {
+TodosMain.prototype.updateInterfaceVisibility = function (isVisible) {
   if (isVisible) {
     this._todosMain.classList.remove('__empty');
   } else {

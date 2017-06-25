@@ -15,6 +15,7 @@ extendConstructor(TodoModel, Eventable);
 
 TodoModel.prototype.set = function (field, value) {
   this._model[field] = value;
+  this._model[field].trigger('modelFieldChange', value);
   return this;
 };
 
@@ -23,10 +24,16 @@ TodoModel.prototype.get = function (field) {
 };
 
 TodoModel.prototype.onAnyChange = function (handler, ctx) {
+  this._model.forEach(function (field) {
+    field.on('modelFieldChange', handler.call(ctx));
+  });
+  this.trigger('modelChange', this);
+  return this;
 };
 
 TodoModel.prototype.onChange = function (field, handler, ctx) {
-
+  this._model[field].on('modelFieldChange', handler.call(ctx));
+  return this;
 };
 
 module.exports = TodoModel;

@@ -7,17 +7,18 @@ function TodosActionsBar(root) {
 
   this._root = root;
   this._counter = root.querySelector('.js-left-counter');
-  this._filters = new Filter(root.querySelector('.js-todos-actions-bar_filters'));
   this._clearCompletedBtn = root.querySelector('.js-todos-actions-bar_clear-completed');
+  this._filters = new Filter(root.querySelector('.js-todos-actions-bar_filters'));
 
-  this._filters.on('filterSelected', this._onFilterSelected, this);
+  this._filters.on('filterSelect', this._onFilterSelected, this);
+
   this._clearCompletedBtn.addEventListener('click', this);
 }
 
 extendConstructor(TodosActionsBar, Eventable);
 
-TodosActionsBar.prototype._onFilterSelected = function (filterId) {
-  return this.trigger('filterSelected', filterId);
+TodosActionsBar.prototype._onFilterSelected = function (filterName) {
+  return this.trigger('filterSelected', filterName);
 };
 
 TodosActionsBar.prototype._onClearCompleted = function () {

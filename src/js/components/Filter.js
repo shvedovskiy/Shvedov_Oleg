@@ -24,7 +24,7 @@ Filter.prototype._onSetFilter = function (filter) {
     filter.classList.add('__active');
 
     this._activeFilter = filter;
-    this.trigger('filterSelected', filter.dataset.filter);
+    this.trigger('filterSelect', filter.dataset.filter);
   }
   return this;
 };
