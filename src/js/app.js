@@ -5,6 +5,7 @@ let TodosMain       = require('./components/TodoMain');
 let TodoAdd         = require('./components/TodoAdd');
 let TodosList       = require('./components/TodosList');
 let TodosActionsBar = require('./components/TodosActionsBar');
+let appViewState    = require('./views/AppViewState');
 
 function init() {
   let todosListModel = new TodosListModel([]);
@@ -16,30 +17,6 @@ function init() {
   let todosList       = new TodosList(mainRoot.querySelector('.js-todos-list'));
   let todosActionsBar = new TodosActionsBar(mainRoot.querySelector('.todos-actions-bar'));
 
-  function updateLeftTodosCount() {
-    let todosCnt     = todosList.getTodosCount();
-    let leftTodosCnt = todosList.getLeftTodosCount();
-
-    if (todosCnt !== 0) {
-      todosMain.updateMarkers(true);
-    } else {
-      todosMain.updateMarkers(false);
-    }
-
-    todosActionsBar.setLeftTodosCount(leftTodosCnt);
-  }
-
-  function updateClearCompleted() {
-    let todosCnt     = todosList.getTodosCount();
-    let leftTodosCnt = todosList.getLeftTodosCount();
-
-    if (todosCnt - leftTodosCnt > 0) {
-      todosActionsBar.manageClearCompletedVisibility(true);
-    } else {
-      todosActionsBar.manageClearCompletedVisibility(false);
-    }
-  }
-
   todosListModel.onChange(function () {
     if (todosListModel.getList().length !== 0) {
       todosMain.updateInterfaceVisibility(true);
@@ -47,7 +24,7 @@ function init() {
       todosMain.updateInterfaceVisibility(false);
     }
 
-    let leftTodosCnt = todosList.getLeftTodosCount();
+    let leftTodosCnt = todosListModel.getLeftTodosCount();
     todosActionsBar.setLeftTodosCount(leftTodosCnt);
 
     if (todosListModel.getList().length - leftTodosCnt > 0) {
@@ -62,8 +39,6 @@ function init() {
       todosListModel.add(inputData);
     })
     .on('selectAll', function() {
-      //todosList.selectAll();
-      //updateClearCompleted();
       todosListModel.getList().forEach(function (model) {
         model.set('isReady', true);
       })
@@ -73,31 +48,18 @@ function init() {
     .on('todoAdd', function (model) {
       todosList.addTodo(model);
     })
-    .on('remove', function (model) {
+    .on('todoRemove', function (model) {
       todosList.remove(model);
-    });
-
-  todosList
-    .on('todoAdded', function() {
-      updateLeftTodosCount();
-      todosList.setFilter();
-    })
-    .on('todoRemove', function() {
-      updateClearCompleted();
-      updateLeftTodosCount();
     })
     .on('todoChange', function () {
-      updateClearCompleted();
-      updateLeftTodosCount();
+      todosList.filterShowedItems();
     });
 
   todosActionsBar
     .on('clearCompleted', function () {
-      //todosList.clearCompleted();
-      //updateClearCompleted();
       todosListModel.clearCompleted();
     })
     .on('filterSelected', function (filter) {
-      todosList.setFilter(filter);
+      appViewState.setFilter(filter);
     });
 }

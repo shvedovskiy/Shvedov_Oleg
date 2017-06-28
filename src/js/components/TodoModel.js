@@ -1,6 +1,10 @@
 let extendConstructor = require('../util/extendConstructor');
 let Eventable         = require('../util/Eventable');
 
+/**
+ * @param {Object} data
+ * @constructor
+ */
 function TodoModel(data) {
   this._initEventable();
 
@@ -13,26 +17,57 @@ function TodoModel(data) {
 
 extendConstructor(TodoModel, Eventable);
 
+/**
+ * @param {String} field
+ * @param {*} value
+ * @fires TodoModel#modelFieldChange
+ * @returns {TodoModel}
+ */
 TodoModel.prototype.set = function (field, value) {
   this._model[field] = value;
-  this._model[field].trigger('modelFieldChange', value);
+  /** @event TodoModel~modelFieldChange */
+  this.trigger('modelFieldChange', {field: field, value: value});
+
   return this;
 };
 
+/**
+ * @param {String} field
+ * @returns {*}
+ */
 TodoModel.prototype.get = function (field) {
   return this._model[field];
 };
 
-TodoModel.prototype.onAnyChange = function (handler, ctx) {
-  this._model.forEach(function (field) {
-    field.on('modelFieldChange', handler.call(ctx));
-  });
-  this.trigger('modelChange', this);
+/**
+ * @param {String} field
+ * @param {Function} handler
+ * @param {Object} ctx
+ * @returns {TodoModel}
+ */
+TodoModel.prototype.onChange = function (field, handler, ctx) {
+  this.on('modelFieldChange', function(data) {
+    if (data.field === field) {
+      handler.call(ctx, data);
+    }
+  }, this);
+
   return this;
 };
 
-TodoModel.prototype.onChange = function (field, handler, ctx) {
-  this._model[field].on('modelFieldChange', handler.call(ctx));
+/**
+ * @param {Function} handler
+ * @param {Object} ctx
+ * @returns {TodoModel}
+ */
+TodoModel.prototype.onAnyChange = function (handler, ctx) {
+  this.on('modelFieldChange', function (data) {
+    if (data['field'] !== 'text') { // костыль :sad:
+      handler.call(ctx, data);
+      this.trigger('modelChange', this);
+    }
+  }, this);
+
   return this;
 };
 
