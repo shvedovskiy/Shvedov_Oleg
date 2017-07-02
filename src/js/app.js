@@ -1,69 +1,69 @@
 document.addEventListener('DOMContentLoaded', init);
 
+let TodosListModel  = require('./components/TodosListModel');
 let TodosMain       = require('./components/TodoMain');
 let TodoAdd         = require('./components/TodoAdd');
 let TodosList       = require('./components/TodosList');
 let TodosActionsBar = require('./components/TodosActionsBar');
+let appViewState    = require('./views/AppViewState');
 
 function init() {
-  let todosMain       = new TodosMain();
-  let todoAdd         = new TodoAdd();
-  let todosList       = new TodosList();
-  let todosActionsBar = new TodosActionsBar();
+  let todosListModel = new TodosListModel([]);
 
-  function updateLeftTodosCount() {
-    let todosCnt     = todosList.getTodosCount();
-    let leftTodosCnt = todosList.getLeftTodosCount();
+  const mainRoot = document.querySelector('.main-wrapper');
+  let todosMain = new TodosMain(mainRoot);
 
-    if (todosCnt !== 0) {
-      todosMain.updateMarkers(true);
+  let todoAdd         = new TodoAdd(mainRoot.querySelector('.todo-add'));
+  let todosList       = new TodosList(mainRoot.querySelector('.js-todos-list'));
+  let todosActionsBar = new TodosActionsBar(mainRoot.querySelector('.todos-actions-bar'));
+
+  appViewState.onChange(function (data) {
+    todosList.filterShowedItems(data['filter']);
+  });
+
+  todosListModel.onChange(function () {
+    if (todosListModel.getList().length !== 0) {
+      todosMain.updateInterfaceVisibility(true);
     } else {
-      todosMain.updateMarkers(false);
+      todosMain.updateInterfaceVisibility(false);
     }
 
+    let leftTodosCnt = todosListModel.getLeftTodosCount();
     todosActionsBar.setLeftTodosCount(leftTodosCnt);
-  }
 
-  function updateClearCompleted() {
-    let todosCnt     = todosList.getTodosCount();
-    let leftTodosCnt = todosList.getLeftTodosCount();
-
-    if (todosCnt - leftTodosCnt > 0) {
+    if (todosListModel.getList().length - leftTodosCnt > 0) {
       todosActionsBar.manageClearCompletedVisibility(true);
     } else {
       todosActionsBar.manageClearCompletedVisibility(false);
     }
-  }
+  });
 
   todoAdd
-    .on('todoCreate', function(data) {
-      todosList.createTodo(data);
+    .on('todoCreate', function(inputData) {
+      todosListModel.add(inputData);
     })
     .on('selectAll', function() {
-      todosList.selectAll();
-      updateClearCompleted();
+      todosListModel.getList().forEach(function (model) {
+        model.set('isReady', true);
+      })
     });
 
-  todosList
-    .on('todoAdd', function() {
-      updateLeftTodosCount();
-      todosList.setFilter();
+  todosListModel
+    .on('todoAdd', function (model) {
+      todosList.addTodo(model);
     })
-    .on('todoRemove', function() {
-      updateClearCompleted();
-      updateLeftTodosCount();
+    .on('todoRemove', function (model) {
+      todosList.remove(model);
     })
     .on('todoChange', function () {
-      updateClearCompleted();
-      updateLeftTodosCount();
+      todosList.filterShowedItems();
     });
 
   todosActionsBar
     .on('clearCompleted', function () {
-      todosList.clearCompleted();
-      updateClearCompleted();
+      todosListModel.clearCompleted();
     })
     .on('filterSelected', function (filter) {
-      todosList.setFilter(filter);
+      appViewState.setFilter(filter);
     });
 }

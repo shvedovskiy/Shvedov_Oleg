@@ -1,33 +1,66 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
-let Filter            = require('./Filter');
+let Eventable = require('../util/Eventable');
+let Filter = require('./Filter');
 
-function TodosActionsBar() {
+/**
+ * @implements {EventListener}
+ * @param root
+ * @constructor
+ */
+function TodosActionsBar(root) {
   this._initEventable();
 
-  this._counter = document.querySelector('.js-left-counter');
-  this._filters = new Filter(document.querySelector('.js-todos-actions-bar_filters'));
-  this._clearCompletedBtn = document.querySelector('.js-todos-actions-bar_clear-completed');
+  /**
+   * @type {HTMLElement}
+   * @private
+   */
+  this._root = root;
+  this._counter = root.querySelector('.js-left-counter');
+  this._clearCompletedBtn = root.querySelector('.js-todos-actions-bar_clear-completed');
+  this._filters = new Filter(root.querySelector('.js-todos-actions-bar_filters'));
 
-  this._filters.on('filterSelected', this._onFilterSelected, this);
+  this._filters.on('filterSelect', this._onFilterSelected, this);
+
   this._clearCompletedBtn.addEventListener('click', this);
 }
 
 extendConstructor(TodosActionsBar, Eventable);
 
-TodosActionsBar.prototype._onFilterSelected = function (filterId) {
-  return this.trigger('filterSelected', filterId);
+/**
+ * @callback handleEvent
+ * @fires TodosActionsBar~filterSelected
+ * @private
+ * @returns {Eventable}
+ */
+TodosActionsBar.prototype._onFilterSelected = function (filterName) {
+  /** @event TodosActionsBar#filterSelected */
+  return this.trigger('filterSelected', filterName);
 };
 
+/**
+ * @callback handleEvent
+ * @fires TodosActionsBar~clearCompleted
+ * @private
+ * @returns {Eventable}
+ */
 TodosActionsBar.prototype._onClearCompleted = function () {
+  /** @event TodosActionsBar#clearCompleted */
   return this.trigger('clearCompleted');
 };
 
+/**
+ * @param {Number} cnt
+ * @returns {TodosActionsBar}
+ */
 TodosActionsBar.prototype.setLeftTodosCount = function (cnt) {
   this._counter.innerHTML = cnt + '&nbsp;' + (cnt === 1 ? 'item' : 'items') + '&nbsp;left';
   return this;
 };
 
+/**
+ * @param {Boolean} isVisible
+ * @returns {TodosActionsBar}
+ */
 TodosActionsBar.prototype.manageClearCompletedVisibility = function(isVisible) {
   if (isVisible) {
     this._clearCompletedBtn.classList.remove('__hide');

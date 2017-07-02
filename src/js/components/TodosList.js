@@ -1,91 +1,106 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
-let TodoItem          = require('./TodoItem');
+let Eventable = require('../util/Eventable');
+let TodoItem = require('./TodoItem');
+let appViewState = require('../views/AppViewState');
 
-function TodosList() {
+/**
+ * @extends {Eventable}
+ * @param {HTMLElement} root
+ * @constructor
+ */
+function TodosList(root) {
   this._initEventable();
 
-  this._root    = document.querySelector('.js-todos-list');
-  this._itemIds = 0;
-  this._items   = [];
-  this._left    = 0;
-  this._filter  = 'all';
+  this._root = root;
+  /**
+   * @type {Array.<TodoItem>}
+   * @private
+   *
+   */
+  this._items = [];
+  this._left = 0;
 }
 
 extendConstructor(TodosList, Eventable);
 
+/**
+ * @returns {Number}
+ */
 TodosList.prototype.getTodosCount = function () {
   return this._items.length;
 };
 
-TodosList.prototype.getLeftTodosCount = function () {
-  return this._left;
-};
-
-TodosList.prototype.createTodo = function (data) {
-  let item = new TodoItem(Object.assign({id: this._itemIds++}, data));
-
-  if (!item.model.isReady) {
-    this._left += 1;
-  }
+/**
+ * @param {TodoModel} model
+ * @returns {TodosList}
+ */
+TodosList.prototype.addTodo = function (model) {
+  let item = new TodoItem(model);
   this._items.push(item);
 
   item
     .on('todoChange', this._onTodoChange, this)
-    .on('todoRemove', this._onTodoRemove, this)
     .render(this._root);
 
-  this.trigger('todoAdd', item);
+  this.filterShowedItems();
   return this;
 };
 
+/**
+ * @returns {TodosList}
+ */
 TodosList.prototype.clearCompleted = function () {
   for (let i = this._items.length; i--;) {
-    if (this._items[i].model.isReady) {
+    if (this._items[i]._model.get('isReady')) {
       this._items[i].remove();
     }
   }
   return this;
 };
 
+/**
+ * @param {Number} id
+ * @returns {TodoItem}
+ * @private
+ */
 TodosList.prototype._getItemById = function (id) {
   for (let i = this._items.length; i--;) {
-    if (this._items[i].model.id === id) {
+    if (this._items[i]._model.get('id') === id) {
       return this._items[i];
     }
   }
   return null;
 };
 
-TodosList.prototype._onTodoChange = function (model) {
-  if (model.isReady) {
-    this._left -= 1;
-  } else {
-    this._left += 1;
-  }
-
-  this.filterShowedItems(this._filter);
-  this.trigger('todoChange', this);
-};
-
-TodosList.prototype._onTodoRemove = function (id) {
-  let item = this._getItemById(id);
-  if (item) {
-    if (!item.model.isReady) {
-      this._left -= 1;
-    }
-
-    item
-      .off('todoChange', this._onItemChange, this)
-      .off('todoRemove', this._onItemRemove, this);
-
-    let itemIndex = this._items.indexOf(item);
-    this._items.splice(itemIndex, 1);
-    this.trigger('todoRemove', item.model);
-  }
+/**
+ * @callback addTodo
+ * @private
+ * @returns {TodosList}
+ */
+TodosList.prototype._onTodoChange = function () {
+  this.filterShowedItems(appViewState.getFilter());
   return this;
 };
 
+/**
+ * @param {TodoModel} model
+ * @returns {TodosList}
+ */
+TodosList.prototype.remove = function (model) {
+  let item = this._getItemById(model.get('id'));
+  if (item) {
+    item.off('todoChange', this._onTodoChange, this);
+    item.remove();
+    let itemIndex = this._items.indexOf(item);
+    this._items.splice(itemIndex, 1);
+  }
+
+  return this;
+};
+
+/**
+ * @returns {TodosList}
+ */
 TodosList.prototype.selectAll = function () {
   this._items.forEach(function (item) {
     item.changeReady(true);
@@ -93,29 +108,36 @@ TodosList.prototype.selectAll = function () {
   return this;
 };
 
-TodosList.prototype.setFilter = function (filterId) {
-  if (filterId) {
-    this._filter = filterId;
-    return this.filterShowedItems(filterId);
+/**
+ * @param {String} [filter]
+ * @returns {TodosList}
+ */
+TodosList.prototype.filterShowedItems = function(filter) {
+  if (!filter) {
+    filter = appViewState.getFilter();
   }
-  return this.filterShowedItems(this._filter);
-};
 
-TodosList.prototype.filterShowedItems = function(filterId) {
   this._items.forEach(function (item) {
-    switch (filterId) {
+    switch (filter) {
       case 'all':
         item.visible(true);
         break;
       case 'completed':
-        item.visible(item.model.isReady);
+        item.visible(item._model.get('isReady'));
         break;
       case 'active':
-        item.visible(!item.model.isReady);
+        item.visible(!item._model.get('isReady'));
         break;
     }
   });
   return this;
+};
+
+/**
+ * @returns {HTMLElement|*}
+ */
+TodosList.prototype.getRoot = function () {
+  return this._root;
 };
 
 module.exports = TodosList;

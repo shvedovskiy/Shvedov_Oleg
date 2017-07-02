@@ -50,6 +50,7 @@
     display: inline-block;
     margin: 8px 0;
     white-space: nowrap;
+    user-select: none;
   }
     // Отдельный фильтр
     .todos-filters .filter {
