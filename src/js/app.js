@@ -17,6 +17,10 @@ function init() {
   let todosList       = new TodosList(mainRoot.querySelector('.js-todos-list'));
   let todosActionsBar = new TodosActionsBar(mainRoot.querySelector('.todos-actions-bar'));
 
+  appViewState.onChange(function (data) {
+    todosList.filterShowedItems(data['filter']);
+  });
+
   todosListModel.onChange(function () {
     if (todosListModel.getList().length !== 0) {
       todosMain.updateInterfaceVisibility(true);

@@ -1,5 +1,5 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
+let Eventable = require('../util/Eventable');
 
 /**
  * @param {Object} data
@@ -9,9 +9,9 @@ function TodoModel(data) {
   this._initEventable();
 
   this._model = {
-    id:      data.id,
+    id: data.id,
     isReady: data.isReady || false,
-    text:    data.text
+    text: data.text
   };
 }
 
@@ -42,7 +42,7 @@ TodoModel.prototype.get = function (field) {
 /**
  * @param {String} field
  * @param {Function} handler
- * @param {Object} ctx
+ * @param {Object} [ctx]
  * @returns {TodoModel}
  */
 TodoModel.prototype.onChange = function (field, handler, ctx) {
@@ -57,15 +57,13 @@ TodoModel.prototype.onChange = function (field, handler, ctx) {
 
 /**
  * @param {Function} handler
- * @param {Object} ctx
+ * @param {Object} [ctx]
  * @returns {TodoModel}
  */
 TodoModel.prototype.onAnyChange = function (handler, ctx) {
   this.on('modelFieldChange', function (data) {
-    if (data['field'] !== 'text') { // костыль :sad:
-      handler.call(ctx, data);
-      this.trigger('modelChange', this);
-    }
+    handler.call(ctx, data);
+    this.trigger('modelChange', this);
   }, this);
 
   return this;

@@ -1,6 +1,6 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
-let Filter            = require('./Filter');
+let Eventable = require('../util/Eventable');
+let Filter = require('./Filter');
 
 /**
  * @implements {EventListener}

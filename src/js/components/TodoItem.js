@@ -1,6 +1,6 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
-let templateEngine    = require('../util/templateEngine');
+let Eventable = require('../util/Eventable');
+let templateEngine = require('../util/templateEngine');
 
 /**
  * @extends {EventListener}
@@ -84,7 +84,7 @@ TodoItem.prototype._manageReadyModificator = function (isReady) {
  * @returns {TodoItem}
  */
 TodoItem.prototype.changeReady = function (isReady) {
-  if (isReady !== this._model.get(isReady)) {
+  if (isReady !== this._model.get('isReady')) {
     this._model.set('isReady', isReady);
     this._manageReadyModificator(isReady);
     this.trigger('todoChange', this._model);

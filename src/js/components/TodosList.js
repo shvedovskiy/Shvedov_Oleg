@@ -1,7 +1,7 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
-let TodoItem          = require('./TodoItem');
-let appViewState      = require('../views/AppViewState');
+let Eventable = require('../util/Eventable');
+let TodoItem = require('./TodoItem');
+let appViewState = require('../views/AppViewState');
 
 /**
  * @extends {Eventable}
@@ -19,10 +19,6 @@ function TodosList(root) {
    */
   this._items = [];
   this._left = 0;
-
-  appViewState.onChange(function (data) {
-    this.filterShowedItems(data['filter']);
-  }, this);
 }
 
 extendConstructor(TodosList, Eventable);
@@ -113,7 +109,7 @@ TodosList.prototype.selectAll = function () {
 };
 
 /**
- * @param {String} filter
+ * @param {String} [filter]
  * @returns {TodosList}
  */
 TodosList.prototype.filterShowedItems = function(filter) {

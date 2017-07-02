@@ -1,6 +1,6 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
-let TodoModel         = require('./TodoModel');
+let Eventable = require('../util/Eventable');
+let TodoModel = require('./TodoModel');
 
 /**
  * @param {Array.<TodoModel>} itemsData
@@ -38,31 +38,32 @@ TodosListModel.prototype.getLeftTodosCount = function () {
 /**
  *
  * @param {Function} handler
- * @param {Object} ctx
+ * @param {Object} [ctx]
  * @returns {TodosListModel}
  */
 TodosListModel.prototype.onChange = function (handler, ctx) {
   this
     .on('todoAdd', handler)
     .on('todoRemoved', handler)
-    .on('todoChange', handler);
-
-  this.on('modelChange', function(model) {
-
-    if (model.get('deleted')) {
-      this.remove(model.get('id'));
-    }
-    else {
+    .on('todoChange', handler)
+    .on('modelReadyChange', function (model) {
       if (model.get('isReady') && this._left !== 0) {
         this._left -= 1;
       } else {
         this._left += 1;
       }
-    }
-
-    this.trigger('todoChange');
-    handler.call(ctx)
-  }, this);
+      this.trigger('todoChange');
+      handler.call(ctx);
+    }, this)
+    .on('modelRemove', function (model) {
+      this.remove(model.get('id'));
+      this.trigger('todoChange');
+      handler.call(ctx);
+    }, this)
+    .on('modelChange', function () {
+      this.trigger('todoChange');
+      handler.call(ctx)
+    }, this);
 
   return this;
 };
@@ -77,8 +78,21 @@ TodosListModel.prototype.add = function (inputData) {
   let model = new TodoModel(Object.assign({id: this._itemIds++}, inputData));
 
   model
-    .onAnyChange(function () {
-      this.trigger('modelChange', model);
+    .onAnyChange(function (data) {
+      switch(data['field']) {
+        case 'text':
+          this.trigger('modelTextChange', model);
+          break;
+        case 'isReady':
+          this.trigger('modelReadyChange', model);
+          break;
+        case 'deleted':
+          this.trigger('modelRemove', model);
+          break;
+        default:
+          this.trigger('modelChange', model);
+          break;
+      }
     }, this);
 
   if (!model.get('isReady')) {

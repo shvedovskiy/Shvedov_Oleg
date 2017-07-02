@@ -1,5 +1,5 @@
 let extendConstructor = require('../util/extendConstructor');
-let Eventable         = require('../util/Eventable');
+let Eventable = require('../util/Eventable');
 
 function AppViewState() {
   this._initEventable();
