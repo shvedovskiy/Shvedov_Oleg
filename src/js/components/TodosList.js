@@ -50,7 +50,7 @@ TodosList.prototype.addTodo = function (model) {
  * @returns {TodosList}
  */
 TodosList.prototype.clearCompleted = function () {
-  for (let i = this._items.length; i--;) {
+  for (let i = 0, l = this._items.length; i !== l; i++) {
     if (this._items[i]._model.get('isReady')) {
       this._items[i].remove();
     }
@@ -64,7 +64,7 @@ TodosList.prototype.clearCompleted = function () {
  * @private
  */
 TodosList.prototype._getItemById = function (id) {
-  for (let i = this._items.length; i--;) {
+  for (let i = 0, l = this._items.length; i !== l; i++) {
     if (this._items[i]._model.get('id') === id) {
       return this._items[i];
     }

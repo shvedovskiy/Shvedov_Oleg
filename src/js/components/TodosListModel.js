@@ -112,7 +112,7 @@ TodosListModel.prototype.add = function (inputData) {
  * @private
  */
 TodosListModel.prototype._getModelById = function(id) {
-  for (let i = this._items_models.length; i--;) {
+  for (let i = 0, l = this._items_models.length; i !== l; i++) {
     if (this._items_models[i].get('id') === id) {
       return this._items_models[i];
     }

@@ -24,7 +24,7 @@ Eventable.prototype.on = function (eventName, handler, ctx) {
 Eventable.prototype.off = function (eventName, handler, ctx) {
   let subscribers = getEventSubscribers(this, eventName);
   if (subscribers) {
-    for (let i = subscribers.length; i--;) {
+    for (let i = 0, l = subscribers.length; i !== l; i++) {
       if ((subscribers[i].handler === handler) && (subscribers[i].ctx === ctx)) {
         subscribers.splice(i, 1);
         return this;
@@ -38,7 +38,7 @@ Eventable.prototype.trigger = function (eventName, data) {
   let subscribers = getEventSubscribers(this, eventName);
   if (subscribers) {
     let subscribersCopy = subscribers.slice();
-    for (let i = 0, l = subscribersCopy.length; i !== l; i += 1) {
+    for (let i = 0, l = subscribersCopy.length; i !== l; i ++) {
       subscribersCopy[i].handler.call(subscribersCopy[i].ctx, data);
     }
   }

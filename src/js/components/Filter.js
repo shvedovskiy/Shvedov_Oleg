@@ -19,7 +19,7 @@ function Filter(root) {
    */
   this._activeFilter = null;
 
-  for (let i = 0; i < this._filters.length; i++) {
+  for (let i = 0, l = this._filters.length; i < l; i++) {
     this._filters[i].addEventListener('click', this);
 
     if (this._filters[i].classList.contains('__active')) {
