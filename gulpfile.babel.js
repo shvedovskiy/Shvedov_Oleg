@@ -30,9 +30,8 @@ gulp.task('css', function () {
       .pipe(sass().on('error', sass.logError))
       .pipe(postcss([
         atImport(),
-        rebaseUrls({url: 'rebase'}),
         autoprefixer({browsers: ['>1%']}),
-        // minify()
+        minify()
       ]))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('public/dist/css'));
