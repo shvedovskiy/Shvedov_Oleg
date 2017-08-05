@@ -13,7 +13,7 @@ before_script:
   - git config --global user.name "Travis CI"
   - git config --global user.email "www.goo5@me.com"
   - npm install -g gulp-cli
-script: ./node_modules/.bin/webpack && gulp build && gulp offline
+script: ./node_modules/.bin/webpack && gulp offline
 after_success:
   - >-
     echo "travis_fold:end:after_success" && [ "${TRAVIS_PULL_REQUEST}" = "false"
