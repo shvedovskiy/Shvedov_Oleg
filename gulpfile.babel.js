@@ -1,14 +1,16 @@
-var gulp = require('gulp');
-var postcss = require('gulp-postcss');
-var atImport = require('postcss-import');
-var rebaseUrls = require('postcss-url');
-var minify = require('postcss-csso');
-var autoprefixer = require('autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
-var clean = require('gulp-clean');
-var uglify = require('gulp-uglify');
-var babel = require('gulp-babel');
+const gulp = require('gulp');
+const connect = require('gulp-connect');
+const oghliner = require('oghliner');
+const postcss = require('gulp-postcss');
+const atImport = require('postcss-import');
+const rebaseUrls = require('postcss-url');
+const minify = require('postcss-csso');
+const autoprefixer = require('autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const sass = require('gulp-sass');
+const clean = require('gulp-clean');
+const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
 
 gulp.task('images-clean-dist', function () {
     gulp.src('public/dist/images', {read: false})
@@ -56,4 +58,30 @@ gulp.task('css:watch', ['css'], function () {
 );
 
 gulp.task('build', ['css', 'images', 'js']);
-gulp.task('default', ['css:watch', 'images:watch']);
+
+gulp.task('configure', oghliner.configure);
+
+gulp.task('deploy', function () {
+  return oghliner.deploy({rootDir: 'public'});
+});
+
+gulp.task('serve', function () {
+  connect.server({root: 'public'});
+});
+
+gulp.task('offline', ['build'], function () {
+  return oghliner.offline({
+    rootDir: 'public/',
+    fileGlobs: [
+      'images/**',
+      'browserconfig.xml',
+      'manifest.json',
+      'offline-manager.js',
+      'offline-worker.js',
+      'index.html',
+      'dist/**'
+    ]
+  });
+});
+
+gulp.task('default', ['build', 'offline']);

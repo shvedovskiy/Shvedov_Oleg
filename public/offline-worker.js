@@ -1,7 +1,3 @@
-/* Any copyright is dedicated to the Public Domain.
- * http://creativecommons.org/publicdomain/zero/1.0/ */
-
-
 (function (self) {
   'use strict';
 
@@ -79,7 +75,6 @@
       './index.html', // 169f169bd5f8897177795d5b598144091f76a10e
       './manifest.json', // ff18f2090682bc881a984b595c9e1bf299179ab7
       './offline-manager.js', // 66eee9a121acf84e027e87bc73264faaa900ca8b
-
     ],
 
     // Adds the resources to the cache controlled by this worker.
@@ -157,6 +152,5 @@
       }
       return this._cache;
     }
-
   };
 }(self));
