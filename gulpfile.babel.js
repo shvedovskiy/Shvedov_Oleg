@@ -32,7 +32,7 @@ gulp.task('css', function () {
         atImport(),
         rebaseUrls({url: 'rebase'}),
         autoprefixer({browsers: ['>1%']}),
-        minify()
+        // minify()
       ]))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('public/dist/css'));
@@ -58,6 +58,7 @@ gulp.task('css:watch', ['css'], function () {
 );
 
 gulp.task('build', ['css', 'images', 'js']);
+gulp.task('default', ['css:watch', 'images:watch']);
 
 gulp.task('configure', oghliner.configure);
 
