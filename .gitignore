@@ -58,3 +58,5 @@ sftp-config*
 /.idea/
 # /public/dist/
 Shvedov_Oleg.iml
+
+.gh-pages-cache
