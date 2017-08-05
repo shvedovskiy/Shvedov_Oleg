@@ -1,14 +1,14 @@
-const gulp = require('gulp');
-const postcss = require('gulp-postcss');
-const atImport = require('postcss-import');
-const rebaseUrls = require('postcss-url');
-const minify = require('postcss-csso');
-const autoprefixer = require('autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
-const sass = require('gulp-sass');
-const clean = require('gulp-clean');
-const uglify = require('gulp-uglify');
-const babel = require('gulp-babel');
+let gulp = require('gulp');
+let postcss = require('gulp-postcss');
+let atImport = require('postcss-import');
+let rebaseUrls = require('postcss-url');
+let minify = require('postcss-csso');
+let autoprefixer = require('autoprefixer');
+let sourcemaps = require('gulp-sourcemaps');
+let sass = require('gulp-sass');
+let clean = require('gulp-clean');
+let uglify = require('gulp-uglify');
+let babel = require('gulp-babel');
 
 gulp.task('images-clean-dist', () =>
   gulp.src('public/dist/images', { read: false })
