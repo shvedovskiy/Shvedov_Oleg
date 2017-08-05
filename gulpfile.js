@@ -34,7 +34,12 @@ gulp.task('css', () =>
     .pipe(gulp.dest('public/dist/css'))
 );
 
-gulp.task('js', ['css'], () =>
+gulp.task('js:copy-sw', () =>
+  gulp.src('src/js/offline-manager.js')
+    .pipe(gulp.dest('public/dist/js'))
+);
+
+gulp.task('js', ['css', 'js:copy-sw'], () =>
   gulp.src('public/dist/js/app.js')
     .pipe(babel({ presets: ['es2015'] }))
     .pipe(uglify())
