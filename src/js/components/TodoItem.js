@@ -36,6 +36,7 @@ function TodoItem(model) {
 
   this._readyMark.addEventListener('change', this);
   this._remove.addEventListener('click', this);
+  //this._remove.addEventListener('pointerdown', this);
   this._text.addEventListener('blur', this);
 }
 
@@ -131,6 +132,11 @@ TodoItem.prototype.handleEvent = function (e) {
         this._onRemove();
       }
       break;
+    // case 'pointerdown':
+    //   if (e.target === this._remove) {
+    //
+    //   }
+    //   break;
     case 'blur':
       this._onSetText(this._text.innerText);
       break;
