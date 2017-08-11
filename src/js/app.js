@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', init);
 
+let device          = require('./util/deviceDetector');
 let TodosListModel  = require('./components/TodosListModel');
 let TodosMain       = require('./components/TodoMain');
 let TodoAdd         = require('./components/TodoAdd');
@@ -8,6 +9,10 @@ let TodosActionsBar = require('./components/TodosActionsBar');
 let appViewState    = require('./views/AppViewState');
 
 function init() {
+  if (device.desktop()) {
+    document.body.className = 'hover';
+  }
+
   let todosListModel = new TodosListModel([]);
 
   const mainRoot = document.querySelector('.main-wrapper');
