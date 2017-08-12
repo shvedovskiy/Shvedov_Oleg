@@ -69,3 +69,8 @@
         transition: opacity .3s ease;
       }
     }
+    @media screen and (max-width: 350px) {
+      .todo-add_input {
+        font-size: $font-size-large;
+      }
+    }

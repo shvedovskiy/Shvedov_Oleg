@@ -31,7 +31,6 @@
       opacity: 1;
       transform: rotate(45deg);
       transition: opacity .3s ease-out;
-      -webkit-tap-highlight-color: $rose;
     }
     .hover .todo-item_remove .action_visual {
       opacity: 0;
@@ -44,6 +43,7 @@
         display: inline-block;
         position: absolute;
         transition: background-color .3s ease;
+        -webkit-tap-highlight-color: $rose;
       }
 
       .todo-item_remove .action_visual:before {
