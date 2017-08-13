@@ -47,10 +47,14 @@ TodosListModel.prototype.onChange = function (handler, ctx) {
     .on('todoRemoved', handler)
     .on('todoChange', handler)
     .on('modelReadyChange', function (model) {
-      if (model.get('isReady') && this._left !== 0) {
-        this._left -= 1;
-      } else {
-        this._left += 1;
+      switch (model.get('isReady')) {
+        case true:
+          if (this._left !== 0) {
+            this._left -= 1;
+          }
+          break;
+        case false:
+          this._left += 1;
       }
       this.trigger('todoChange');
       handler.call(ctx);
