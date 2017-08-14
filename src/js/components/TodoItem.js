@@ -13,11 +13,13 @@ function TodoItem(model) {
   let elem = templateEngine.todoItem({text: model.get('text')});
 
   this._root = elem.root;
+  this._readyMarkWrapper = elem.readyMarkWrapper;
   /**
    * @type {HTMLElement}
    * @private
    */
   this._readyMark = elem.readyMark;
+  this._removeWrapper = elem.removeWrapper;
   /**
    * @type {HTMLElement}
    * @private
@@ -34,7 +36,9 @@ function TodoItem(model) {
     this._manageReadyModificator(data['value']);
   }, this);
 
+  this._readyMarkWrapper.addEventListener('keypress', this);
   this._readyMark.addEventListener('change', this);
+  this._removeWrapper.addEventListener('keypress', this);
   this._remove.addEventListener('click', this);
   this._text.addEventListener('blur', this);
 }
@@ -133,6 +137,16 @@ TodoItem.prototype.handleEvent = function (e) {
       break;
     case 'blur':
       this._onSetText(this._text.innerText);
+      break;
+    case 'keypress':
+      if (e.keyCode === 13) {
+        if (e.target.closest('.todo-item_ready-mark')) {
+          this._readyMark.checked = !this._readyMark.checked;
+          this.changeReady(this._readyMark.checked);
+        } else if (e.target.closest('.todo-item_remove') && e.target === this._removeWrapper) {
+          this._onRemove();
+        }
+      }
       break;
   }
 };

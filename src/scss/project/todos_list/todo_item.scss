@@ -20,7 +20,8 @@
   // Кнопка удаления дела:
   .todo-item_remove {
     align-self: flex-end;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    margin-right: 8px;
     float: right;
     height: 18px;
     order: 2;
@@ -32,9 +33,17 @@
       transform: rotate(45deg);
       transition: opacity .3s ease-out;
     }
+
+    // Для пользователей мыши кнопка удаления показыается по ховеру:
     .hover .todo-item_remove .action_visual {
       opacity: 0;
     }
+
+    // При tab-фокусе на кнопку показывать ее:
+    :not(.hover) .todo-item_remove:focus .action_visual {
+      opacity: 1;
+    }
+
       // Черточки "крестика" в визуализации:
       .todo-item_remove .action_visual:before,
       .todo-item_remove .action_visual:after {
@@ -48,17 +57,19 @@
 
       .todo-item_remove .action_visual:before {
         height: 22px;
-        left: 10px;
+        top: -4px;
+        left: 14px;
         width: 2px;
       }
 
       .todo-item_remove .action_visual:after {
         height: 2px;
-        top: 10px;
+        top: 6px;
+        left: 4px;
         width: 22px;
       }
 
-      // Подкрашивать "крестик" при наведении:
+      // Подкрашивать "крестик" при ховере:
       .todo-item_remove:hover .action_visual:before,
       .todo-item_remove:hover .action_visual:after {
         background-color: $rose;
@@ -75,11 +86,12 @@
     // Собственно, текст пункта списка:
     .todo-item_text {
       border: 0;
+      margin-top: 2px;
+      margin-bottom: 2px;
       color: $items-color;
       font: $font;
       font-size: $font-size-extra-large;
       font-weight: 300;
-      outline: none;
       overflow: hidden;
       text-align: left;
       text-overflow: ellipsis;

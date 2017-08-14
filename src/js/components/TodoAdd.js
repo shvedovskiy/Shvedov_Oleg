@@ -12,9 +12,11 @@ function TodoAdd(root) {
 
   this._root = root;
   this._input = root.querySelector('.js-todo-add_input');
+  this._selectAllBtnWrapper = root.querySelector('.todo-add_select-all');
   this._selectAllBtn = root.querySelector('.js-todo-add_select-all');
 
   this._input.addEventListener('keypress', this);
+  this._selectAllBtnWrapper.addEventListener('keypress', this);
   this._selectAllBtn.addEventListener('click', this);
 }
 
@@ -62,8 +64,13 @@ TodoAdd.prototype.handleEvent = function (e) {
       this._onSelectAll();
       break;
     case 'keypress':
+
       if (e.keyCode === 13) {
-        this._onTodoAdd();
+        if (e.target.closest('.js-todo-add_input')) {
+          this._onTodoAdd();
+        } else if (e.target.closest('.todo-add_select-all')) {
+          this._onSelectAll();
+        }
       }
       break;
   }
