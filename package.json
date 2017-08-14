@@ -24,10 +24,12 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
+    "gulp-connect": "^5.0.0",
     "gulp-postcss": "^6.4.0",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
+    "oghliner": "^1.1.1",
     "postcss-csso": "^2.0.0",
     "postcss-import": "^9.1.0",
     "postcss-url": "^6.0.4"

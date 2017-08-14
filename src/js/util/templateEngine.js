@@ -13,7 +13,9 @@ function getTemplateRootNode(scriptId) {
 let templateEngine = {
   todoItem: function (data) {
     let root = getTemplateRootNode('todoItemTemplate');
+    let readyMarkWrapper = root.querySelector('.todo-item_ready-mark');
     let readyMark = root.querySelector('.js-todo-item_ready-mark');
+    let removeWrapper = root.querySelector('.todo-item_remove');
     let remove = root.querySelector('.js-todo-item_remove');
     let text = root.querySelector('.js-todo-item_text');
 
@@ -28,7 +30,9 @@ let templateEngine = {
     return {
       root: root,
       text: text,
+      readyMarkWrapper: readyMarkWrapper,
       readyMark: readyMark,
+      removeWrapper: removeWrapper,
       remove: remove
     };
   }

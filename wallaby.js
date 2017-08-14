@@ -1,4 +1,4 @@
-module.exports = function (wallaby) {
+module.exports = (wallaby) => {
   return {
     files: [
       'src/js/**/*.js',
@@ -18,5 +18,5 @@ module.exports = function (wallaby) {
     compilers: {
       '**/*.js': wallaby.compilers.babel()
     }
-  };
+  }
 };

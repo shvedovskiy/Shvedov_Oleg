@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', init);
-
+let device          = require('./util/deviceDetector');
 let TodosListModel  = require('./components/TodosListModel');
 let TodosMain       = require('./components/TodoMain');
 let TodoAdd         = require('./components/TodoAdd');
@@ -7,7 +6,14 @@ let TodosList       = require('./components/TodosList');
 let TodosActionsBar = require('./components/TodosActionsBar');
 let appViewState    = require('./views/AppViewState');
 
+window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('keydown', handleFirstTab);
+
 function init() {
+  if (device.desktop()) {
+    document.body.className = 'hover';
+  }
+
   let todosListModel = new TodosListModel([]);
 
   const mainRoot = document.querySelector('.main-wrapper');
@@ -66,4 +72,18 @@ function init() {
     .on('filterSelected', function (filter) {
       appViewState.setFilter(filter);
     });
+}
+
+function handleFirstTab(e) {
+  if (e.keyCode === 9) {
+    document.body.classList.add('user-is-tabbing');
+    window.removeEventListener('keydown', handleFirstTab);
+    window.addEventListener('mousedown', handleMouseDownOnce);
+  }
+}
+
+function handleMouseDownOnce(e) {
+  document.body.classList.remove('user-is-tabbing');
+  window.removeEventListener('mousedown', handleMouseDownOnce);
+  window.addEventListener('keydown', handleFirstTab);
 }
