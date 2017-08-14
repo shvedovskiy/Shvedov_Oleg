@@ -52,15 +52,15 @@
 
 <script type="text/html" id="todoItemTemplate">
     <div class="todo-item">
-        <div class="input-checkbox todo-item_ready-mark">
-            <input type="checkbox" class="input-checkbox_target js-todo-item_ready-mark" aria-label="Пометить дело как выполненное">
+        <div class="input-checkbox todo-item_ready-mark" tabindex="0">
+            <input type="checkbox" class="input-checkbox_target js-todo-item_ready-mark" tabindex="-1" aria-label="Пометить дело как выполненное">
             <div class="input-checkbox_visual"></div>
         </div>
         <div class="todo-item_text-wrapper">
-            <div class="todo-item_text js-todo-item_text" contenteditable></div>
+            <div class="todo-item_text js-todo-item_text" tabindex="0" contenteditable></div>
         </div>
-        <div class="action todo-item_remove">
-            <button class="action_target js-todo-item_remove" aria-label="Удалить дело"></button>
+        <div class="action todo-item_remove" tabindex="0">
+            <button class="action_target js-todo-item_remove" tabindex="-1" aria-label="Удалить дело"></button>
             <div class="action_visual"></div>
         </div>
     </div>
@@ -75,8 +75,8 @@
 
     <div class="todos-main __empty js-todos-main">
         <div class="todo-add">
-            <div class="action todo-add_select-all">
-                <button class="action_target js-todo-add_select-all" aria-label="Отметить все как выполненные"></button>
+            <div class="action todo-add_select-all" tabindex="0">
+                <button class="action_target js-todo-add_select-all" tabindex="-1" aria-label="Отметить все как выполненные"></button>
                 <div class="action_visual"></div>
             </div>
 
@@ -92,13 +92,13 @@
                 <output class="js-left-counter"></output>
             </div>
 
-            <button class="todos-actions-bar_clear-completed __hide js-todos-actions-bar_clear-completed">Clear completed</button>
-
             <div class="todos-filters js-todos-actions-bar_filters">
                 <button class="filter __active" data-filter="all" aria-label="Фильтр: показать все">All</button>
                 <button class="filter" data-filter="active" aria-label="Фильтр: показать невыполненные дела">Active</button>
                 <button class="filter" data-filter="completed" aria-label="Фильтр: показать выполненные дела">Completed</button>
             </div>
+
+            <button class="todos-actions-bar_clear-completed __hide js-todos-actions-bar_clear-completed">Clear completed</button>
         </div>
     </div>
 </div>
