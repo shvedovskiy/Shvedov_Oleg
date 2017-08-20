@@ -39,7 +39,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + 'd7d3a93d12104c4665c9405d5ef6cfaf2ccd47dd';
+      return this.CACHE_PREFIX + '048f92aa0a79382560237c6b3e5f8eebba5af039';
     },
 
     // This is a list of resources that will be cached.
@@ -47,7 +47,7 @@
       './browserconfig.xml', // 9fd15b41a6e9d2e667177e2cbfa6538b6e762e9e
       './manifest.json', // 134a199db30a22282db7c466042a10bac9f22778
       './offline-manager.js', // b4acb926fd2ba443c3a10e771a337e1da0b31dd3
-      './index.html', // 28b4dbab11d29cc3b9854d1ff1c88e3a32b9802e
+      './index.html', // 7242f9b99708ddeef45636d3ad82ea87361b7496
       './dist/js/app.js', // b7f84b04ae027559433bfb80addcf27f11ad11d0
       './dist/js/app.js.map', // fd216818cd45b307f05020328ea1dadba36f2625
 
