@@ -75,7 +75,9 @@ gulp.task('offline', ['build'], () =>
          'browserconfig.xml',
          'manifest.json',
          'index.html',
-         'dist/**/*',
+         'dist/css/main.css',
+         'dist/js/app.js',
+         'dist/images/**',
          'favicon.ico',
        ]
      }
