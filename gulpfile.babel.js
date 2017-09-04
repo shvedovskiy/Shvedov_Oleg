@@ -72,19 +72,19 @@ gulp.task('offline', () =>
      {
        rootDir: 'public/',
        fileGlobs: [
-         './browserconfig.xml',
-         './manifest.json',
-         './index.html',
-         './offline-manager.js',
-         './offline-worker.js',
-         './dist/css/main.css',
-         './dist/js/app.js',
-         './dist/images/icons/ms/*',
-         './dist/images/icons/favicon-194x194.png',
-         './dist/images/icons/google/android-chrome-192x192.png',
-         './dist/images/icons/apple/safari-pinned-tab.svg',
-         './dist/images/icons/apple/apple-touch-icon-180x180.png',
-         './favicon.ico',
+         'browserconfig.xml',
+         'manifest.json',
+         'index.html',
+         'offline-manager.js',
+         'offline-worker.js',
+         'dist/css/main.css',
+         'dist/js/app.js',
+         'dist/images/icons/ms/*',
+         'dist/images/icons/favicon-194x194.png',
+         'dist/images/icons/google/android-chrome-192x192.png',
+         'dist/images/icons/apple/safari-pinned-tab.svg',
+         'dist/images/icons/apple/apple-touch-icon-180x180.png',
+         'favicon.ico',
        ]
      }
    )
