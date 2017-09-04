@@ -67,7 +67,7 @@ gulp.task('serve', () => {
   connect.server({root: 'public'});
 });
 
-gulp.task('offline', ['build'], () =>
+gulp.task('offline', () =>
    oghliner.offline(
      {
        rootDir: './public/',
@@ -75,13 +75,19 @@ gulp.task('offline', ['build'], () =>
          'browserconfig.xml',
          'manifest.json',
          'index.html',
+         'offline-manager.js',
+         'offline-worker.js',
          'dist/css/main.css',
          'dist/js/app.js',
-         'dist/images/**',
+         'dist/images/icons/ms/*',
+         'dist/images/icons/favicon-194x194.png',
+         'dist/images/icons/google/android-chrome-192x192.png',
+         'dist/images/icons/apple/safari-pinned-tab.svg',
+         'dist/images/icons/apple/apple-touch-icon-180x180.png',
          'favicon.ico',
        ]
      }
    )
 );
 
-gulp.task('default', ['build', 'offline']);
+gulp.task('default', ['build']);
