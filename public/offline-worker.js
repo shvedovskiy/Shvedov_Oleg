@@ -42,7 +42,7 @@
     RESOURCES: [
       './browserconfig.xml', // d14afc548622da78db97832f37943eaec0693db6
       './dist/css/main.css', // 4952e3e9b909a83c506b5b57e05fb00a7ad943d2
-      './dist/css/main.css.map', // 6b69e74fe9ab05dccfbe4fe9ad28a9e3205e4b02
+      // './dist/css/main.css.map', // 6b69e74fe9ab05dccfbe4fe9ad28a9e3205e4b02
       './dist/images/icons/apple/apple-touch-icon-120x120.png', // 98ba22db4be9a5b2f194e22661a343e0f02488c5
       './dist/images/icons/apple/apple-touch-icon-152x152.png', // fb0201a6f36c702b54fcc979762cd1481792761c
       './dist/images/icons/apple/apple-touch-icon-180x180.png', // e02caed3dddca7572f29bdf1394f168adbd4856a
@@ -71,10 +71,10 @@
       './dist/images/icons/ms/mstile-310x310.png', // d0374256f8b170dbdf15ee8dfd1ed7c94ee1f2c4
       './dist/images/icons/ms/mstile-70x70.png', // 577c16e40fe8185f992e3438a83edf3e2af9f3f9
       './dist/js/app.js', // 713188c14fb34d8fa3730fe95dc87dfbf8a25e4b
-      './dist/js/app.js.map', // 9e5c231791a76141cddece627c142b2e2564054a
+      // './dist/js/app.js.map', // 9e5c231791a76141cddece627c142b2e2564054a
       './index.html', // 169f169bd5f8897177795d5b598144091f76a10e
       './manifest.json', // ff18f2090682bc881a984b595c9e1bf299179ab7
-      './offline-manager.js', // 66eee9a121acf84e027e87bc73264faaa900ca8b
+      // './offline-manager.js', // 66eee9a121acf84e027e87bc73264faaa900ca8b
     ],
 
     // Adds the resources to the cache controlled by this worker.
