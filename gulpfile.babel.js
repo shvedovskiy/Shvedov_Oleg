@@ -70,15 +70,13 @@ gulp.task('serve', () => {
 gulp.task('offline', ['build'], () =>
    oghliner.offline(
      {
-       rootDir: 'public/',
+       rootDir: './public/',
        fileGlobs: [
-         'images/**',
          'browserconfig.xml',
          'manifest.json',
-         'offline-manager.js',
-         'offline-worker.js',
          'index.html',
-         'dist/**'
+         'dist/**/*',
+         'favicon.ico',
        ]
      }
    )
