@@ -39,7 +39,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '2010c6637aa3067120fcd97b19ceaeb427ba33e8';
+      return this.CACHE_PREFIX + 'c9b27304ea90c4e7b21ff7e3dd5e8f769c6b5d52';
     },
 
     // This is a list of resources that will be cached.
@@ -47,7 +47,18 @@
       'public/browserconfig.xml', // 9fd15b41a6e9d2e667177e2cbfa6538b6e762e9e
       'public/manifest.json', // eecd53fdc004554abb3e8a12071f39e956fbbb09
       'public/index.html', // 28b4dbab11d29cc3b9854d1ff1c88e3a32b9802e
-      'public/dist/js/app.js', // b7f84b04ae027559433bfb80addcf27f11ad11d0
+      'public/offline-manager.js', // b4acb926fd2ba443c3a10e771a337e1da0b31dd3
+      'public/dist/css/main.css', // ad0bdb85b5c6bff8cca870cea00def09ce55f8d6
+      'public/dist/js/app.js', // 5067c27bb8de37f80f56d7c99200b1b4ca9cdb24
+      'public/dist/images/icons/ms/mstile-144x144.png', // bd9908d78bf5bc5fd22feed4feff58e68f826609
+      'public/dist/images/icons/ms/mstile-150x150.png', // 7a5cf1e1c31108fcc681927bebadf0d28f766ee0
+      'public/dist/images/icons/ms/mstile-310x150.png', // b8b9d0913d01b116df4d78f6f0b8ae44b7ad010c
+      'public/dist/images/icons/ms/mstile-310x310.png', // d0374256f8b170dbdf15ee8dfd1ed7c94ee1f2c4
+      'public/dist/images/icons/ms/mstile-70x70.png', // 577c16e40fe8185f992e3438a83edf3e2af9f3f9
+      'public/dist/images/icons/favicon-194x194.png', // 79c02970173f89123f789f8020afbb668abda5db
+      'public/dist/images/icons/google/android-chrome-192x192.png', // b49ad13a0d21bc415afdc4bbc3ce27ec19e538a4
+      'public/dist/images/icons/apple/safari-pinned-tab.svg', // c71b8239e067e4f2d38901a3df3648bc2639da7e
+      'public/dist/images/icons/apple/apple-touch-icon-180x180.png', // e02caed3dddca7572f29bdf1394f168adbd4856a
       'public/favicon.ico', // ec0f6bf17f5fc77a63656d713adff57d2e97121f
 
     ],
