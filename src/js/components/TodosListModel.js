@@ -1,21 +1,37 @@
-let extendConstructor = require('../util/extendConstructor');
-let Eventable = require('../util/Eventable');
-let TodoModel = require('./TodoModel');
+const extendConstructor = require('../util/extendConstructor');
+const Eventable = require('../util/Eventable');
+const Storage = require('../models/Storage');
+const StorageInstance = new Storage();
+const TodoModel = require('./TodoModel');
 
 /**
  * @param {Array.<TodoModel>} itemsData
  * @constructor
  */
-function TodosListModel(itemsData) {
+function TodosListModel() {
   this._initEventable();
 
-  this._itemIds = 0;
   /**
    * @type {Array.<TodoModel>}
    * @private
    */
-  this._items_models = itemsData || [];
-  this._left = 0;
+  const entries = StorageInstance.getEntriesList();
+
+  if (entries) {
+    this._items_models = entries['list'];
+    this._left = entries['left'];
+    this._itemIds = entries['itemIds'];
+  } else {
+    this._items_models = [];
+    this._left = 0;
+    this._itemIds = 0;
+
+    StorageInstance.putEntriesList({
+      list: [],
+      left: 0,
+      itemIds: 0
+    });
+  }
 }
 
 extendConstructor(TodosListModel, Eventable);
@@ -79,7 +95,9 @@ TodosListModel.prototype.onChange = function (handler, ctx) {
  * @returns {TodosListModel}
  */
 TodosListModel.prototype.add = function (inputData) {
-  let model = new TodoModel(Object.assign({id: this._itemIds++}, inputData));
+  let model = new TodoModel(
+      Object.assign({id: this._itemIds++}, inputData)
+  );
 
   model
     .onAnyChange(function (data) {
