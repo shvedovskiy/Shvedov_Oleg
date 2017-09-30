@@ -14,7 +14,7 @@ function init() {
     document.body.className = 'hover';
   }
 
-  let todosListModel = new TodosListModel([]);
+  let todosListModel = new TodosListModel();
 
   const mainRoot = document.querySelector('.main-wrapper');
   let todosMain = new TodosMain(mainRoot);
@@ -72,6 +72,8 @@ function init() {
     .on('filterSelected', function (filter) {
       appViewState.setFilter(filter);
     });
+
+  todosListModel.updateList();
 }
 
 function handleFirstTab(e) {
@@ -82,7 +84,7 @@ function handleFirstTab(e) {
   }
 }
 
-function handleMouseDownOnce(e) {
+function handleMouseDownOnce() {
   document.body.classList.remove('user-is-tabbing');
   window.removeEventListener('mousedown', handleMouseDownOnce);
   window.addEventListener('keydown', handleFirstTab);

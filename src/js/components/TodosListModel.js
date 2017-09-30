@@ -1,3 +1,4 @@
+const uuidv4 = require('uuid/v4');
 const extendConstructor = require('../util/extendConstructor');
 const Eventable = require('../util/Eventable');
 const Storage = require('../models/Storage');
@@ -15,26 +16,47 @@ function TodosListModel() {
    * @type {Array.<TodoModel>}
    * @private
    */
-  const entries = StorageInstance.getEntriesList();
-
-  if (entries) {
-    this._items_models = entries['list'];
-    this._left = entries['left'];
-    this._itemIds = entries['itemIds'];
-  } else {
-    this._items_models = [];
-    this._left = 0;
-    this._itemIds = 0;
-
-    StorageInstance.putEntriesList({
-      list: [],
-      left: 0,
-      itemIds: 0
-    });
-  }
+  this._items_models = [];
+  this._left = 0;
 }
 
 extendConstructor(TodosListModel, Eventable);
+
+TodosListModel.prototype.updateList = function() {
+  const entries = StorageInstance.getEntriesList();
+
+  if (entries) {
+    for (let i = 0, l = entries.length; i < l; i++) {
+      this.add(entries[i], true);
+    }
+
+    // I really don't know how to properly initialize model of ready item: ready changing listeners doesn't active while model is under construction
+    for (let i = 0, l = this._items_models.length; i < l; i++) {
+      if (this._items_models[i].get('isReady')) {
+        this._items_models[i].set('isReady', false);
+        this._items_models[i].set('isReady', true);
+      }
+    }
+  } else {
+    this.storeData();
+  }
+};
+
+TodosListModel.prototype.storeData = function () {
+  let data = [];
+  let elem;
+
+  for (let i = 0, l = this._items_models.length; i < l; i++) {
+    elem = this._items_models[i];
+    data.push({
+      id: elem.get('id'),
+      isReady: elem.get('isReady'),
+      text: elem.get('text')
+    });
+  }
+
+  StorageInstance.putEntriesList(data);
+};
 
 /**
  * Returns list models.
@@ -91,13 +113,18 @@ TodosListModel.prototype.onChange = function (handler, ctx) {
 /**
  *
  * @param {Object} inputData
+ * @param {Boolean} fromStorage
  * @fires TodosListModel~todoAdd
  * @returns {TodosListModel}
  */
-TodosListModel.prototype.add = function (inputData) {
-  let model = new TodoModel(
-      Object.assign({id: this._itemIds++}, inputData)
-  );
+TodosListModel.prototype.add = function (inputData, fromStorage) {
+  let model;
+
+  if (inputData.id) {
+    model = new TodoModel(inputData);
+  } else {
+    model = new TodoModel(Object.assign({id: uuidv4()}, inputData));
+  }
 
   model
     .onAnyChange(function (data) {
@@ -115,13 +142,18 @@ TodosListModel.prototype.add = function (inputData) {
           this.trigger('modelChange', model);
           break;
       }
+      this.storeData();
     }, this);
 
-  if (!model.get('isReady')) {
+  this._items_models.push(model);
+
+  if (model.get('isReady') === false) {
     this._left += 1;
   }
 
-  this._items_models.push(model);
+  if (!fromStorage) {
+    this.storeData();
+  }
 
   /** @event TodosListModel#todoAdd */
   this.trigger('todoAdd', model);
@@ -163,6 +195,8 @@ TodosListModel.prototype.remove = function (id) {
 
     let modelIndex = this.getList().indexOf(model);
     this.getList().splice(modelIndex, 1);
+
+    this.storeData();
 
     /** @event TodosListModel~todoRemoved */
     this.trigger('todoRemoved');
