@@ -1,3 +1,5 @@
+const client = require('./client');
+
 function Storage() { }
 
 Storage.prototype.getEntriesList = function () {
@@ -10,7 +12,7 @@ Storage.prototype.getEntriesList = function () {
   return null;
 };
 
-Storage.prototype.putEntriesList = function(data) {
+Storage.prototype.putEntriesList = function (data) {
   if (typeof Storage !== 'undefined') {
     const entry = {
       time: new Date().getTime(),
@@ -22,30 +24,49 @@ Storage.prototype.putEntriesList = function(data) {
   return false;
 };
 
-// Storage.prototype.addListItem = function(item) {
-//   if (typeof Storage !== 'undefined') {
-//     let entry = JSON.parse(localStorage.getItem('key'));
-//     //const newData = data.list.push(item);
-//     // entry.time = new Date().getTime();
-//     entry.data.list.push(item);
-//
-//     //const entry = {
-//     //  time: new Date().getTime(),
-//     //  data: data.list.push(item)
-//     //};
-//     localStorage.setItem('key', JSON.stringify(entry));
-//     return true;
-//   }
-//   return false;
-// };
+Storage.prototype.addListItem = function (item) {
+  if (typeof Storage !== 'undefined') {
+    let entry = JSON.parse(localStorage.getItem('key'));
 
+    entry.time = new Date().getTime();
+    entry.data.push(item);
 
-// Storage.prototype.removeListEntry = function (entry) {
-//
-// };
-//
-// Storage.prototype.changeEntry = function (entry) {
-//
-// };
+    localStorage.setItem('key', JSON.stringify(entry));
+    return true;
+  }
+  return false;
+};
+
+Storage.prototype.removeListItem = function (itemId) {
+  if (typeof Storage !== 'undefined') {
+    let entry = JSON.parse(localStorage.getItem('key'));
+
+    for (let i = 0, l = entry.data.length; i < l; i++) {
+      if (entry.data[i].id === itemId) {
+        entry.data.splice(i, 1);
+        break;
+      }
+    }
+    localStorage.setItem('key', JSON.stringify(entry));
+    return true;
+  }
+  return false;
+};
+
+Storage.prototype.changeListItem = function (item) {
+  if (typeof Storage !== 'undefined') {
+    let entry = JSON.parse(localStorage.getItem('key'));
+
+    for (let i = 0, l = entry.data.length; i < l; i++) {
+      if (entry.data[i].id === item.id) {
+        entry.data[i] = item;
+        break;
+      }
+    }
+    localStorage.setItem('key', JSON.stringify(entry));
+    return true;
+  }
+  return false;
+};
 
 module.exports = Storage;

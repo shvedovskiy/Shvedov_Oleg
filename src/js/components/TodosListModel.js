@@ -6,7 +6,6 @@ const StorageInstance = new Storage();
 const TodoModel = require('./TodoModel');
 
 /**
- * @param {Array.<TodoModel>} itemsData
  * @constructor
  */
 function TodosListModel() {
@@ -38,24 +37,20 @@ TodosListModel.prototype.updateList = function() {
       }
     }
   } else {
-    this.storeData();
+    let data = [];
+    let elem;
+
+    for (let i = 0, l = this._items_models.length; i < l; i++) {
+      elem = this._items_models[i];
+      data.push({
+        id: elem.get('id'),
+        isReady: elem.get('isReady'),
+        text: elem.get('text')
+      });
+    }
+
+    StorageInstance.putEntriesList(data);
   }
-};
-
-TodosListModel.prototype.storeData = function () {
-  let data = [];
-  let elem;
-
-  for (let i = 0, l = this._items_models.length; i < l; i++) {
-    elem = this._items_models[i];
-    data.push({
-      id: elem.get('id'),
-      isReady: elem.get('isReady'),
-      text: elem.get('text')
-    });
-  }
-
-  StorageInstance.putEntriesList(data);
 };
 
 /**
@@ -126,8 +121,7 @@ TodosListModel.prototype.add = function (inputData, fromStorage) {
     model = new TodoModel(Object.assign({id: uuidv4()}, inputData));
   }
 
-  model
-    .onAnyChange(function (data) {
+  model.onAnyChange(function (data) {
       switch(data['field']) {
         case 'text':
           this.trigger('modelTextChange', model);
@@ -142,8 +136,13 @@ TodosListModel.prototype.add = function (inputData, fromStorage) {
           this.trigger('modelChange', model);
           break;
       }
-      this.storeData();
-    }, this);
+      //this.storeData();
+      StorageInstance.changeListItem({
+        id: model.get('id'),
+        isReady: model.get('isReady'),
+        text: model.get('text')
+      });
+  }, this);
 
   this._items_models.push(model);
 
@@ -152,7 +151,11 @@ TodosListModel.prototype.add = function (inputData, fromStorage) {
   }
 
   if (!fromStorage) {
-    this.storeData();
+    StorageInstance.addListItem({
+      id: model.get('id'),
+      isReady: model.get('isReady'),
+      text: model.get('text')
+    });
   }
 
   /** @event TodosListModel#todoAdd */
@@ -196,7 +199,7 @@ TodosListModel.prototype.remove = function (id) {
     let modelIndex = this.getList().indexOf(model);
     this.getList().splice(modelIndex, 1);
 
-    this.storeData();
+    StorageInstance.removeListItem(id);
 
     /** @event TodosListModel~todoRemoved */
     this.trigger('todoRemoved');
