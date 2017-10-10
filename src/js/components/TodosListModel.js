@@ -21,36 +21,38 @@ function TodosListModel() {
 
 extendConstructor(TodosListModel, Eventable);
 
-TodosListModel.prototype.updateList = function() {
-  const entries = StorageInstance.getEntriesList();
+TodosListModel.prototype.updateList = function () {
+  StorageInstance.getEntriesList()
+    .then(data => {
+      const entries = data;
 
-  if (entries) {
-    for (let i = 0, l = entries.length; i < l; i++) {
-      this.add(entries[i], true);
-    }
-
-    // I really don't know how to properly initialize model of ready item: ready changing listeners doesn't active while model is under construction
-    for (let i = 0, l = this._items_models.length; i < l; i++) {
-      if (this._items_models[i].get('isReady')) {
-        this._items_models[i].set('isReady', false);
-        this._items_models[i].set('isReady', true);
+      for (let i = 0, l = entries.length; i < l; i++) {
+        this.add(entries[i], true);
       }
-    }
-  } else {
-    let data = [];
-    let elem;
 
-    for (let i = 0, l = this._items_models.length; i < l; i++) {
-      elem = this._items_models[i];
-      data.push({
-        id: elem.get('id'),
-        isReady: elem.get('isReady'),
-        text: elem.get('text')
-      });
-    }
+      // I really don't know how to properly initialize model of ready item: ready changing listeners doesn't active while model is under construction
+      for (let i = 0, l = this._items_models.length; i < l; i++) {
+        if (this._items_models[i].get('isReady')) {
+          this._items_models[i].set('isReady', false);
+          this._items_models[i].set('isReady', true);
+        }
+      }
+    })
+    .catch(() => {
+      let data = [];
+      let elem;
 
-    StorageInstance.putEntriesList(data);
-  }
+      for (let i = 0, l = this._items_models.length; i < l; i++) {
+        elem = this._items_models[i];
+        data.push({
+          id: elem.get('id'),
+          isReady: elem.get('isReady'),
+          text: elem.get('text')
+        });
+      }
+
+      StorageInstance.putEntriesList(data);
+    });
 };
 
 /**

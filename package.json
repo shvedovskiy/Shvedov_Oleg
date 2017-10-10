@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/webpack && gulp build",
+    "server": "node server.js",
     "watch": "gulp"
   },
   "repository": {

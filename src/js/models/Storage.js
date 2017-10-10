@@ -1,72 +1,130 @@
 const client = require('./client');
+const local = require('./local');
+
 
 function Storage() { }
 
 Storage.prototype.getEntriesList = function () {
-  if (typeof Storage !== 'undefined') {
-    const entry = localStorage.getItem('key');
-    if (entry) {
-      return JSON.parse(entry).data;
-    }
-  }
-  return null;
+  let list;
+
+  return new Promise((resolve, reject) => {
+    client.getList(
+      response => {
+        list = response.data;
+        if (list.length) {
+          resolve(list);
+        }
+        reject();
+      },
+      err => {
+        list = local.read('key');
+        if (list) {
+          resolve(JSON.parse(list).data);
+        }
+        reject();
+      }
+    );
+  });
 };
 
 Storage.prototype.putEntriesList = function (data) {
-  if (typeof Storage !== 'undefined') {
-    const entry = {
-      time: new Date().getTime(),
-      data: data
-    };
-    localStorage.setItem('key', JSON.stringify(entry));
-    return true;
-  }
-  return false;
+  const now = new Date().getTime();
+
+  client.putList(
+    JSON.stringify({
+      time: now
+    }),
+    response => true,
+    err => {
+      const entry = JSON.stringify({
+        time: now,
+        data
+      });
+      return !!local.write('key', entry);
+    }
+  );
 };
 
 Storage.prototype.addListItem = function (item) {
-  if (typeof Storage !== 'undefined') {
-    let entry = JSON.parse(localStorage.getItem('key'));
+  let now = new Date().getTime();
 
-    entry.time = new Date().getTime();
-    entry.data.push(item);
+  client.addItem(
+    JSON.stringify({
+      time: now,
+      item
+    }),
+    response => true,
+    err => {
+      now = new Date().getTime();
+      let entry = JSON.parse(local.read('key'));
 
-    localStorage.setItem('key', JSON.stringify(entry));
-    return true;
-  }
-  return false;
+      if (!entry) {
+        local.write('key', JSON.stringify({
+          time: now,
+          data: []
+        }));
+      }
+
+      entry.time = now;
+      entry.data.push(item);
+
+      return !!local.write('key', JSON.stringify(entry));
+    }
+  );
 };
 
 Storage.prototype.removeListItem = function (itemId) {
-  if (typeof Storage !== 'undefined') {
-    let entry = JSON.parse(localStorage.getItem('key'));
+  client.deleteItem(
+    JSON.stringify({
+      id: itemId
+    }),
+    response => true,
+    err => {
+      const entry = JSON.parse(local.read('key'));
 
-    for (let i = 0, l = entry.data.length; i < l; i++) {
-      if (entry.data[i].id === itemId) {
-        entry.data.splice(i, 1);
-        break;
+      if (entry) {
+        for (let i = 0, l = entry.data.length; i < l; i++) {
+          if (entry.data[i].id === itemId) {
+            entry.data.splice(i, 1);
+            break;
+          }
+        }
+
+        if (local.write('key', JSON.stringify(entry))) {
+          return true;
+        }
       }
+      return false;
     }
-    localStorage.setItem('key', JSON.stringify(entry));
-    return true;
-  }
-  return false;
+  );
 };
 
 Storage.prototype.changeListItem = function (item) {
-  if (typeof Storage !== 'undefined') {
-    let entry = JSON.parse(localStorage.getItem('key'));
+  client.updateItem(
+    JSON.stringify({
+      id: item.id,
+      isReady: item.isReady,
+      text: item.text
+    }),
+    response => true,
+    err => {
+      const entry = JSON.parse(local.read('key'));
 
-    for (let i = 0, l = entry.data.length; i < l; i++) {
-      if (entry.data[i].id === item.id) {
-        entry.data[i] = item;
-        break;
+      if (entry) {
+        for (let i = 0, l = entry.data.length; i < l; i++) {
+          if (entry.data[i].id === item.id) {
+            entry.data[i] = item;
+            break;
+          }
+        }
+
+        if (local.write('key', JSON.stringify(entry))) {
+          return true;
+        }
       }
+      return false;
     }
-    localStorage.setItem('key', JSON.stringify(entry));
-    return true;
-  }
-  return false;
+  );
 };
 
 module.exports = Storage;
