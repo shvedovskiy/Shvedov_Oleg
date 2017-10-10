@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/webpack && gulp build",
+    "server": "node server.js",
     "watch": "gulp"
   },
   "repository": {
@@ -21,6 +22,9 @@
   "dependencies": {
     "autoprefixer": "^6.7.7",
     "babel-preset-es2015": "^6.24.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
@@ -30,6 +34,7 @@
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
     "oghliner": "^1.1.1",
+    "path": "^0.12.7",
     "postcss-csso": "^2.0.0",
     "postcss-import": "^9.1.0",
     "postcss-url": "^6.0.4"
@@ -41,6 +46,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-plugin-import": "^2.2.0",
+    "uuid": "^3.1.0",
     "webpack": "^2.6.1"
   }
 }

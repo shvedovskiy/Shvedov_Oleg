@@ -1,24 +1,59 @@
-let extendConstructor = require('../util/extendConstructor');
-let Eventable = require('../util/Eventable');
-let TodoModel = require('./TodoModel');
+const uuidv4 = require('uuid/v4');
+const extendConstructor = require('../util/extendConstructor');
+const Eventable = require('../util/Eventable');
+const Storage = require('../models/localStorage');
+const StorageInstance = new Storage();
+const TodoModel = require('./TodoModel');
 
 /**
- * @param {Array.<TodoModel>} itemsData
  * @constructor
  */
-function TodosListModel(itemsData) {
+function TodosListModel() {
   this._initEventable();
 
-  this._itemIds = 0;
   /**
    * @type {Array.<TodoModel>}
    * @private
    */
-  this._items_models = itemsData || [];
+  this._items_models = [];
   this._left = 0;
 }
 
 extendConstructor(TodosListModel, Eventable);
+
+TodosListModel.prototype.updateList = function () {
+  StorageInstance.getEntriesList()
+    .then(data => {
+      const entries = data;
+
+      for (let i = 0, l = entries.length; i < l; i++) {
+        this.add(entries[i], true);
+      }
+
+      // I really don't know how to properly initialize model of ready item: ready changing listeners doesn't active while model is under construction
+      for (let i = 0, l = this._items_models.length; i < l; i++) {
+        if (this._items_models[i].get('isReady')) {
+          this._items_models[i].set('isReady', false);
+          this._items_models[i].set('isReady', true);
+        }
+      }
+    })
+    .catch(() => {
+      let data = [];
+      let elem;
+
+      for (let i = 0, l = this._items_models.length; i < l; i++) {
+        elem = this._items_models[i];
+        data.push({
+          id: elem.get('id'),
+          isReady: elem.get('isReady'),
+          text: elem.get('text')
+        });
+      }
+
+      StorageInstance.putEntriesList(data);
+    });
+};
 
 /**
  * Returns list models.
@@ -75,14 +110,20 @@ TodosListModel.prototype.onChange = function (handler, ctx) {
 /**
  *
  * @param {Object} inputData
+ * @param {Boolean} fromStorage
  * @fires TodosListModel~todoAdd
  * @returns {TodosListModel}
  */
-TodosListModel.prototype.add = function (inputData) {
-  let model = new TodoModel(Object.assign({id: this._itemIds++}, inputData));
+TodosListModel.prototype.add = function (inputData, fromStorage) {
+  let model;
 
-  model
-    .onAnyChange(function (data) {
+  if (inputData.id) {
+    model = new TodoModel(inputData);
+  } else {
+    model = new TodoModel(Object.assign({id: uuidv4()}, inputData));
+  }
+
+  model.onAnyChange(function (data) {
       switch(data['field']) {
         case 'text':
           this.trigger('modelTextChange', model);
@@ -97,13 +138,26 @@ TodosListModel.prototype.add = function (inputData) {
           this.trigger('modelChange', model);
           break;
       }
-    }, this);
+      StorageInstance.changeListItem({
+        id: model.get('id'),
+        isReady: model.get('isReady'),
+        text: model.get('text')
+      });
+  }, this);
 
-  if (!model.get('isReady')) {
+  this._items_models.push(model);
+
+  if (model.get('isReady') === false) {
     this._left += 1;
   }
 
-  this._items_models.push(model);
+  if (!fromStorage) {
+    StorageInstance.addListItem({
+      id: model.get('id'),
+      isReady: model.get('isReady'),
+      text: model.get('text')
+    });
+  }
 
   /** @event TodosListModel#todoAdd */
   this.trigger('todoAdd', model);
@@ -145,6 +199,8 @@ TodosListModel.prototype.remove = function (id) {
 
     let modelIndex = this.getList().indexOf(model);
     this.getList().splice(modelIndex, 1);
+
+    StorageInstance.removeListItem(id);
 
     /** @event TodosListModel~todoRemoved */
     this.trigger('todoRemoved');
