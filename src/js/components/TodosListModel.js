@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4');
 const extendConstructor = require('../util/extendConstructor');
 const Eventable = require('../util/Eventable');
-const Storage = require('../models/Storage');
+const Storage = require('../models/localStorage');
 const StorageInstance = new Storage();
 const TodoModel = require('./TodoModel');
 
@@ -138,7 +138,6 @@ TodosListModel.prototype.add = function (inputData, fromStorage) {
           this.trigger('modelChange', model);
           break;
       }
-      //this.storeData();
       StorageInstance.changeListItem({
         id: model.get('id'),
         isReady: model.get('isReady'),

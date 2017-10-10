@@ -51,7 +51,7 @@ function init() {
     .on('selectAll', function() {
       todosListModel.getList().forEach(function (model) {
         model.set('isReady', true);
-      })
+      });
     });
 
   todosListModel

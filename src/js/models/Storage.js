@@ -2,7 +2,27 @@ const client = require('./client');
 const local = require('./local');
 
 
-function Storage() { }
+function Storage() {
+  window.addEventListener('online', () => this.checkStorage());
+  window.addEventListener('load', () => this.checkStorage());
+}
+
+Storage.prototype.checkStorage = function () {
+  const offlineStorage = local.read('key');
+  if (offlineStorage) {
+    client.updateList(
+      {
+        time: offlineStorage.time,
+        data: offlineStorage.data
+      },
+      response => {
+        local.clear('key');
+        return true;
+      },
+      err => false
+    );
+  }
+};
 
 Storage.prototype.getEntriesList = function () {
   let list;
@@ -19,7 +39,7 @@ Storage.prototype.getEntriesList = function () {
       err => {
         list = local.read('key');
         if (list) {
-          resolve(JSON.parse(list).data);
+          resolve(list.data);
         }
         reject();
       }
@@ -31,15 +51,13 @@ Storage.prototype.putEntriesList = function (data) {
   const now = new Date().getTime();
 
   client.putList(
-    JSON.stringify({
-      time: now
-    }),
+    { time: now },
     response => true,
     err => {
-      const entry = JSON.stringify({
+      const entry = {
         time: now,
         data
-      });
+      };
       return !!local.write('key', entry);
     }
   );
@@ -49,38 +67,38 @@ Storage.prototype.addListItem = function (item) {
   let now = new Date().getTime();
 
   client.addItem(
-    JSON.stringify({
+    {
       time: now,
       item
-    }),
+    },
     response => true,
     err => {
       now = new Date().getTime();
-      let entry = JSON.parse(local.read('key'));
+      let entry = local.read('key');
 
       if (!entry) {
-        local.write('key', JSON.stringify({
+        local.write('key', {
           time: now,
           data: []
-        }));
+        });
       }
 
       entry.time = now;
       entry.data.push(item);
 
-      return !!local.write('key', JSON.stringify(entry));
+      return !!local.write('key', entry);
     }
   );
 };
 
 Storage.prototype.removeListItem = function (itemId) {
   client.deleteItem(
-    JSON.stringify({
+    {
       id: itemId
-    }),
+    },
     response => true,
     err => {
-      const entry = JSON.parse(local.read('key'));
+      const entry = local.read('key');
 
       if (entry) {
         for (let i = 0, l = entry.data.length; i < l; i++) {
@@ -90,7 +108,7 @@ Storage.prototype.removeListItem = function (itemId) {
           }
         }
 
-        if (local.write('key', JSON.stringify(entry))) {
+        if (local.write('key', entry)) {
           return true;
         }
       }
@@ -101,14 +119,14 @@ Storage.prototype.removeListItem = function (itemId) {
 
 Storage.prototype.changeListItem = function (item) {
   client.updateItem(
-    JSON.stringify({
+    {
       id: item.id,
       isReady: item.isReady,
       text: item.text
-    }),
+    },
     response => true,
     err => {
-      const entry = JSON.parse(local.read('key'));
+      const entry = local.read('key');
 
       if (entry) {
         for (let i = 0, l = entry.data.length; i < l; i++) {
@@ -118,7 +136,7 @@ Storage.prototype.changeListItem = function (item) {
           }
         }
 
-        if (local.write('key', JSON.stringify(entry))) {
+        if (local.write('key', entry)) {
           return true;
         }
       }

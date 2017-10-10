@@ -28,7 +28,7 @@ const client = (function () {
   function putList(data, success, fail) {
     return fetch('api/todos/new', {
       method: 'post',
-      body: data,
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ const client = (function () {
   function addItem(data, success, fail) {
     return fetch('api/todos', {
       method: 'post',
-      body: data,
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const client = (function () {
   function deleteItem(data, success, fail) {
     return fetch('api/todos', {
       method: 'delete',
-      body: data,
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -67,7 +67,20 @@ const client = (function () {
   function updateItem(data, success, fail) {
     return fetch('api/todos', {
       method: 'put',
-      body: data,
+      body: JSON.stringify(data),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(checkStatus)
+      .then(success)
+      .catch(fail);
+  }
+
+  function updateList(data, success, fail) {
+    return fetch('api/todos/update', {
+      method: 'put',
+      body: JSON.stringify(data),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -82,7 +95,8 @@ const client = (function () {
     putList,
     addItem,
     deleteItem,
-    updateItem
+    updateItem,
+    updateList
   };
 }());
 

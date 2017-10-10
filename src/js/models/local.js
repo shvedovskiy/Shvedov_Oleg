@@ -1,14 +1,34 @@
 const local = (function () {
+  function create(key) {
+    if (typeof Storage !== 'undefined') {
+      const storage = {
+        time: null,
+        data: []
+      };
+      localStorage.setItem(key, JSON.stringify(storage));
+      return true;
+    }
+    return false;
+  }
+
   function read(key) {
     if (typeof Storage !== 'undefined') {
-      return localStorage.getItem(key);
+      return JSON.parse(localStorage.getItem(key));
     }
     return null;
   }
 
   function write(key, data) {
     if (typeof Storage !== 'undefined') {
-      localStorage.setItem(key, data);
+      localStorage.setItem(key, JSON.stringify(data));
+      return true;
+    }
+    return false;
+  }
+
+  function clear(key) {
+    if (typeof Storage !== 'undefined') {
+      localStorage.removeItem(key);
       return true;
     }
     return false;
@@ -16,7 +36,9 @@ const local = (function () {
 
   return {
     read,
-    write
+    write,
+    create,
+    clear
   };
 }());
 

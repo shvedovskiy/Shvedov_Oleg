@@ -87,6 +87,34 @@ app.put('/api/todos', (req, res) => {
   })
 });
 
+app.put('/api/todos/update', (req, res) => {
+  fs.readFile(DATA_FILE, (err, data) => {
+    const storage = JSON.parse(data);
+    storage.time = req.body.time;
+
+    let reqData = req.body.data;
+    reqData.forEach(item => {
+      let i = item.id;
+      if (storage.data.indexOf(i) !== -1) {
+        if (storage.data[i].isReady !== item.isReady) {
+          storage.data[i].isReady = item.isReady;
+        }
+        if (storage.data[i].text !== item.text) {
+          storage.data[i].text = item.text;
+        }
+      } else {
+        storage.data.push(item);
+      }
+    });
+
+    fs.writeFile(DATA_FILE, JSON.stringify(storage, null, 4), () => {
+      res.setHeader('Cache-Control', 'no-cache');
+      res.json({});
+      res.end();
+    });
+  })
+});
+
 app.listen(app.get('port'), () => {
   console.log(`Find the server at: http://localhost:${app.get('port')}/`);
 });
