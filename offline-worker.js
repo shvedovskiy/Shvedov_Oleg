@@ -39,7 +39,7 @@
 
     // This is the unique name for the cache controlled by this version of the worker.
     get CACHE_NAME() {
-      return this.CACHE_PREFIX + '33ad5b8879a972449cd6a699aa99bc06aae7fb9e';
+      return this.CACHE_PREFIX + '8a9cd62b7bffa59cbd7ec949f544fd8c3bd3ed48';
     },
 
     // This is a list of resources that will be cached.
@@ -49,7 +49,7 @@
       './index.html', // 28b4dbab11d29cc3b9854d1ff1c88e3a32b9802e
       './offline-manager.js', // b4acb926fd2ba443c3a10e771a337e1da0b31dd3
       './dist/css/main.css', // ad0bdb85b5c6bff8cca870cea00def09ce55f8d6
-      './dist/js/app.js', // 97b95eba97be6888eaed2328dab1c6f126377a3e
+      './dist/js/app.js', // c0d8cc3aab1f84df94aaf21b4f1ee4788e294001
       './dist/images/icons/ms/mstile-144x144.png', // bd9908d78bf5bc5fd22feed4feff58e68f826609
       './dist/images/icons/ms/mstile-150x150.png', // 7a5cf1e1c31108fcc681927bebadf0d28f766ee0
       './dist/images/icons/ms/mstile-310x150.png', // b8b9d0913d01b116df4d78f6f0b8ae44b7ad010c
