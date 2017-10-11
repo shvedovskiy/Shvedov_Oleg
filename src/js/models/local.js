@@ -1,4 +1,4 @@
-export default local = (function () {
+const local = (function () {
   function create(key) {
     if (typeof Storage !== 'undefined') {
       const entry = {
@@ -41,3 +41,5 @@ export default local = (function () {
     clear
   };
 }());
+
+export default local;
