@@ -1,4 +1,4 @@
-const client = (function () {
+export default client = (function () {
   function checkStatus(response) {
     if (response.status >= 200 && response.status < 300) {
       return response;
@@ -99,5 +99,3 @@ const client = (function () {
     updateList
   };
 }());
-
-module.exports = client;

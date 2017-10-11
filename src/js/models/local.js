@@ -1,11 +1,11 @@
-const local = (function () {
+export default local = (function () {
   function create(key) {
     if (typeof Storage !== 'undefined') {
-      const storage = {
+      const entry = {
         time: null,
         data: []
       };
-      localStorage.setItem(key, JSON.stringify(storage));
+      localStorage.setItem(key, JSON.stringify(entry));
       return true;
     }
     return false;
@@ -41,5 +41,3 @@ const local = (function () {
     clear
   };
 }());
-
-module.exports = local;

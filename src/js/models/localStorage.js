@@ -1,67 +1,68 @@
-const local = require('./local');
+import local from './local';
 
-function Storage() {
-  this.KEY = 'TODOS';
-}
-
-Storage.prototype.getEntriesList = function () {
-  let list;
-
-  return new Promise((resolve, reject) => {
-    list = local.read(this.KEY);
-    if (list) {
-      resolve(list.data);
-    }
-    reject();
-  });
-};
-
-Storage.prototype.putEntriesList = function (data) {
-  const entry = {
-    time: new Date().getTime(),
-    data
-  };
-
-  return !!local.write(this.KEY, entry);
-};
-
-Storage.prototype.addListItem = function (item) {
-  const now = new Date().getTime();
-  let entry = local.read(this.KEY);
-
-  if (!entry) {
-    local.write(this.KEY, {
-      time: now,
-      data: []
-    });
-    entry = local.read(this.KEY);
+export default class Storage {
+  constructor() {
+    this.KEY = 'TODOS';
   }
 
-  entry.time = now;
-  entry.data.push(item);
+  getEntriesList() {
+    let list;
 
-  return !!local.write(this.KEY, entry);
-};
+    return new Promise((resolve, reject) => {
+      list = local.read(this.KEY);
+      if (list) {
+        resolve(list.data);
+      }
+      reject();
+    });
+  }
 
-Storage.prototype.removeListItem = function (itemId) {
-  const entry = local.read(this.KEY);
+  putEntriesList(data) {
+    const entry = {
+      time: new Date().getTime(),
+      data
+    };
 
-  if (entry) {
-    for (let i = 0, l = entry.data.length; i < l; i++) {
-      if (entry.data[i].id === itemId) {
-        entry.data.splice(i, 1);
-        break;
+    return !!local.write(this.KEY, entry);
+  }
+
+  addListItem(item) {
+    const now = new Date().getTime();
+    let entry = local.read(this.KEY);
+
+    if (!entry) {
+      local.write(this.KEY, {
+        time: now,
+        data: []
+      });
+      entry = local.read(this.KEY);
+    }
+
+    entry.time = now;
+    entry.data.push(item);
+
+    return !!local.write(this.KEY, entry);
+  }
+
+  removeListItem(itemId) {
+    const entry = local.read(this.KEY);
+
+    if (entry) {
+      for (let i = 0, l = entry.data.length; i < l; i++) {
+        if (entry.data[i].id === itemId) {
+          entry.data.splice(i, 1);
+          break;
+        }
+      }
+
+      if (local.write(this.KEY, entry)) {
+        return true;
       }
     }
-
-    if (local.write(this.KEY, entry)) {
-      return true;
-    }
+    return false;
   }
-  return false;
-};
 
-Storage.prototype.changeListItem = function (item) {
+  changeListItem(item) {
     const entry = local.read(this.KEY);
 
     if (entry) {
@@ -77,6 +78,5 @@ Storage.prototype.changeListItem = function (item) {
       }
     }
     return false;
-};
-
-module.exports = Storage;
+  }
+}

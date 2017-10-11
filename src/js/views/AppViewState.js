@@ -1,30 +1,30 @@
-let extendConstructor = require('../util/extendConstructor');
-let Eventable = require('../util/Eventable');
+import extendConstructor from '../util/extendConstructor';
+import Eventable from '../util/Eventable';
 
-function AppViewState() {
-  this._initEventable();
+class AppViewState {
+  constructor() {
+    this._initEventable();
+    this.filter = 'all';
+  }
 
-  this.filter = 'all';
+  onChange(handler, ctx) {
+    this.on('filterChanged', filterName => {
+      handler.call(ctx, { filter: filterName });
+    });
+  }
+
+  setFilter(filterName) {
+    this.filter = filterName;
+    this.trigger('filterChanged', filterName);
+    return this;
+  }
+
+  getFilter() {
+    return this.filter;
+  }
 }
 
 extendConstructor(AppViewState, Eventable);
+const appViewState = new AppViewState();
 
-AppViewState.prototype.onChange = function(handler, ctx) {
-  this.on('filterChanged', function (filterName) {
-    handler.call(ctx, {filter: filterName});
-  });
-};
-
-AppViewState.prototype.setFilter = function(filterName) {
-  this.filter = filterName;
-  this.trigger('filterChanged', filterName);
-  return this;
-};
-
-AppViewState.prototype.getFilter = function () {
-  return this.filter;
-};
-
-let appViewState = new AppViewState();
-
-module.exports = appViewState;
+export default appViewState;
