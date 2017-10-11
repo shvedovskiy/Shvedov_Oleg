@@ -3,8 +3,8 @@ import local from './local';
 
 export default class Storage {
   constructor() {
-    window.addEventListener('online', () => this.checkStorage());
-    window.addEventListener('load', () => this.checkStorage());
+    //window.addEventListener('online', () => this.checkStorage());
+    //window.addEventListener('load', () => this.checkStorage());
   }
 
   checkStorage() {
@@ -92,56 +92,60 @@ export default class Storage {
   }
 
   removeListItem(itemId) {
-    client.deleteItem(
-      {
-        id: itemId
-      },
-      response => true,
-      err => {
-        const entry = local.read('key');
+    return new Promise((resolve, reject) => {
+      client.deleteItem(
+        {
+          id: itemId
+        },
+        response => resolve(),
+        err => {
+          const entry = local.read('key');
 
-        if (entry) {
-          for (let i = 0, l = entry.data.length; i < l; i++) {
-            if (entry.data[i].id === itemId) {
-              entry.data.splice(i, 1);
-              break;
+          if (entry) {
+            for (let i = 0, l = entry.data.length; i < l; i++) {
+              if (entry.data[i].id === itemId) {
+                entry.data.splice(i, 1);
+                break;
+              }
+            }
+
+            if (local.write('key', entry)) {
+               resolve();
             }
           }
-
-          if (local.write('key', entry)) {
-            return true;
-          }
+          reject();
         }
-        return false;
-      }
-    );
+      );
+    });
   }
 
   changeListItem(item) {
-    client.updateItem(
-      {
-        id: item.id,
-        isReady: item.isReady,
-        text: item.text
-      },
-      response => true,
-      err => {
-        const entry = local.read('key');
+    return new Promise((resolve, reject) => {
+      client.updateItem(
+        {
+          id: item.id,
+          isReady: item.isReady,
+          text: item.text
+        },
+        response => resolve(),
+        err => {
+          const entry = local.read('key');
 
-        if (entry) {
-          for (let i = 0, l = entry.data.length; i < l; i++) {
-            if (entry.data[i].id === item.id) {
-              entry.data[i] = item;
-              break;
+          if (entry) {
+            for (let i = 0, l = entry.data.length; i < l; i++) {
+              if (entry.data[i].id === item.id) {
+                entry.data[i] = item;
+                break;
+              }
+            }
+
+            if (local.write('key', entry)) {
+              resolve();
             }
           }
-
-          if (local.write('key', entry)) {
-            return true;
-          }
+          reject();
         }
-        return false;
-      }
-    );
+      );
+    });
   }
 }

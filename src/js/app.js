@@ -48,9 +48,7 @@ function init() {
       todosListModel.add(inputData);
     })
     .on('selectAll', () => {
-      todosListModel.getList().forEach(model => {
-        model.set('isReady', true);
-      });
+      todosListModel.selectAll();
     });
 
   todosListModel
