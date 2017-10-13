@@ -30,22 +30,18 @@ export default class TodoModel {
     return this;
   }
 
-  /** TODO: FOR NETWORK INTERACTION USING **/
   /**
    * @param {String} field
    * @param {*} value
    * @fires TodoModel#modelFieldChange
    * @returns {TodoModel}
    */
-  /*
   async asyncSet(field, value) {
     this._model[field] = value;
     await this.asyncTrigger('modelFieldChange', { field: field, value: value });
 
     return this;
   }
-  */
-  /** ---------------------------- **/
 
   /**
    * @param {String} field
@@ -77,10 +73,8 @@ export default class TodoModel {
    * @returns {TodoModel}
    */
   onAnyChange(handler, ctx) {
-    //this.on('modelFieldChange', async data => { // TODO: async for network interaction using
-    this.on('modelFieldChange', data => {
-      //await handler.call(ctx, data); // TODO: await for network interaction using
-      handler.call(ctx, data);
+    this.on('modelFieldChange', async data => {
+      await handler.call(ctx, data);
       this.trigger('modelChange', this);
     }, this);
 

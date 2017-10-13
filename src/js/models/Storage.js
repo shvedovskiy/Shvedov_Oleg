@@ -3,7 +3,7 @@ import local from './local';
 
 export default class Storage {
   constructor() {
-    //window.addEventListener('online', () => this.checkStorage());
+    window.addEventListener('online', () => this.checkStorage());
     //window.addEventListener('load', () => this.checkStorage());
   }
 

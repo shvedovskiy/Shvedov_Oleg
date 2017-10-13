@@ -45,8 +45,6 @@ Eventable.prototype.trigger = function (eventName, data) {
   return this;
 };
 
-/** TODO: FOR NETWORK INTERACTION USING **/
-/*
 Eventable.prototype.asyncTrigger = async function (eventName, data) {
   let subscribers = getEventSubscribers(this, eventName);
   if (subscribers) {
@@ -57,5 +55,3 @@ Eventable.prototype.asyncTrigger = async function (eventName, data) {
   }
   return this;
 };
-*/
-/** ---------------------------------- **/
