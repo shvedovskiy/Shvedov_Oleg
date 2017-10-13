@@ -1,6 +1,6 @@
 import extendConstructor from '../util/extendConstructor';
 import Eventable from'../util/Eventable';
-import Storage from '../models/localStorage';
+import Storage from '../models/Storage';
 import TodoModel from './TodoModel';
 
 const uuidv4 = require('uuid/v4');
@@ -22,7 +22,6 @@ export default class TodosListModel {
 
   updateList() {
     StorageInstance.getEntriesList()
-      //.then(async data => { // TODO: async for network interaction using
       .then(data => {
         const entries = data;
 
@@ -33,12 +32,6 @@ export default class TodosListModel {
         // I really don't know how to properly initialize model of ready item: ready changing listeners doesn't active while model is under construction
         for (let i = 0, l = this._items_models.length; i < l; i++) {
           if (this._items_models[i].get('isReady')) {
-            /** TODO: AWAITS AND asyncSet FOR NETWORK INTERACTION USING **/
-            /*
-            await this._items_models[i].asyncSet('isReady', false);
-            await this._items_models[i].asyncSet('isReady', true);
-            */
-            /** ------------------------------------------------- **/
             this._items_models[i].set('isReady', false);
             this._items_models[i].set('isReady', true);
           }
@@ -129,7 +122,6 @@ export default class TodosListModel {
       model = new TodoModel(Object.assign({ id: uuidv4() }, inputData));
     }
 
-    //model.onAnyChange(async data => { // TODO: async for network interaction using
     model.onAnyChange(data => {
       switch(data['field']) {
         case 'text':
@@ -145,7 +137,6 @@ export default class TodosListModel {
           this.trigger('modelChange', model);
           break;
       }
-      //await StorageInstance.changeListItem({ // TODO: await for network interaction using
       StorageInstance.changeListItem({
         id: model.get('id'),
         isReady: model.get('isReady'),
@@ -192,7 +183,6 @@ export default class TodosListModel {
    * @param {Number} id
    * @returns {TodosListModel}
    */
-  //async remove(id) { // TODO: async for network interaction using
   remove(id) {
     let model = this._getModelById(id);
 
@@ -209,7 +199,6 @@ export default class TodosListModel {
       let modelIndex = this.getList().indexOf(model);
       this.getList().splice(modelIndex, 1);
 
-      //await StorageInstance.removeListItem(id); // TODO: await for network interaction using
       StorageInstance.removeListItem(id);
 
       /** @event TodosListModel~todoRemoved */
@@ -222,12 +211,10 @@ export default class TodosListModel {
   /**
    * @returns {TodosListModel}
    */
-  //async clearCompleted() { // TODO: async for network interaction using
   clearCompleted() {
     let copyModels = this.getList().slice();
     for (let i = 0, l = copyModels.length; i !== l; i++) {
       if (copyModels[i].get('isReady')) {
-        //await this.remove(copyModels[i].get('id')); // TODO: await for network interaction using
         this.remove(copyModels[i].get('id'));
       }
     }
@@ -237,11 +224,9 @@ export default class TodosListModel {
   /**
    * @returns {TodosListModel}
    */
-  //async selectAll() { // TODO: async for network interaction using
   selectAll() {
     const list = this.getList();
     for (let i = 0, l = list.length; i !== l; i++) {
-      //await list[i].asyncSet('isReady', true); // TODO: await and asyncSet for network interaction using
       list[i].set('isReady', true);
     }
     return this;

@@ -1,151 +1,82 @@
-import client from './client';
 import local from './local';
 
 export default class Storage {
   constructor() {
-    //window.addEventListener('online', () => this.checkStorage());
-    //window.addEventListener('load', () => this.checkStorage());
-  }
-
-  checkStorage() {
-    const offlineStorage = local.read('key');
-    if (offlineStorage) {
-      client.updateList(
-        {
-          time: offlineStorage.time,
-          data: offlineStorage.data
-        },
-        response => {
-          local.clear('key');
-          return true;
-        },
-        err => false
-      );
-    }
+    this.KEY = 'TODOS';
   }
 
   getEntriesList() {
     let list;
 
     return new Promise((resolve, reject) => {
-      client.getList(
-        response => {
-          list = response.data;
-          if (list.length) {
-            resolve(list);
-          }
-          reject();
-        },
-        err => {
-          list = local.read('key');
-          if (list) {
-            resolve(list.data);
-          }
-          reject();
-        }
-      );
+      list = local.read(this.KEY);
+      if (list) {
+        resolve(list.data);
+      }
+      reject();
     });
   }
 
   putEntriesList(data) {
-    const now = new Date().getTime();
+    const entry = {
+      time: new Date().getTime(),
+      data
+    };
 
-    client.putList(
-      { time: now },
-      response => true,
-      err => {
-        const entry = {
-          time: now,
-          data
-        };
-        return !!local.write('key', entry);
-      }
-    );
+    return !!local.write(this.KEY, entry);
   }
 
   addListItem(item) {
-    let now = new Date().getTime();
+    const now = new Date().getTime();
+    let entry = local.read(this.KEY);
 
-    client.addItem(
-      {
+    if (!entry) {
+      local.write(this.KEY, {
         time: now,
-        item
-      },
-      response => true,
-      err => {
-        now = new Date().getTime();
-        let entry = local.read('key');
+        data: []
+      });
+      entry = local.read(this.KEY);
+    }
 
-        if (!entry) {
-          local.write('key', {
-            time: now,
-            data: []
-          });
-        }
+    entry.time = now;
+    entry.data.push(item);
 
-        entry.time = now;
-        entry.data.push(item);
-
-        return !!local.write('key', entry);
-      }
-    );
+    return !!local.write(this.KEY, entry);
   }
 
   removeListItem(itemId) {
-    return new Promise((resolve, reject) => {
-      client.deleteItem(
-        {
-          id: itemId
-        },
-        response => resolve(),
-        err => {
-          const entry = local.read('key');
+    const entry = local.read(this.KEY);
 
-          if (entry) {
-            for (let i = 0, l = entry.data.length; i < l; i++) {
-              if (entry.data[i].id === itemId) {
-                entry.data.splice(i, 1);
-                break;
-              }
-            }
-
-            if (local.write('key', entry)) {
-               resolve();
-            }
-          }
-          reject();
+    if (entry) {
+      for (let i = 0, l = entry.data.length; i < l; i++) {
+        if (entry.data[i].id === itemId) {
+          entry.data.splice(i, 1);
+          break;
         }
-      );
-    });
+      }
+
+      if (local.write(this.KEY, entry)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   changeListItem(item) {
-    return new Promise((resolve, reject) => {
-      client.updateItem(
-        {
-          id: item.id,
-          isReady: item.isReady,
-          text: item.text
-        },
-        response => resolve(),
-        err => {
-          const entry = local.read('key');
+    const entry = local.read(this.KEY);
 
-          if (entry) {
-            for (let i = 0, l = entry.data.length; i < l; i++) {
-              if (entry.data[i].id === item.id) {
-                entry.data[i] = item;
-                break;
-              }
-            }
-
-            if (local.write('key', entry)) {
-              resolve();
-            }
-          }
-          reject();
+    if (entry) {
+      for (let i = 0, l = entry.data.length; i < l; i++) {
+        if (entry.data[i].id === item.id) {
+          entry.data[i] = item;
+          break;
         }
-      );
-    });
+      }
+
+      if (local.write(this.KEY, entry)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
