@@ -198,7 +198,6 @@ export default class TodosListModel {
 
       let modelIndex = this.getList().indexOf(model);
       this.getList().splice(modelIndex, 1);
-
       await StorageInstance.removeListItem(id);
       /** @event TodosListModel~todoRemoved */
       this.trigger('todoRemoved');
