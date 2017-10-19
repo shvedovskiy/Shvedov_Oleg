@@ -1,23 +1,23 @@
 let elem = document.createElement('div');
 
 function getTemplateRootNode(scriptId) {
-  let script = document.getElementById(scriptId);
+  const script = document.getElementById(scriptId);
   elem.innerHTML = script.innerHTML;
 
-  let result = elem.children[0];
+  const result = elem.children[0];
   elem.removeChild(result);
 
   return result;
 }
 
-let templateEngine = {
+const templateEngine = {
   todoItem: function (data) {
-    let root = getTemplateRootNode('todoItemTemplate');
-    let readyMarkWrapper = root.querySelector('.todo-item_ready-mark');
-    let readyMark = root.querySelector('.js-todo-item_ready-mark');
-    let removeWrapper = root.querySelector('.todo-item_remove');
-    let remove = root.querySelector('.js-todo-item_remove');
-    let text = root.querySelector('.js-todo-item_text');
+    const root = getTemplateRootNode('todoItemTemplate');
+    const readyMarkWrapper = root.querySelector('.todo-item_ready-mark');
+    const readyMark = root.querySelector('.js-todo-item_ready-mark');
+    const removeWrapper = root.querySelector('.todo-item_remove');
+    const remove = root.querySelector('.js-todo-item_remove');
+    const text = root.querySelector('.js-todo-item_text');
 
     if (data.text) {
       text.innerText = data.text;
@@ -28,14 +28,14 @@ let templateEngine = {
     }
 
     return {
-      root: root,
-      text: text,
-      readyMarkWrapper: readyMarkWrapper,
-      readyMark: readyMark,
-      removeWrapper: removeWrapper,
-      remove: remove
+      root,
+      text,
+      readyMarkWrapper,
+      readyMark,
+      removeWrapper,
+      remove
     };
   }
 };
 
-module.exports = templateEngine;
+export default templateEngine;

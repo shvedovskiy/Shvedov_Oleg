@@ -1,10 +1,10 @@
-let device          = require('./util/deviceDetector');
-let TodosListModel  = require('./components/TodosListModel');
-let TodosMain       = require('./components/TodoMain');
-let TodoAdd         = require('./components/TodoAdd');
-let TodosList       = require('./components/TodosList');
-let TodosActionsBar = require('./components/TodosActionsBar');
-let appViewState    = require('./views/AppViewState');
+import device from './util/deviceDetector';
+import TodosListModel from './components/TodosListModel';
+import TodosMain from './components/TodoMain';
+import TodoAdd from './components/TodoAdd';
+import TodosList from './components/TodosList';
+import TodosActionsBar from './components/TodosActionsBar';
+import appViewState from './views/AppViewState';
 
 window.addEventListener('DOMContentLoaded', init);
 window.addEventListener('keydown', handleFirstTab);
@@ -15,7 +15,6 @@ function init() {
   }
 
   let todosListModel = new TodosListModel();
-
   const mainRoot = document.querySelector('.main-wrapper');
   let todosMain = new TodosMain(mainRoot);
 
@@ -23,11 +22,11 @@ function init() {
   let todosList       = new TodosList(mainRoot.querySelector('.js-todos-list'));
   let todosActionsBar = new TodosActionsBar(mainRoot.querySelector('.todos-actions-bar'));
 
-  appViewState.onChange(function (data) {
+  appViewState.onChange(data => {
     todosList.filterShowedItems(data['filter']);
   });
 
-  todosListModel.onChange(function () {
+  todosListModel.onChange(() => {
     if (todosListModel.getList().length !== 0) {
       todosMain.updateInterfaceVisibility(true);
     } else {
@@ -45,31 +44,29 @@ function init() {
   });
 
   todoAdd
-    .on('todoCreate', function(inputData) {
+    .on('todoCreate', inputData => {
       todosListModel.add(inputData);
     })
-    .on('selectAll', function() {
-      todosListModel.getList().forEach(function (model) {
-        model.set('isReady', true);
-      });
+    .on('selectAll', () => {
+      todosListModel.selectAll();
     });
 
   todosListModel
-    .on('todoAdd', function (model) {
+    .on('todoAdd', model => {
       todosList.addTodo(model);
     })
-    .on('todoRemove', function (model) {
+    .on('todoRemove', model => {
       todosList.remove(model);
     })
-    .on('todoChange', function () {
+    .on('todoChange', () => {
       todosList.filterShowedItems();
     });
 
   todosActionsBar
-    .on('clearCompleted', function () {
+    .on('clearCompleted', () => {
       todosListModel.clearCompleted();
     })
-    .on('filterSelected', function (filter) {
+    .on('filterSelected', filter => {
       appViewState.setFilter(filter);
     });
 

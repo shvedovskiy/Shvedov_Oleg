@@ -1,6 +1,6 @@
-let device = {};
-let userAgent = window.navigator.userAgent.toLowerCase();
-let find = needle => userAgent.indexOf(needle) !== -1;
+const device = {};
+const userAgent = window.navigator.userAgent.toLowerCase();
+const find = needle => userAgent.indexOf(needle) !== -1;
 
 device.ios              = () => device.iphone() || device.ipod() || device.ipad();
 device.iphone           = () => !device.windows() && find('iphone');
@@ -40,4 +40,4 @@ device.tablet = () =>
 
 device.desktop = () => !device.tablet() && !device.mobile();
 
-module.exports = device;
+export default device;

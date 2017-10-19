@@ -1,148 +1,82 @@
-const client = require('./client');
-const local = require('./local');
+import local from './local';
 
-
-function Storage() {
-  window.addEventListener('online', () => this.checkStorage());
-  window.addEventListener('load', () => this.checkStorage());
-}
-
-Storage.prototype.checkStorage = function () {
-  const offlineStorage = local.read('key');
-  if (offlineStorage) {
-    client.updateList(
-      {
-        time: offlineStorage.time,
-        data: offlineStorage.data
-      },
-      response => {
-        local.clear('key');
-        return true;
-      },
-      err => false
-    );
+export default class Storage {
+  constructor() {
+    this.KEY = 'TODOS';
   }
-};
 
-Storage.prototype.getEntriesList = function () {
-  let list;
+  getEntriesList() {
+    let list;
 
-  return new Promise((resolve, reject) => {
-    client.getList(
-      response => {
-        list = response.data;
-        if (list.length) {
-          resolve(list);
-        }
-        reject();
-      },
-      err => {
-        list = local.read('key');
-        if (list) {
-          resolve(list.data);
-        }
-        reject();
+    return new Promise((resolve, reject) => {
+      list = local.read(this.KEY);
+      if (list) {
+        resolve(list.data);
       }
-    );
-  });
-};
+      reject();
+    });
+  }
 
-Storage.prototype.putEntriesList = function (data) {
-  const now = new Date().getTime();
+  putEntriesList(data) {
+    const entry = {
+      time: new Date().getTime(),
+      data
+    };
 
-  client.putList(
-    { time: now },
-    response => true,
-    err => {
-      const entry = {
+    return !!local.write(this.KEY, entry);
+  }
+
+  addListItem(item) {
+    const now = new Date().getTime();
+    let entry = local.read(this.KEY);
+
+    if (!entry) {
+      local.write(this.KEY, {
         time: now,
-        data
-      };
-      return !!local.write('key', entry);
+        data: []
+      });
+      entry = local.read(this.KEY);
     }
-  );
-};
 
-Storage.prototype.addListItem = function (item) {
-  let now = new Date().getTime();
+    entry.time = now;
+    entry.data.push(item);
 
-  client.addItem(
-    {
-      time: now,
-      item
-    },
-    response => true,
-    err => {
-      now = new Date().getTime();
-      let entry = local.read('key');
+    return !!local.write(this.KEY, entry);
+  }
 
-      if (!entry) {
-        local.write('key', {
-          time: now,
-          data: []
-        });
-      }
+  removeListItem(itemId) {
+    const entry = local.read(this.KEY);
 
-      entry.time = now;
-      entry.data.push(item);
-
-      return !!local.write('key', entry);
-    }
-  );
-};
-
-Storage.prototype.removeListItem = function (itemId) {
-  client.deleteItem(
-    {
-      id: itemId
-    },
-    response => true,
-    err => {
-      const entry = local.read('key');
-
-      if (entry) {
-        for (let i = 0, l = entry.data.length; i < l; i++) {
-          if (entry.data[i].id === itemId) {
-            entry.data.splice(i, 1);
-            break;
-          }
-        }
-
-        if (local.write('key', entry)) {
-          return true;
+    if (entry) {
+      for (let i = 0, l = entry.data.length; i < l; i++) {
+        if (entry.data[i].id === itemId) {
+          entry.data.splice(i, 1);
+          break;
         }
       }
-      return false;
+
+      if (local.write(this.KEY, entry)) {
+        return true;
+      }
     }
-  );
-};
+    return false;
+  }
 
-Storage.prototype.changeListItem = function (item) {
-  client.updateItem(
-    {
-      id: item.id,
-      isReady: item.isReady,
-      text: item.text
-    },
-    response => true,
-    err => {
-      const entry = local.read('key');
+  changeListItem(item) {
+    const entry = local.read(this.KEY);
 
-      if (entry) {
-        for (let i = 0, l = entry.data.length; i < l; i++) {
-          if (entry.data[i].id === item.id) {
-            entry.data[i] = item;
-            break;
-          }
-        }
-
-        if (local.write('key', entry)) {
-          return true;
+    if (entry) {
+      for (let i = 0, l = entry.data.length; i < l; i++) {
+        if (entry.data[i].id === item.id) {
+          entry.data[i] = item;
+          break;
         }
       }
-      return false;
-    }
-  );
-};
 
-module.exports = Storage;
+      if (local.write(this.KEY, entry)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
